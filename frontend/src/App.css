@@ -1,0 +1,10 @@
+.app{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+}
+
+.contenido{
+    flex:1;
+}
+.line-chart{min-height:180px;padding:1rem}.line-chart-grid{height:150px;display:flex;align-items:end;gap:.5rem;border-bottom:1px solid #334155}.line-chart-point{flex:1;background:linear-gradient(#22d3ee,#2563eb);border-radius:.4rem .4rem 0 0;position:relative;min-width:2rem}.line-chart-point span{position:absolute;top:-1.3rem;font-size:.7rem;color:#cbd5e1}.line-chart-point small{position:absolute;top:100%;font-size:.65rem;color:#94a3b8;white-space:nowrap}

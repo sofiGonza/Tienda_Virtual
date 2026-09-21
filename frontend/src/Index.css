@@ -1,0 +1,45 @@
+ @import "tailwindcss";
+
+@layer base {
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#1b1d23;
+}
+
+#root{
+    display:flex;
+    flex-direction:column;
+}
+}
+
+.campo {
+  width: 100%;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  background-color: #111827;
+  padding: 0.75rem 1rem;
+  color: white;
+  outline: none;
+}
+
+.campo:focus {
+  border-color: #22d3ee;
+}
+
+.campo::placeholder {
+  color: #6b7280;
+}.line-chart-grid{background:repeating-linear-gradient(to top,transparent 0 35px,rgba(148,163,184,.12) 36px)}
