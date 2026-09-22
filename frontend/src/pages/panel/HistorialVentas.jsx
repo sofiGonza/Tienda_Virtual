@@ -6,6 +6,7 @@ import { descargarHistorial } from "../../Services/reportes";
 import { obtenerSesion } from "../../Services/AuthService";
 import GraficaBarras from "../../components/panel/GraficaBarras";
 import GraficaLineal from "../../components/panel/GraficaLineal";
+import Paginador, { usePaginacion } from "../../components/panel/Paginador";
 
 const formatoPrecio = (v) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(v || 0);
@@ -40,6 +41,7 @@ function HistorialVentas() {
   const [periodo, setPeriodo] = useState("dia");
   const [fechaGrafica, setFechaGrafica] = useState("");
   const rol = obtenerSesion()?.rol?.toLowerCase();
+  const { pagina, totalPaginas, inicio, fin, irA } = usePaginacion(items.length);
 
   // Agrupa ventas/pedidos por día, semana (ISO) o mes y suma totales.
   const agruparPorPeriodo = (lista, per) => {
@@ -68,7 +70,11 @@ function HistorialVentas() {
         label = clave;
       }
       const actual = mapa.get(clave) || { clave, label, total: 0 };
-      actual.total += Number(item.total || 0);
+      // Las ventas/pedidos anulados o cancelados se consideran pérdida:
+      // en lugar de sumar su total, se resta.
+      const esPerdida = ["anulada", "cancelado"].includes(String(item.estado || "").toLowerCase());
+      const monto = Number(item.total || 0);
+      actual.total += esPerdida ? -monto : monto;
       mapa.set(clave, actual);
     }
     return Array.from(mapa.values()).sort((a, b) => (a.clave < b.clave ? -1 : 1));
@@ -77,7 +83,6 @@ function HistorialVentas() {
   const cargar = () => {
     const params = {};
     if (estado) params.estado = estado;
-    if (fecha) params.fecha_desde = `${fecha}T00:00:00`;
     setCargando(true);
     Promise.all([
       listarVentas(params).catch(() => []),
@@ -89,6 +94,17 @@ function HistorialVentas() {
         let combinados = [...itemsVentas, ...itemsPedidos];
         if (estado) {
           combinados = combinados.filter((x) => String(x.estado).toLowerCase() === estado);
+        }
+        if (fecha) {
+          combinados = combinados.filter((x) => {
+            if (!x.fecha) return false;
+            const f = new Date(x.fecha);
+            if (Number.isNaN(f.getTime())) return false;
+            const d = new Date(`${fecha}T00:00:00`);
+            const fin = new Date(d);
+            fin.setDate(fin.getDate() + 1);
+            return f >= d && f < fin;
+          });
         }
         combinados = combinados.sort((a, b) => new Date(b.fecha || 0) - new Date(a.fecha || 0));
         setItems(combinados);
@@ -293,8 +309,9 @@ function HistorialVentas() {
           <p className="mt-3 text-gray-400">Aún no hay ventas registradas.</p>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {items.map((v) => {
+        <>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {items.slice(inicio, fin).map((v) => {
             const fechaTexto = v.fecha ? new Date(v.fecha).toLocaleString("es-CO") : "—";
             return (
               <article key={v.id} className="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-5">
@@ -314,7 +331,9 @@ function HistorialVentas() {
                 </div>
                 <p className="text-2xl font-bold text-cyan-400">{formatoPrecio(v.total)}</p>
                 <p className="text-sm text-gray-400">{fechaTexto}</p>
-                <p className="text-sm text-gray-500">Cliente #{v.cliente_id}</p>
+                <p className="text-sm text-gray-500">
+                  👤 {v.cliente_nombre || (v.usuario ? `${v.usuario.nombre || ""} ${v.usuario.apellido || ""}`.trim() : "") || `Cliente #${v.cliente_id}`}
+                </p>
                 {rol !== "cliente" && v.tipo !== "Pedido" && v.estado !== "anulada" && (
                   <button
                     onClick={() => anular(v.id)}
@@ -326,7 +345,9 @@ function HistorialVentas() {
               </article>
             );
           })}
-        </div>
+          </div>
+          <Paginador pagina={pagina} totalPaginas={totalPaginas} irA={irA} />
+        </>
       )}
     </section>
   );

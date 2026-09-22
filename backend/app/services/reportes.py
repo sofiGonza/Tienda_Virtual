@@ -56,13 +56,19 @@ def _value(row, name, default=""):
 def _rows(rows):
     result = []
     for row in rows:
+        estado = str(_value(row, "estado", "")).lower()
+        esPerdida = estado in ("anulada", "cancelado")
+        signo = -1 if esPerdida else 1
+        subtotal = Decimal(str(_value(row, "subtotal", 0) or 0))
+        impuestos = Decimal(str(_value(row, "impuestos", 0) or 0))
+        total = Decimal(str(_value(row, "total", 0) or 0))
         result.append({
             "venta": _value(row, "venta_id", _value(row, "id", "")),
             "cliente": _value(row, "cliente_id", ""),
             "fecha": _value(row, "fecha", ""),
-            "subtotal": Decimal(str(_value(row, "subtotal", 0) or 0)),
-            "impuestos": Decimal(str(_value(row, "impuestos", 0) or 0)),
-            "total": Decimal(str(_value(row, "total", 0) or 0)),
+            "subtotal": subtotal * signo,
+            "impuestos": impuestos * signo,
+            "total": total * signo,
             "estado": _value(row, "estado", ""),
         })
     return result
@@ -100,11 +106,16 @@ def _grafica_lineas_pdf(values):
     plot_h = alto - margen_y * 2
 
     maximos = max(float(v["total"]) for v in values) or 1
+    minimos = min(float(v["total"]) for v in values)
+    # Rango simétrico alrededor de cero para que las pérdidas (negativas)
+    # se dibujen bajo la línea de referencia.
+    limite = max(abs(maximos), abs(minimos), 1)
     puntos = []
     n = len(values)
     for i, v in enumerate(values):
         x = margen_x + (i * plot_w) / max(n - 1, 1)
-        y = margen_y + (float(v["total"]) / maximos) * plot_h
+        # y = centro + (valor / limite) * (mitad del alto del plot)
+        y = margen_y + (plot_h / 2) - (float(v["total"]) / limite) * (plot_h / 2)
         puntos.append((x, y))
 
     # fondo y ejes (azul oscuro casi negro + gris)
@@ -112,25 +123,30 @@ def _grafica_lineas_pdf(values):
     d.add(Line(margen_x, margen_y, margen_x + plot_w, margen_y, strokeColor=AZUL_OSCURO, strokeWidth=1))
     d.add(Line(margen_x, margen_y, margen_x, margen_y + plot_h, strokeColor=AZUL_OSCURO, strokeWidth=1))
 
+    # línea de referencia horizontal en el centro (cero)
+    d.add(Line(margen_x, margen_y + plot_h / 2, margen_x + plot_w, margen_y + plot_h / 2, strokeColor=colors.HexColor("#94a3b8"), strokeWidth=1.2, strokeDashArray=[3, 3]))
+
     # líneas de referencia horizontales
     for f in (0.25, 0.5, 0.75, 1.0):
         y = margen_y + f * plot_h
         d.add(Line(margen_x, y, margen_x + plot_w, y, strokeColor=colors.HexColor("#cbd5e1"), strokeDashArray=[2, 3]))
 
-    # área bajo la curva (azul verdoso tenue)
-    area = [puntos[0][0], margen_y] + [coord for p in puntos for coord in p] + [puntos[-1][0], margen_y]
-    from reportlab.graphics.shapes import Polygon
-    d.add(Polygon(area, fillColor=AZUL_MEDIO, strokeColor=None, strokeWidth=0, fillOpacity=0.18))
+    # área bajo la curva (azul verdoso tenue) solo si no hay pérdidas
+    if minimos >= 0:
+        area = [puntos[0][0], margen_y] + [coord for p in puntos for coord in p] + [puntos[-1][0], margen_y]
+        from reportlab.graphics.shapes import Polygon
+        d.add(Polygon(area, fillColor=AZUL_MEDIO, strokeColor=None, strokeWidth=0, fillOpacity=0.18))
 
     # línea principal (azul verdoso)
     d.add(PolyLine(puntos, strokeColor=AZUL_MEDIO, strokeWidth=2.2, strokeLineJoin=1, strokeLineCap=1))
 
     # puntos y etiquetas
     for i, (x, y) in enumerate(puntos):
-        d.add(RL_Circle(x, y, 2.6, fillColor=AZUL_OSCURO, strokeColor=BLANCO, strokeWidth=1))
+        negativo = float(values[i]["total"]) < 0
+        d.add(RL_Circle(x, y, 2.6, fillColor=colors.HexColor("#ef4444") if negativo else AZUL_OSCURO, strokeColor=BLANCO, strokeWidth=1))
         etiqueta = values[i]["fecha"]
         d.add(String(x, margen_y - 12, str(etiqueta)[:10], fontSize=7, textAnchor="middle", fillColor=GRIS_TEXTO))
-        d.add(String(x, y + 5, f"${float(values[i]['total']):,.0f}", fontSize=6.5, textAnchor="middle", fillColor=AZUL_OSCURO))
+        d.add(String(x, y + 5, f"${float(values[i]['total']):,.0f}", fontSize=6.5, textAnchor="middle", fillColor=colors.HexColor("#ef4444") if negativo else AZUL_OSCURO))
 
     return d
 

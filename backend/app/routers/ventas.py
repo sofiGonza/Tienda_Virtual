@@ -106,16 +106,22 @@ def anular_venta(
 
 @router.get("", response_model=list[VentaResponse])
 def listar_ventas(cliente_id: int | None = Query(None), estado: str | None = Query(None), fecha_desde: str | None = Query(None), fecha_hasta: str | None = Query(None), db: Session = Depends(get_db), actual=Depends(obtener_usuario_actual)):
-    q = db.query(Venta).options(joinedload(Venta.detalles)).order_by(Venta.fecha.desc())
+    q = db.query(Venta).options(joinedload(Venta.detalles), joinedload(Venta.cliente)).order_by(Venta.fecha.desc())
     if actual.rol.nombre == "cliente": q = q.filter(Venta.cliente_id == actual.id)
     elif cliente_id: q = q.filter(Venta.cliente_id == cliente_id)
     if estado: q = q.filter(Venta.estado == estado)
     if fecha_desde: q = q.filter(Venta.fecha >= fecha_desde)
     if fecha_hasta: q = q.filter(Venta.fecha <= fecha_hasta)
-    return q.all()
+    ventas = q.all()
+    for v in ventas:
+        if v.cliente:
+            v.cliente_nombre = f"{v.cliente.nombre} {v.cliente.apellido}".strip() or v.cliente.correo
+    return ventas
 @router.get("/{venta_id}", response_model=VentaResponse)
 def obtener_venta(venta_id: int, db: Session = Depends(get_db), actual=Depends(obtener_usuario_actual)):
-    venta = db.query(Venta).options(joinedload(Venta.detalles)).filter(Venta.id == venta_id).first()
+    venta = db.query(Venta).options(joinedload(Venta.detalles), joinedload(Venta.cliente)).filter(Venta.id == venta_id).first()
     if not venta: raise HTTPException(404, "Venta no encontrada")
     if actual.rol.nombre == "cliente" and venta.cliente_id != actual.id: raise HTTPException(403, "No tienes permiso para consultar esta venta")
+    if venta.cliente:
+        venta.cliente_nombre = f"{venta.cliente.nombre} {venta.cliente.apellido}".strip() or venta.cliente.correo
     return venta

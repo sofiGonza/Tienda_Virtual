@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import ClassVar
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 from app.database.database import Base
@@ -13,4 +14,6 @@ class PQR(Base):
     estado = Column(String(30), nullable=False, default="pendiente", index=True)
     fecha_creacion = Column(DateTime, default=datetime.utcnow, nullable=False)
     fecha_actualizacion = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    # Campo de solo salida (no es columna): nombre del usuario que la creó.
+    usuario_nombre: ClassVar[str | None] = None
     usuario = relationship("Usuario", back_populates="pqrs")

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../../Services/api";
 import { obtenerSesion } from "../../Services/AuthService";
+import Paginador, { usePaginacion } from "../../components/panel/Paginador";
 
 const formatoPrecio = (v) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(v || 0);
@@ -20,6 +21,7 @@ function MisPedidos() {
   const [pedidos, setPedidos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
+  const { pagina, totalPaginas, inicio, fin, irA } = usePaginacion(pedidos.length);
 
   const cargar = async () => {
     try {
@@ -81,8 +83,9 @@ function MisPedidos() {
           </button>
         </div>
       ) : (
-        <div className="space-y-4">
-          {pedidos.map((p) => (
+        <>
+          <div className="space-y-4">
+            {pedidos.slice(inicio, fin).map((p) => (
             <div key={p.id} className="rounded-2xl border border-gray-800 bg-[#111827] p-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
@@ -129,6 +132,8 @@ function MisPedidos() {
             </div>
           ))}
         </div>
+        <Paginador pagina={pagina} totalPaginas={totalPaginas} irA={irA} />
+        </>
       )}
     </div>
   );

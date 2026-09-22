@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Paginador, { usePaginacion } from "../components/panel/Paginador";
 
 import {
   obtenerSesion
@@ -693,6 +694,17 @@ function AdminUsuarios() {
       }
     );
 
+  // =====================================================
+  // PAGINACIÓN (máximo 7 tarjetas por página)
+  // =====================================================
+  const {
+    pagina,
+    totalPaginas,
+    inicio,
+    fin,
+    irA,
+  } = usePaginacion(usuariosFiltrados.length, 7);
+
 
   return (
 
@@ -821,9 +833,13 @@ function AdminUsuarios() {
 
         ) : (
 
+          <>
+
           <div className="space-y-4">
 
-            {usuariosFiltrados.map(
+            {usuariosFiltrados
+              .slice(inicio, fin)
+              .map(
               usuario => (
 
                 <article
@@ -1007,6 +1023,14 @@ function AdminUsuarios() {
             )}
 
           </div>
+
+          <Paginador
+            pagina={pagina}
+            totalPaginas={totalPaginas}
+            irA={irA}
+          />
+
+          </>
 
         )}
 

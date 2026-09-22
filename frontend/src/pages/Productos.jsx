@@ -54,6 +54,26 @@ function Productos() {
 
 
   // =====================================================
+  // CUENTA BANCARIA (TARJETA MODAL)
+  // =====================================================
+
+  const [mostrarCuentaModal, setMostrarCuentaModal] =
+    useState(false);
+  const [cuentaForm, setCuentaForm] = useState({
+    cuenta_bancaria: "",
+    banco: "",
+    titular_cuenta: "",
+  });
+  const [guardandoCuenta, setGuardandoCuenta] =
+    useState(false);
+  const [errorCuenta, setErrorCuenta] = useState("");
+
+  // Tarjeta de pedido realizado con éxito
+  const [pedidoExitoso, setPedidoExitoso] =
+    useState(false);
+
+
+  // =====================================================
   // OBTENER PRODUCTOS DESDE FASTAPI
   // =====================================================
 
@@ -516,31 +536,10 @@ function Productos() {
       }
 
       if (!cuenta || !cuenta.cuenta_bancaria) {
-        const cuentaBancaria = window.prompt("Para realizar tu pedido necesitas vincular una cuenta bancaria.\n\nNúmero de cuenta:");
-        if (!cuentaBancaria || !cuentaBancaria.trim()) {
-          alert("Debes registrar tu cuenta bancaria para continuar.");
-          return;
-        }
-        const banco = window.prompt("Banco:");
-        if (!banco || !banco.trim()) {
-          alert("Debes indicar el banco.");
-          return;
-        }
-        const titular = window.prompt("Titular de la cuenta:");
-        if (!titular || !titular.trim()) {
-          alert("Debes indicar el titular de la cuenta.");
-          return;
-        }
-        try {
-          await guardarCuenta({
-            cuenta_bancaria: cuentaBancaria.trim(),
-            banco: banco.trim(),
-            titular_cuenta: titular.trim(),
-          });
-        } catch (e) {
-          alert("No se pudo guardar la cuenta bancaria: " + (e.message || "error"));
-          return;
-        }
+        // No hay cuenta vinculada: se muestra la tarjeta modal
+        // para registrar los datos bancarios.
+        setMostrarCuentaModal(true);
+        return;
       }
 
 
@@ -720,19 +719,15 @@ function Productos() {
 
 
       // -------------------------------------------------
-      // MENSAJE
+      // TARJETA DE PEDIDO REALIZADO
+      // -------------------------------------------------
+      //
+      // Se muestra la tarjeta de éxito en lugar del alert.
+      // La navegación al panel de pedidos ocurre cuando el
+      // usuario pulsa "Ver pedido" en la tarjeta.
       // -------------------------------------------------
 
-      alert(
-        "¡Pedido realizado correctamente!"
-      );
-
-
-      // -------------------------------------------------
-      // IR A PEDIDOS
-      // -------------------------------------------------
-
-      navigate("/pedido");
+      setPedidoExitoso(true);
 
 
     } catch (error) {
@@ -750,6 +745,71 @@ function Productos() {
 
     }
 
+  };
+
+
+  // =====================================================
+  // CUENTA BANCARIA: TARJETA MODAL
+  // =====================================================
+
+  const cerrarCuentaModal = () => {
+    if (guardandoCuenta) return;
+    setMostrarCuentaModal(false);
+    setErrorCuenta("");
+  };
+
+  const irAPedidos = () => {
+    setPedidoExitoso(false);
+    navigate("/panel/mis-pedidos");
+  };
+
+  const confirmarCuenta = async (e) => {
+    e.preventDefault();
+
+    const cuentaBancaria = cuentaForm.cuenta_bancaria.trim();
+    const banco = cuentaForm.banco.trim();
+    const titular = cuentaForm.titular_cuenta.trim();
+
+    if (!cuentaBancaria) {
+      setErrorCuenta("Ingresa el número de la cuenta bancaria.");
+      return;
+    }
+    if (!banco) {
+      setErrorCuenta("Indica el banco de la cuenta.");
+      return;
+    }
+    if (!titular) {
+      setErrorCuenta("Indica el nombre del titular de la cuenta.");
+      return;
+    }
+
+    setGuardandoCuenta(true);
+    setErrorCuenta("");
+
+    try {
+      await guardarCuenta({
+        cuenta_bancaria: cuentaBancaria,
+        banco: banco,
+        titular_cuenta: titular,
+      });
+
+      setMostrarCuentaModal(false);
+      setCuentaForm({
+        cuenta_bancaria: "",
+        banco: "",
+        titular_cuenta: "",
+      });
+
+      // La cuenta ya está vinculada: se crea el pedido.
+      await realizarPedido();
+    } catch (e) {
+      setErrorCuenta(
+        "No se pudo guardar la cuenta bancaria: " +
+        (e.message || "error")
+      );
+    } finally {
+      setGuardandoCuenta(false);
+    }
   };
 
 
@@ -1487,6 +1547,417 @@ function Productos() {
 
         </div>
 
+      )}
+
+      {/* =================================================
+          TARJETA MODAL: PEDIDO REALIZADO CON ÉXITO
+      ================================================= */}
+
+      {pedidoExitoso && (
+        <div
+          className="
+            fixed
+            inset-0
+            z-[10000]
+            flex
+            items-center
+            justify-center
+            bg-black/70
+            p-4
+          "
+        >
+          <div
+            className="
+              w-full
+              max-w-sm
+              overflow-hidden
+              rounded-2xl
+              border
+              border-cyan-400/20
+              bg-[#0f172a]
+              text-center
+              shadow-2xl
+            "
+            role="dialog"
+            aria-modal="true"
+            aria-label="Pedido realizado correctamente"
+          >
+            {/* CABECERA */}
+            <div
+              className="
+                border-b
+                border-gray-800
+                bg-gradient-to-r
+                from-[#111827]
+                via-[#1b2740]
+                to-[#111827]
+                px-6
+                py-8
+              "
+            >
+              <span
+                className="
+                  mx-auto
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-green-500/15
+                  text-4xl
+                "
+                aria-hidden="true"
+              >
+                ✅
+              </span>
+              <h3
+                className="
+                  mt-4
+                  text-2xl
+                  font-bold
+                  text-white
+                "
+              >
+                ¡Pedido realizado correctamente!
+              </h3>
+              <p
+                className="
+                  mt-2
+                  text-sm
+                  text-gray-400
+                "
+              >
+                Tu pedido ya fue registrado.
+                Puedes ver su estado en tu panel
+                de cliente.
+              </p>
+            </div>
+
+            {/* ACCIONES */}
+            <div className="p-6">
+              <button
+                type="button"
+                onClick={irAPedidos}
+                className="
+                  w-full
+                  rounded-lg
+                  bg-cyan-400
+                  px-4
+                  py-3
+                  font-bold
+                  text-gray-900
+                  transition
+                  hover:bg-cyan-300
+                "
+              >
+                Ver pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =================================================
+          TARJETA MODAL: CUENTA BANCARIA
+      ================================================= */}
+
+      {mostrarCuentaModal && (
+        <div
+          className="
+            fixed
+            inset-0
+            z-[10000]
+            flex
+            items-center
+            justify-center
+            bg-black/70
+            p-4
+          "
+          onClick={cerrarCuentaModal}
+        >
+          <div
+            className="
+              w-full
+              max-w-md
+              overflow-hidden
+              rounded-2xl
+              border
+              border-cyan-400/20
+              bg-[#0f172a]
+              shadow-2xl
+            "
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vincular cuenta bancaria"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* CABECERA */}
+            <div
+              className="
+                flex
+                items-center
+                justify-between
+                border-b
+                border-gray-800
+                bg-gradient-to-r
+                from-[#111827]
+                via-[#1b2740]
+                to-[#111827]
+                px-6
+                py-4
+              "
+            >
+              <div>
+                <p
+                  className="
+                    text-[11px]
+                    font-semibold
+                    uppercase
+                    tracking-widest
+                    text-cyan-400
+                  "
+                >
+                  Vincula tu cuenta
+                </p>
+                <h3
+                  className="
+                    mt-1
+                    text-lg
+                    font-bold
+                    text-white
+                  "
+                >
+                  🏦 Cuenta bancaria
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={cerrarCuentaModal}
+                aria-label="Cerrar"
+                className="
+                  rounded-full
+                  px-2
+                  text-gray-400
+                  transition
+                  hover:text-white
+                "
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* CUERPO */}
+            <form
+              onSubmit={confirmarCuenta}
+              className="space-y-4 p-6"
+            >
+              <p className="text-sm text-gray-400">
+                Para continuar con tu pedido,
+                necesitamos la cuenta donde se
+                realizará el pago.
+              </p>
+
+              {errorCuenta && (
+                <div
+                  className="
+                    rounded-lg
+                    border
+                    border-red-500/40
+                    bg-red-500/10
+                    px-4
+                    py-3
+                    text-sm
+                    text-red-400
+                  "
+                >
+                  {errorCuenta}
+                </div>
+              )}
+
+              <div>
+                <label
+                  htmlFor="cuenta-bancaria"
+                  className="
+                    mb-1
+                    block
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                    text-gray-400
+                  "
+                >
+                  Número de cuenta
+                </label>
+                <input
+                  id="cuenta-bancaria"
+                  type="text"
+                  value={cuentaForm.cuenta_bancaria}
+                  onChange={(e) =>
+                    setCuentaForm({
+                      ...cuentaForm,
+                      cuenta_bancaria: e.target.value,
+                    })
+                  }
+                  placeholder="0000 0000 0000 0000"
+                  className="
+                    w-full
+                    rounded-lg
+                    border
+                    border-gray-600
+                    bg-gray-800
+                    px-4
+                    py-3
+                    text-sm
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-cyan-400
+                  "
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="banco"
+                  className="
+                    mb-1
+                    block
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                    text-gray-400
+                  "
+                >
+                  Banco
+                </label>
+                <input
+                  id="banco"
+                  type="text"
+                  value={cuentaForm.banco}
+                  onChange={(e) =>
+                    setCuentaForm({
+                      ...cuentaForm,
+                      banco: e.target.value,
+                    })
+                  }
+                  placeholder="Ej: Bancolombia"
+                  className="
+                    w-full
+                    rounded-lg
+                    border
+                    border-gray-600
+                    bg-gray-800
+                    px-4
+                    py-3
+                    text-sm
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-cyan-400
+                  "
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="titular-cuenta"
+                  className="
+                    mb-1
+                    block
+                    text-xs
+                    font-semibold
+                    uppercase
+                    tracking-wide
+                    text-gray-400
+                  "
+                >
+                  Nombre del titular
+                </label>
+                <input
+                  id="titular-cuenta"
+                  type="text"
+                  value={cuentaForm.titular_cuenta}
+                  onChange={(e) =>
+                    setCuentaForm({
+                      ...cuentaForm,
+                      titular_cuenta: e.target.value,
+                    })
+                  }
+                  placeholder="Nombre completo del titular"
+                  className="
+                    w-full
+                    rounded-lg
+                    border
+                    border-gray-600
+                    bg-gray-800
+                    px-4
+                    py-3
+                    text-sm
+                    text-white
+                    outline-none
+                    transition
+                    focus:border-cyan-400
+                  "
+                />
+              </div>
+
+              {/* ACCIONES */}
+              <div
+                className="
+                  flex
+                  gap-3
+                  pt-2
+                "
+              >
+                <button
+                  type="button"
+                  onClick={cerrarCuentaModal}
+                  disabled={guardandoCuenta}
+                  className="
+                    flex-1
+                    rounded-lg
+                    border
+                    border-gray-600
+                    px-4
+                    py-3
+                    font-bold
+                    text-gray-300
+                    transition
+                    hover:bg-gray-700
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                  "
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  disabled={guardandoCuenta}
+                  className="
+                    flex-1
+                    rounded-lg
+                    bg-cyan-400
+                    px-4
+                    py-3
+                    font-bold
+                    text-gray-900
+                    transition
+                    hover:bg-cyan-300
+                    disabled:cursor-not-allowed
+                    disabled:opacity-50
+                  "
+                >
+                  {guardandoCuenta
+                    ? "Guardando..."
+                    : "Guardar y continuar"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       )}
 
     </section>

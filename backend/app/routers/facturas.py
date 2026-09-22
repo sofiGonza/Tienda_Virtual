@@ -19,20 +19,30 @@ def crear_factura(venta_id: int, db: Session = Depends(get_db), actual=Depends(o
     if actual.rol.nombre == "cliente" and venta.cliente_id != actual.id: raise HTTPException(403, "No tienes permiso")
     return _crear_desde_venta(venta, db)
 def _serializar_factura(factura):
-    """Añade operador (quién la registró) y tipo (venta/pedido) a la respuesta."""
+    """Añade operador (quién la registró), tipo (venta/pedido), el nombre
+    del cliente y el estado del pedido/venta origen a la respuesta."""
     venta = factura.venta
     pedido = factura.pedido
     operador = None
     tipo = None
-    if venta and venta.operador:
-        operador = {
-            "id": venta.operador.id,
-            "nombre": venta.operador.nombre,
-            "apellido": venta.operador.apellido,
-        }
+    cliente_nombre = None
+    estado_origen = None
+    if venta:
         tipo = "venta"
+        if venta.operador:
+            operador = {
+                "id": venta.operador.id,
+                "nombre": venta.operador.nombre,
+                "apellido": venta.operador.apellido,
+            }
+        if venta.cliente:
+            cliente_nombre = f"{venta.cliente.nombre} {venta.cliente.apellido}".strip() or venta.cliente.correo
+        estado_origen = venta.estado
     elif pedido:
         tipo = "pedido"
+        if pedido.usuario:
+            cliente_nombre = f"{pedido.usuario.nombre} {pedido.usuario.apellido}".strip() or pedido.usuario.correo
+        estado_origen = pedido.estado
     return {
         "id": factura.id,
         "venta_id": factura.venta_id,
@@ -46,6 +56,8 @@ def _serializar_factura(factura):
         "detalles": factura.detalles,
         "operador": operador,
         "tipo": tipo,
+        "cliente_nombre": cliente_nombre,
+        "estado_origen": estado_origen,
     }
 
 
@@ -60,7 +72,12 @@ def listar_facturas(
 ):
     from datetime import date, timedelta
     from app.models import Pedido
-    q = db.query(Factura).outerjoin(Venta).outerjoin(Pedido, Pedido.id == Factura.pedido_id).options(joinedload(Factura.detalles), joinedload(Factura.venta).joinedload(Venta.operador)).order_by(Factura.fecha.desc())
+    q = db.query(Factura).outerjoin(Venta).outerjoin(Pedido, Pedido.id == Factura.pedido_id).options(
+        joinedload(Factura.detalles),
+        joinedload(Factura.venta).joinedload(Venta.operador),
+        joinedload(Factura.venta).joinedload(Venta.cliente),
+        joinedload(Factura.pedido).joinedload(Pedido.usuario),
+    ).order_by(Factura.fecha.desc())
     if actual.rol.nombre == "cliente":
         q = q.filter((Venta.cliente_id == actual.id) | (Pedido.usuario_id == actual.id))
     elif cliente_id:
@@ -79,7 +96,12 @@ def listar_facturas(
     return [_serializar_factura(f) for f in facturas]
 def _obtener_factura_orm(factura_id: int, db: Session, actual):
     from app.models import Pedido
-    factura = db.query(Factura).outerjoin(Venta).outerjoin(Pedido, Pedido.id == Factura.pedido_id).options(joinedload(Factura.detalles), joinedload(Factura.venta).joinedload(Venta.operador), joinedload(Factura.pedido)).filter(Factura.id == factura_id).first()
+    factura = db.query(Factura).outerjoin(Venta).outerjoin(Pedido, Pedido.id == Factura.pedido_id).options(
+        joinedload(Factura.detalles),
+        joinedload(Factura.venta).joinedload(Venta.operador),
+        joinedload(Factura.venta).joinedload(Venta.cliente),
+        joinedload(Factura.pedido).joinedload(Pedido.usuario),
+    ).filter(Factura.id == factura_id).first()
     if not factura:
         raise HTTPException(404, "Factura no encontrada")
     if actual.rol.nombre == "cliente":

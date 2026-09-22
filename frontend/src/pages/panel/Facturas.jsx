@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listarFacturas, descargarFacturaPdf, descargarFacturaExcel } from "../../Services/facturas";
+import Paginador, { usePaginacion } from "../../components/panel/Paginador";
 
 const formatoPrecio = (v) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(v || 0);
@@ -13,9 +14,11 @@ function Facturas() {
   const [fecha, setFecha] = useState("");
   const [error, setError] = useState("");
   const [cargando, setCargando] = useState(true);
+  const { pagina, totalPaginas, inicio, fin, irA, reset } = usePaginacion(items.length);
 
   useEffect(() => {
     setCargando(true);
+    setError("");
     const params = {};
     if (q) params.numero = q;
     if (estado) params.estado = estado;
@@ -24,6 +27,12 @@ function Facturas() {
       .then((data) => setItems(Array.isArray(data) ? data : []))
       .catch((e) => setError(e.message))
       .finally(() => setCargando(false));
+  }, [q, estado, fecha]);
+
+  // Volver a la primera página al cambiar filtros.
+  useEffect(() => {
+    reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q, estado, fecha]);
 
   return (
@@ -71,8 +80,9 @@ function Facturas() {
           <p className="mt-3 text-gray-400">No hay facturas que coincidan con los filtros.</p>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {items.map((f) => (
+        <>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {items.slice(inicio, fin).map((f) => (
             <article key={f.id} className="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-5">
               <div className="flex items-start justify-between gap-2">
                 <div>
@@ -81,6 +91,16 @@ function Facturas() {
                 </div>
                 <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-400">{f.estado}</span>
               </div>
+              {f.cliente_nombre && (
+                <p className="text-sm text-gray-400">
+                  👤 {f.cliente_nombre}
+                </p>
+              )}
+              {f.estado_origen && (
+                <span className="w-fit rounded-full px-3 py-1 text-xs font-bold capitalize" style={{ color: "#94a3b8", backgroundColor: "#94a3b81a" }}>
+                  {f.tipo === "venta" ? "Venta" : "Pedido"}: {f.estado_origen}
+                </span>
+              )}
               <p className="text-2xl font-bold">{formatoPrecio(f.total)}</p>
               <div className="mt-2 space-y-1 text-sm text-gray-400">
                 <p className="flex justify-between"><span>Subtotal</span><span>{formatoPrecio(f.subtotal)}</span></p>
@@ -112,7 +132,9 @@ function Facturas() {
               </div>
             </article>
           ))}
-        </div>
+          </div>
+          <Paginador pagina={pagina} totalPaginas={totalPaginas} irA={irA} />
+        </>
       )}
     </section>
   );

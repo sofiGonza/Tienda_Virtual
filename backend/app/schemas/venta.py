@@ -36,3 +36,4 @@ class VentaDetalleResponse(BaseModel):
 class VentaResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int; cliente_id: int; operador_id: int | None; subtotal: Decimal; descuento: Decimal; impuestos: Decimal; total: Decimal; estado: str; fecha: datetime; detalles: list[VentaDetalleResponse] = []
+    cliente_nombre: str | None = None

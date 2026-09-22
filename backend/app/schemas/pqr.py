@@ -21,3 +21,4 @@ class PQRFilter(BaseModel):
 class PQRResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int; usuario_id: int; asunto: str; tipo: str; descripcion: str; respuesta: str | None; estado: str; fecha_creacion: datetime; fecha_actualizacion: datetime
+    usuario_nombre: str | None = None

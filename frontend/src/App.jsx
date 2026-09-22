@@ -9,7 +9,6 @@ import Servicios from "./pages/Servicios";
 import Contacto from "./pages/Contacto";
 import Perfil from "./pages/Perfil";
 import Pedidos from "./pages/Pedido";
-import WhatsAppButton from "./Components/WhatsAppButton";
 import Chatbot from "./components/Chatbot";
 
 // Panel (ventana propia con menú lateral)
@@ -66,7 +65,6 @@ function App() {
         </Routes>
       </main>
       {!esPanel && <Footer />}
-      {!esPanel && <WhatsAppButton />}
       {!esPanel && <Chatbot />}
     </div>
   );

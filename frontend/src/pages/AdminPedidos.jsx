@@ -7,6 +7,8 @@ import {
   useNavigate
 } from "react-router-dom";
 
+import Paginador, { usePaginacion } from "../components/panel/Paginador";
+
 import {
   obtenerSesion
 } from "../Services/AuthService";
@@ -83,6 +85,17 @@ function AdminPedidos() {
 
   const [cargando, setCargando] =
     useState(true);
+
+  // =====================================================
+  // PAGINACIÓN (máximo 7 tarjetas por página)
+  // =====================================================
+  const {
+    pagina,
+    totalPaginas,
+    inicio,
+    fin,
+    irA,
+  } = usePaginacion(pedidos.length, 7);
 
   // =====================================================
   // MODAL AGREGAR PEDIDO (SOLO ADMIN)
@@ -680,13 +693,17 @@ function AdminPedidos() {
 
         ) : (
 
+          <>
+
           <div
             className="
               space-y-6
             "
           >
 
-            {pedidos.map(
+            {pedidos
+              .slice(inicio, fin)
+              .map(
               (
                 pedido,
                 index
@@ -734,7 +751,7 @@ function AdminPedidos() {
                       >
                         Pedido #
                         {String(
-                          index + 1
+                          inicio + index + 1
                         ).padStart(
                           3,
                           "0"
@@ -1037,6 +1054,14 @@ function AdminPedidos() {
             )}
 
           </div>
+
+          <Paginador
+            pagina={pagina}
+            totalPaginas={totalPaginas}
+            irA={irA}
+          />
+
+          </>
 
         )}
 

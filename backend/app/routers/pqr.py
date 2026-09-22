@@ -16,6 +16,7 @@ router = APIRouter(prefix="/api/pqr", tags=["PQR"])
 @router.post("", response_model=PQRResponse, status_code=201)
 def crear(d: PQRCreate, db: Session = Depends(get_db), u=Depends(obtener_usuario_actual)):
     x = PQR(usuario_id=u.id, **d.model_dump())
+    x.usuario_nombre = f"{u.nombre} {u.apellido}".strip() or u.correo
     db.add(x)
     db.commit()
     db.refresh(x)
@@ -27,7 +28,11 @@ def listar(db: Session = Depends(get_db), u=Depends(obtener_usuario_actual)):
     q = db.query(PQR)
     if u.rol.nombre == "cliente":
         q = q.filter(PQR.usuario_id == u.id)
-    return q.order_by(PQR.fecha_creacion.desc()).all()
+    items = q.order_by(PQR.fecha_creacion.desc()).all()
+    for x in items:
+        if x.usuario:
+            x.usuario_nombre = f"{x.usuario.nombre} {x.usuario.apellido}".strip() or x.usuario.correo
+    return items
 
 
 @router.patch("/{id}", response_model=PQRResponse)
@@ -39,6 +44,9 @@ def actualizar(id: int, d: PQRUpdate, db: Session = Depends(get_db), u=Depends(o
         raise HTTPException(403, "No tienes permiso")
     if u.rol.nombre == "cliente" and d.estado not in (None, "cerrada"):
         raise HTTPException(403, "El cliente solo puede cerrar su PQR")
+    # Una PQR cerrada no se puede volver a modificar (estado ni respuesta).
+    if x.estado == "cerrada":
+        raise HTTPException(400, "La PQR ya está cerrada y no se puede modificar")
 
     cambios = d.model_dump(exclude_none=True)
     for k, v in cambios.items():

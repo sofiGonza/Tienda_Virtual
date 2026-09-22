@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarPQR, crearPQR, actualizarPQR } from "../../Services/pqr";
 import { obtenerSesion } from "../../Services/AuthService";
+import Paginador, { usePaginacion } from "../../components/panel/Paginador";
 
 const ESTADOS = ["pendiente", "en_proceso", "respondida", "cerrada"];
 
@@ -18,6 +19,7 @@ function PQR() {
   const [cargando, setCargando] = useState(true);
   const sesion = obtenerSesion();
   const rol = sesion?.rol?.toLowerCase();
+  const { pagina, totalPaginas, inicio, fin, irA, reset } = usePaginacion(items.length);
 
   const cargar = () => {
     setCargando(true);
@@ -105,11 +107,20 @@ function PQR() {
           <p className="mt-3 text-gray-400">No hay PQR registradas.</p>
         </div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {items.map((x) => (
+        <>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {items.slice(inicio, fin).map((x) => (
             <article key={x.id} className="rounded-2xl border border-gray-800 bg-[#111827] p-5">
               <div className="flex items-start justify-between gap-2">
-                <h3 className="font-bold">{x.asunto}</h3>
+                <div className="min-w-0">
+                  <h3 className="font-bold">{x.asunto}</h3>
+                  {x.usuario_nombre && (
+                    <p className="mt-1 flex items-center gap-1.5 text-sm text-gray-400">
+                      <span aria-hidden="true">👤</span>
+                      <span className="truncate">{x.usuario_nombre}</span>
+                    </p>
+                  )}
+                </div>
                 <span
                   className="rounded-full px-3 py-1 text-xs font-bold"
                   style={{ color: COLORS[x.estado] || "#94a3b8", backgroundColor: `${COLORS[x.estado] || "#94a3b8"}1a` }}
@@ -127,33 +138,43 @@ function PQR() {
 
               {rol !== "cliente" && (
                 <div className="mt-4 space-y-2">
-                  <select
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
-                    value={x.estado}
-                    onChange={(e) => gestionar(x.id, { estado: e.target.value })}
-                    aria-label={`Estado PQR ${x.id}`}
-                  >
-                    {ESTADOS.map((est) => (
-                      <option key={est} value={est}>
-                        {est}
-                      </option>
-                    ))}
-                  </select>
-                  <textarea
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white outline-none focus:border-cyan-400"
-                    placeholder="Escribe la respuesta (opcional)"
-                    rows={2}
-                    defaultValue={x.respuesta || ""}
-                    onBlur={(e) => {
-                      const valor = e.target.value.trim();
-                      if (valor && valor !== x.respuesta) gestionar(x.id, { respuesta: valor });
-                    }}
-                  />
+                  {x.estado === "cerrada" ? (
+                    <p className="rounded-lg border border-gray-700 bg-gray-800/50 px-3 py-2 text-xs text-gray-400">
+                      🔒 Esta PQR está cerrada y ya no puede modificarse.
+                    </p>
+                  ) : (
+                    <>
+                      <select
+                        className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                        value={x.estado}
+                        onChange={(e) => gestionar(x.id, { estado: e.target.value })}
+                        aria-label={`Estado PQR ${x.id}`}
+                      >
+                        {ESTADOS.map((est) => (
+                          <option key={est} value={est}>
+                            {est}
+                          </option>
+                        ))}
+                      </select>
+                      <textarea
+                        className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white outline-none focus:border-cyan-400"
+                        placeholder="Escribe la respuesta (opcional)"
+                        rows={2}
+                        defaultValue={x.respuesta || ""}
+                        onBlur={(e) => {
+                          const valor = e.target.value.trim();
+                          if (valor && valor !== x.respuesta) gestionar(x.id, { respuesta: valor });
+                        }}
+                      />
+                    </>
+                  )}
                 </div>
               )}
             </article>
           ))}
-        </div>
+          </div>
+          <Paginador pagina={pagina} totalPaginas={totalPaginas} irA={irA} />
+        </>
       )}
     </section>
   );
