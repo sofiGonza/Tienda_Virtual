@@ -1,0 +1,56 @@
+# ==========================================================
+# Render Blueprint — Pixel Store (backend FastAPI)
+# ==========================================================
+# Cómo usarlo:
+#   1. Sube este archivo a la raíz del repo (o crea el servicio a mano).
+#   2. En Render: New -> Blueprint -> selecciona el repositorio.
+#      Render detecta este render.yaml y crea el Web Service.
+#   3. Completa los secretos/valores reales en el dashboard:
+#      - DATABASE_URL  (MySQL de Railway o cualquier MySQL público)
+#      - SECRET_KEY    (texto largo aleatorio)
+#   4. Deploy. La URL pública será https://pixel-store-api.onrender.com
+#      (o la que Render asigne). Úsala como VITE_API_URL del frontend.
+# ==========================================================
+
+services:
+  - type: web
+    name: pixel-store-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "60"
+      - key: FRONTEND_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: SMTP_FROM_EMAIL
+        sync: false
+      - key: SMTP_FROM_NAME
+        value: Pixel Store
+      - key: SMTP_USE_TLS
+        value: "true"
+      - key: AI_PROVIDER
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        sync: false
+      - key: AI_TIMEOUT_SECONDS
+        value: "30"

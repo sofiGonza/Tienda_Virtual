@@ -42,7 +42,7 @@ import time
 _log = logging.getLogger("pixelstore.init")
 
 
-def _inicializar_bd(intentos: int = 3, espera: float = 5.0):
+def _inicializar_bd(intentos: int = 5, espera: float = 5.0):
     for intento in range(1, intentos + 1):
         try:
             Base.metadata.create_all(bind=engine)
@@ -59,10 +59,10 @@ def _inicializar_bd(intentos: int = 3, espera: float = 5.0):
                 time.sleep(espera)
 
 
-try:
-    _inicializar_bd()
-except Exception:
-    threading.Thread(target=_inicializar_bd, daemon=True).start()
+# La inicialización de BD corre SIEMPRE en un hilo daemon: el import de
+# main.py (y por tanto uvicorn) nunca se bloquea esperando a la base de
+# datos, esté arriba o abajo. Esto evita el crash-loop en el despliegue.
+threading.Thread(target=_inicializar_bd, daemon=True).start()
 
 
 # ==========================================================
@@ -105,13 +105,22 @@ app.add_middleware(
 
     allow_origins=[
         "https://frontend-production-8956.up.railway.app",
+        settings.FRONTEND_URL,
+        # Vercel asigna un subdominio *.vercel.app al desplegar; se aceptan
+        # todos para no tener que re-desplegar el backend cada vez que
+        # Vercel regenera el dominio.
+        "https://pixel-store-frontend.vercel.app",
         "http://127.0.0.1:5173",
         "http://localhost:5173",
     ],
 
     # Cubre cualquier subdominio *.up.railway.app (útil si Railway
     # regenera el dominio público del frontend al redesplegar).
-    allow_origin_regex=r"https://.*\.up\.railway\.app",
+    allow_origin_regex=(
+        r"https://.*\.up\.railway\.app|"
+        r"https://.*\.vercel\.app|"
+        r"https://.*\.onrender\.com"
+    ),
 
     allow_credentials=True,
 
