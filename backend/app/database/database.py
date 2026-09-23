@@ -1,3 +1,5 @@
+import os
+from pathlib import Path
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -14,12 +16,37 @@ if database_url.startswith("mysql://"):
         1
     )
 
-# Parámetros de conexión: SSL cuando MYSQL_SSL_CA está definido (Aiven en
-# producción exige TLS). Si el query string ya trae ssl_ca, se respeta tal cual.
-connect_args = {}
+# ------------------------------------------------------------------
+# Certificado CA para SSL (Aiven exige TLS).
+# Orden de resolución:
+#   1. MYSQL_SSL_CA (variable de entorno, ruta explícita)
+#   2. backend/ca.pem  (junto al proyecto, relativo al backend)
+#   3. ca.pem junto a este archivo
+# ------------------------------------------------------------------
 
-if settings.MYSQL_SSL_CA:
-    connect_args["ssl"] = {"ca": settings.MYSQL_SSL_CA}
+def _buscar_ca() -> str:
+    candidatas = []
+
+    if settings.MYSQL_SSL_CA:
+        candidatas.append(settings.MYSQL_SSL_CA)
+
+    base_dir = Path(__file__).resolve().parent  # app/database
+    candidatas.append(str(Path(base_dir).parent.parent / "ca.pem"))      # backend/ca.pem
+    candidatas.append(str(Path(base_dir).parent / "ca.pem"))             # app/ca.pem
+    candidatas.append(str(Path(base_dir) / "ca.pem"))                    # app/database/ca.pem
+
+    for ruta in candidatas:
+        if Path(ruta).is_file():
+            return str(ruta)
+
+    return ""
+
+
+ca_path = _buscar_ca()
+
+connect_args = {}
+if ca_path:
+    connect_args["ssl"] = {"ca": ca_path}
 
 if "ssl_ca=" in database_url:
     connect_args = {}
