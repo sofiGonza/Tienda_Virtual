@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import TarjetaNotificacion from "../components/TarjetaNotificacion";
 import { obtenerSesion } from "../Services/AuthService";
 import API_URL from "../Services/api";
 
@@ -34,6 +35,10 @@ function AdminProductos() {
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [productoEditar, setProductoEditar] = useState(null);
   const [rolUsuario, setRolUsuario] = useState("");
+  const [notificacion, setNotificacion] = useState(null);
+
+  const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
+    setNotificacion({ titulo, mensaje, emoji });
 
   const [formulario, setFormulario] = useState({
     nombre: "",
@@ -174,10 +179,11 @@ function AdminProductos() {
         throw new Error(datos.detail || "No se pudo guardar el producto");
       }
 
-      alert(
+      mostrarNotificacion(
         productoEditar
           ? "Producto actualizado correctamente"
-          : "Producto creado correctamente"
+          : "Producto creado correctamente",
+        productoEditar ? "Los cambios se guardaron." : "El producto se añadió al catálogo."
       );
 
       setMostrarFormulario(false);
@@ -185,14 +191,18 @@ function AdminProductos() {
       cargarProductos();
     } catch (error) {
       console.error("Error guardando producto:", error);
-      alert(error.message);
+      mostrarNotificacion("Error", error.message, "❌");
     }
   };
 
   // ELIMINAR PRODUCTO (SOLO ADMIN)
   const eliminarProducto = async (id) => {
     if (rolUsuario !== "administrador") {
-      alert("Los empleados no pueden eliminar productos.");
+      mostrarNotificacion(
+        "Permiso denegado",
+        "Los empleados no pueden eliminar productos.",
+        "❌"
+      );
       return;
     }
 
@@ -221,11 +231,11 @@ function AdminProductos() {
         throw new Error(datos.detail || "No se pudo eliminar el producto");
       }
 
-      alert("Producto eliminado correctamente");
+      mostrarNotificacion("Producto eliminado", "Se quitó del catálogo.");
       cargarProductos();
     } catch (error) {
       console.error("Error eliminando producto:", error);
-      alert(error.message);
+      mostrarNotificacion("Error", error.message, "❌");
     }
   };
 
@@ -442,6 +452,16 @@ function AdminProductos() {
             </div>
           </form>
         </div>
+      )}
+      {/* TARJETA DE NOTIFICACIÓN */}
+      {notificacion && (
+        <TarjetaNotificacion
+          abierto={!!notificacion}
+          titulo={notificacion.titulo}
+          mensaje={notificacion.mensaje}
+          emoji={notificacion.emoji}
+          onCerrar={() => setNotificacion(null)}
+        />
       )}
     </section>
   );

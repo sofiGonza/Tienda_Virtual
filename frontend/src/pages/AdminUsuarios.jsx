@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Paginador, { usePaginacion } from "../components/panel/Paginador";
+import TarjetaNotificacion from "../components/TarjetaNotificacion";
 
 import {
   obtenerSesion
@@ -28,6 +29,12 @@ function AdminUsuarios() {
 
   const [usuarioEditar, setUsuarioEditar] =
     useState(null);
+
+  const [notificacion, setNotificacion] =
+    useState(null);
+
+  const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
+    setNotificacion({ titulo, mensaje, emoji });
 
 
   const [formulario, setFormulario] =
@@ -134,8 +141,10 @@ function AdminUsuarios() {
         error
       );
 
-      alert(
-        error.message
+      mostrarNotificacion(
+        "Error",
+        error.message,
+        "❌"
       );
 
     } finally {
@@ -459,17 +468,16 @@ function AdminUsuarios() {
       }
 
 
-      alert(
+      mostrarNotificacion(
         usuarioEditar
           ? "Usuario actualizado correctamente"
-          : "Usuario creado correctamente"
+          : "Usuario creado correctamente",
+        usuarioEditar ? "Los cambios se guardaron." : "El usuario se añadió al sistema."
       );
-
 
       setMostrarFormulario(
         false
       );
-
 
       cargarUsuarios();
 
@@ -480,8 +488,10 @@ function AdminUsuarios() {
         error
       );
 
-      alert(
-        error.message
+      mostrarNotificacion(
+        "Error",
+        error.message,
+        "❌"
       );
 
     }
@@ -559,8 +569,10 @@ function AdminUsuarios() {
 
     } catch (error) {
 
-      alert(
-        error.message
+      mostrarNotificacion(
+        "Error",
+        error.message,
+        "❌"
       );
 
     }
@@ -633,8 +645,9 @@ function AdminUsuarios() {
       }
 
 
-      alert(
-        "Usuario eliminado correctamente"
+      mostrarNotificacion(
+        "Usuario eliminado",
+        `Se desactivó a ${usuario.nombre} ${usuario.apellido}.`
       );
 
 
@@ -643,8 +656,10 @@ function AdminUsuarios() {
 
     } catch (error) {
 
-      alert(
-        error.message
+      mostrarNotificacion(
+        "Error",
+        error.message,
+        "❌"
       );
 
     }
@@ -1614,6 +1629,17 @@ function AdminUsuarios() {
   </div>
 
 )}
+
+    {/* TARJETA DE NOTIFICACIÓN */}
+      {notificacion && (
+        <TarjetaNotificacion
+          abierto={!!notificacion}
+          titulo={notificacion.titulo}
+          mensaje={notificacion.mensaje}
+          emoji={notificacion.emoji}
+          onCerrar={() => setNotificacion(null)}
+        />
+      )}
 
     </section>
 

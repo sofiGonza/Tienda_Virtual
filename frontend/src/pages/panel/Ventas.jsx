@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import TarjetaNotificacion from "../../components/TarjetaNotificacion";
 import { api } from "../../Services/api";
 import { crearVenta } from "../../Services/ventas";
 
@@ -15,6 +16,7 @@ function Ventas() {
   const [impuestoPorcentaje, setImpuestoPorcentaje] = useState(0);
   const [msg, setMsg] = useState({ tipo: "", texto: "" });
   const [enviando, setEnviando] = useState(false);
+  const [ventaOk, setVentaOk] = useState(false);
 
   useEffect(() => {
     api("/productos")
@@ -69,7 +71,8 @@ function Ventas() {
         items,
         impuesto_porcentaje: Number(impuestoPorcentaje || 0),
       });
-      setMsg({ tipo: "ok", texto: "✅ Venta registrada correctamente." });
+      setMsg({ tipo: "", texto: "" });
+      setVentaOk(true);
       setLineas([{ producto_id: "", cantidad: 1, descuento: 0 }]);
       setClienteId("");
       setImpuestoPorcentaje(0);
@@ -199,6 +202,16 @@ function Ventas() {
           </button>
         </aside>
       </form>
+
+      {/* TARJETA DE NOTIFICACIÓN */}
+      {ventaOk && (
+        <TarjetaNotificacion
+          abierto={ventaOk}
+          titulo="Venta registrada correctamente"
+          mensaje="El total se actualizó en el historial de ventas."
+          onCerrar={() => setVentaOk(false)}
+        />
+      )}
     </section>
   );
 }
