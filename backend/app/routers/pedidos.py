@@ -378,21 +378,7 @@ def actualizar_estado_pedido(
     db: Session = Depends(get_db),
     usuario_actual=Depends(obtener_usuario_actual)
 ):
-    # Detectar si el pedido es de servicio (algún detalle con servicio_id)
-    es_servicio = any(getattr(d, "servicio_id", None) for d in pedido.detalles)
-
-    if es_servicio:
-        estados_permitidos = ["pendiente", "cancelado", "realizado"]
-    else:
-        estados_permitidos = ["pendiente", "procesando", "enviado", "entregado", "cancelado"]
-
     nuevo_estado = datos.estado.lower()
-
-    if nuevo_estado not in estados_permitidos:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Estado de pedido no válido"
-        )
 
     pedido = (
         db.query(Pedido)
@@ -404,6 +390,20 @@ def actualizar_estado_pedido(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Pedido no encontrado"
+        )
+
+    # Detectar si el pedido es de servicio (algún detalle con servicio_id)
+    es_servicio = any(getattr(d, "servicio_id", None) for d in pedido.detalles)
+
+    if es_servicio:
+        estados_permitidos = ["pendiente", "cancelado", "realizado"]
+    else:
+        estados_permitidos = ["pendiente", "procesando", "enviado", "entregado", "cancelado"]
+
+    if nuevo_estado not in estados_permitidos:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Estado de pedido no válido"
         )
 
     rol_nombre = usuario_actual.rol.nombre
