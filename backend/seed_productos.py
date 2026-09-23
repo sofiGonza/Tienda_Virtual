@@ -22,7 +22,7 @@ PRODUCTOS_INICIALES = [
         "precio": 4299000,
         "stock": 12,
         "marca": "Acer",
-        "imagen": "/img/Productos/laptop.jpg",
+        "imagen": "",
     },
     {
         "nombre": "Smartphone Galaxy A54",
@@ -33,7 +33,7 @@ PRODUCTOS_INICIALES = [
         "precio": 1899000,
         "stock": 25,
         "marca": "Samsung",
-        "imagen": "/img/Productos/smartphone.jpg",
+        "imagen": "",
     },
     {
         "nombre": "Audífonos Inalámbricos Pro",
@@ -43,7 +43,7 @@ PRODUCTOS_INICIALES = [
         "precio": 549000,
         "stock": 40,
         "marca": "Sony",
-        "imagen": "/img/Productos/audifonos.jpg",
+        "imagen": "",
     },
     {
         "nombre": "Kit Gaming RGB Completo",
@@ -53,7 +53,7 @@ PRODUCTOS_INICIALES = [
         "precio": 649000,
         "stock": 18,
         "marca": "Redragon",
-        "imagen": "/img/Productos/setup.jpg",
+        "imagen": "",
     },
     {
         "nombre": "Smartwatch Serie 8",
@@ -63,7 +63,7 @@ PRODUCTOS_INICIALES = [
         "precio": 1299000,
         "stock": 15,
         "marca": "Apple",
-        "imagen": "/img/Productos/reloj.png",
+        "imagen": "",
     },
     {
         "nombre": "PC de Escritorio Todo en Uno",
@@ -74,7 +74,7 @@ PRODUCTOS_INICIALES = [
         "precio": 3499000,
         "stock": 8,
         "marca": "HP",
-        "imagen": "/img/Productos/ordenador.png",
+        "imagen": "",
     },
     {
         "nombre": "Mouse Gamer Inalámbrico",
@@ -84,7 +84,7 @@ PRODUCTOS_INICIALES = [
         "precio": 189000,
         "stock": 50,
         "marca": "Logitech",
-        "imagen": "/img/Productos/mouse1.jfif",
+        "imagen": "",
     },
     {
         "nombre": "Teclado Mecánico RGB",
@@ -94,7 +94,7 @@ PRODUCTOS_INICIALES = [
         "precio": 329000,
         "stock": 35,
         "marca": "Redragon",
-        "imagen": "/img/Productos/teclado.webp",
+        "imagen": "",
     },
 ]
 
