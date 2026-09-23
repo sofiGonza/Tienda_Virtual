@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
 
-    FRONTEND_URL: str = "http://localhost:5173"
+    FRONTEND_URL: str = "https://tienda-virtual-mocha.vercel.app"
 
     # Configuración SMTP para recuperación de contraseña.
     # Se dejan vacíos por defecto para que el desarrollo local no dependa

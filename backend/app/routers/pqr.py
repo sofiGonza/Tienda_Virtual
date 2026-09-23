@@ -61,7 +61,10 @@ def actualizar(id: int, d: PQRUpdate, db: Session = Depends(get_db), u=Depends(o
 
     if fue_respondida:
         cliente = db.query(Usuario).filter(Usuario.id == x.usuario_id).first()
-        enlace = f"{settings.FRONTEND_URL}/panel/pqr"
+        base_front = (settings.FRONTEND_URL or "").rstrip("/")
+        if not base_front or base_front == "http://localhost:5173":
+            base_front = "https://tienda-virtual-mocha.vercel.app"
+        enlace = f"{base_front}/panel/pqr"
         if cliente:
             try:
                 enviar_pqr_respondida(cliente.correo, x.asunto, enlace)
