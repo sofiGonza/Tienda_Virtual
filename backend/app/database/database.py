@@ -14,10 +14,21 @@ if database_url.startswith("mysql://"):
         1
     )
 
+# Parámetros de conexión: SSL cuando MYSQL_SSL_CA está definido (Aiven en
+# producción exige TLS). Si el query string ya trae ssl_ca, se respeta tal cual.
+connect_args = {}
+
+if settings.MYSQL_SSL_CA:
+    connect_args["ssl"] = {"ca": settings.MYSQL_SSL_CA}
+
+if "ssl_ca=" in database_url:
+    connect_args = {}
+
 
 engine = create_engine(
     database_url,
-    pool_pre_ping=True
+    pool_pre_ping=True,
+    connect_args=connect_args
 )
 
 

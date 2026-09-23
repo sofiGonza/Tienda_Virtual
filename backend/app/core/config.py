@@ -9,6 +9,10 @@ class Settings(BaseSettings):
     # fallarán con un error claro, pero /health seguirá respondiendo.
     DATABASE_URL: str = "mysql+pymysql://root:root@localhost:3306/pixel_store"
 
+    # Ruta del certificado CA para conexiones MySQL con SSL (Aiven, etc.).
+    # Si está vacía, el backend conecta sin SSL (entornos locales).
+    MYSQL_SSL_CA: str = ""
+
     # Clave por defecto: evita que el arranque falle (crash-loop en Railway)
     # si la variable SECRET_KEY no está definida en el despliegue.
     # En producción siempre debe sobrescribirse vía variable de entorno.
