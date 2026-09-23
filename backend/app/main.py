@@ -82,7 +82,7 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
-        settings.FRONTEND_URL
+        "https://frontend-production-8956.up.railway.app"
     ],
 
     allow_credentials=True,
