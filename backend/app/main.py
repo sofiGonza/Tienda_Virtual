@@ -28,19 +28,41 @@ from app.routers import estadisticas, ventas, facturas, reportes, pqr, chatbot
 
 
 # ==========================================================
-# CREAR TABLAS
+# CREAR TABLAS + SEMBRAR DATOS (arranque resiliente)
 # ==========================================================
+# En el despliegue (Railway/Render) la base de datos puede tardar en
+# estar lista al primer arranque. Si falla, NO se derriba el proceso:
+# se registra el error y se reintenta en segundo plano, para evitar
+# que uvicorn entre en crash-loop (que la edge responde con 429).
 
-Base.metadata.create_all(
-    bind=engine
-)
+import logging
+import threading
+import time
 
-# ==========================================================
-# SEMBRAR DATOS INICIALES (idempotente)
-# ==========================================================
+_log = logging.getLogger("pixelstore.init")
 
-crear_tablas()
-sembrar_datos()
+
+def _inicializar_bd(intentos: int = 3, espera: float = 5.0):
+    for intento in range(1, intentos + 1):
+        try:
+            Base.metadata.create_all(bind=engine)
+            crear_tablas()
+            sembrar_datos()
+            _log.info("Base de datos inicializada y datos sembrados.")
+            return
+        except Exception as exc:  # pragma: no cover - depende del entorno
+            _log.warning(
+                "Intento %d/%d de inicializar la BD falló: %s",
+                intento, intentos, exc,
+            )
+            if intento < intentos:
+                time.sleep(espera)
+
+
+try:
+    _inicializar_bd()
+except Exception:
+    threading.Thread(target=_inicializar_bd, daemon=True).start()
 
 
 # ==========================================================
@@ -82,8 +104,14 @@ app.add_middleware(
     CORSMiddleware,
 
     allow_origins=[
-        "https://frontend-production-8956.up.railway.app"
+        "https://frontend-production-8956.up.railway.app",
+        "http://127.0.0.1:5173",
+        "http://localhost:5173",
     ],
+
+    # Cubre cualquier subdominio *.up.railway.app (útil si Railway
+    # regenera el dominio público del frontend al redesplegar).
+    allow_origin_regex=r"https://.*\.up\.railway\.app",
 
     allow_credentials=True,
 

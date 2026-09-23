@@ -3,9 +3,16 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
 
-    DATABASE_URL: str
+    # URL de la base de datos. Si no está definida en el despliegue se usa
+    # el valor local de desarrollo, de modo que uvicorn SIEMPRE arranque
+    # (evita crash-loop en Railway cuando falta la variable). Las consultas
+    # fallarán con un error claro, pero /health seguirá respondiendo.
+    DATABASE_URL: str = "mysql+pymysql://root:root@localhost:3306/pixel_store"
 
-    SECRET_KEY: str
+    # Clave por defecto: evita que el arranque falle (crash-loop en Railway)
+    # si la variable SECRET_KEY no está definida en el despliegue.
+    # En producción siempre debe sobrescribirse vía variable de entorno.
+    SECRET_KEY: str = "cambiar_esta_clave_en_produccion"
 
     ALGORITHM: str = "HS256"
 
