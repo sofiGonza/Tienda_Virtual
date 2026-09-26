@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import logo from "../img/logo/logoPixel.png";
@@ -45,6 +45,24 @@ function Login({ abierto, cerrar }) {
   // ==========================================
 
   const [tocados, setTocados] = useState({});
+
+  // ==========================================
+  // REINICIAR AL CERRAR
+  // ==========================================
+
+  // Al cerrar el modal (esté completo o no, en login o en registro),
+  // se reinicia todo para que la próxima apertura encuentre el formulario vacío.
+
+  useEffect(() => {
+    if (!abierto) {
+      setModo("login");
+      setFormulario(formularioInicial);
+      setTocados({});
+      setMensaje("");
+      setError("");
+      setCargando(false);
+    }
+  }, [abierto]);
 
   // ==========================================
   // ESTADO DE MENSAJES
