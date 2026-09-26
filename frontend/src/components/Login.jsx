@@ -41,6 +41,12 @@ function Login({ abierto, cerrar }) {
   const [formulario, setFormulario] = useState(formularioInicial);
 
   // ==========================================
+  // ESTADO DE CAMPOS TOCADOS (validación en tiempo real)
+  // ==========================================
+
+  const [tocados, setTocados] = useState({});
+
+  // ==========================================
   // ESTADO DE MENSAJES
   // ==========================================
 
@@ -58,6 +64,14 @@ function Login({ abierto, cerrar }) {
     setFormulario((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    // Marca el campo como "tocado" en cuanto el usuario escribe,
+    // así la validación aparece en tiempo real.
+
+    setTocados((prev) => ({
+      ...prev,
+      [name]: true,
     }));
 
     setMensaje("");
@@ -161,9 +175,12 @@ function Login({ abierto, cerrar }) {
     // DIRECCIÓN
     if (!formulario.direccion.trim()) {
       errores.direccion = "Ingresa tu dirección.";
-    } else if (formulario.direccion.length > 30 && direccion.length <6) {
+    } else if (
+      formulario.direccion.length > 30 ||
+      formulario.direccion.length < 6
+    ) {
       errores.direccion =
-        "La dirección no puede tener más de 30 caracteres.";
+        "La dirección debe tener entre 6 y 30 caracteres.";
     }
 
     // TELÉFONO
@@ -281,6 +298,7 @@ function Login({ abierto, cerrar }) {
       );
 
       setFormulario(formularioInicial);
+      setTocados({});
 
       setTimeout(() => {
         setModo("login");
@@ -387,6 +405,7 @@ function Login({ abierto, cerrar }) {
     setError("");
     setMensaje("");
     setFormulario(formularioInicial);
+    setTocados({});
   };
 
   // ==========================================
@@ -402,7 +421,9 @@ function Login({ abierto, cerrar }) {
   // ==========================================
 
   const claseInput = (campo, valido) => {
-    if (!formulario[campo]) {
+    // El campo aún no se ha tocado: estilo neutro.
+
+    if (!tocados[campo] && !formulario[campo]) {
       return `
         w-full
         rounded-lg
@@ -417,6 +438,8 @@ function Login({ abierto, cerrar }) {
         focus:border-cyan-400
       `;
     }
+
+    // El campo ya se tocó (o tiene texto): verde si todo está bien, rojo si falta algo.
 
     return `
       w-full
@@ -436,6 +459,39 @@ function Login({ abierto, cerrar }) {
           : "focus:ring-red-500"
       }
     `;
+  };
+
+  // Marca el campo como tocado al salir de él (onBlur).
+
+  const marcarTocado = (e) => {
+    const { name } = e.target;
+
+    setTocados((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+  };
+
+  // Letrerito debajo del campo: el error específico que falta.
+
+  const mensajeCampo = (campo, valido, mensajeInvalido, mensajeValido = null) => {
+    if (!tocados[campo] && !formulario[campo]) {
+      return null;
+    }
+
+    if (valido) {
+      return (
+        <p className="mt-1 text-sm text-green-400">
+          ✓ {mensajeValido || "Campo válido"}
+        </p>
+      );
+    }
+
+    return (
+      <p className="mt-1 text-sm text-red-400">
+        ✕ {mensajeInvalido}
+      </p>
+    );
   };
 
   // ==========================================
@@ -479,7 +535,7 @@ function Login({ abierto, cerrar }) {
   const direccionValida =
     formulario.direccion.trim() !== "" &&
     formulario.direccion.length <= 30 &&
-     formulario.direccion.length >=7 ;
+    formulario.direccion.length >= 7;
 
   const telefonoValido =
     /^\d+$/.test(formulario.telefono) &&
@@ -770,6 +826,7 @@ function Login({ abierto, cerrar }) {
                   name="nombre"
                   value={formulario.nombre}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Ingresa tu nombre"
                   maxLength={30}
                   className={claseInput(
@@ -782,22 +839,12 @@ function Login({ abierto, cerrar }) {
                   {contador("nombre")} {formulario.nombre.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.nombre && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        nombreValido
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {nombreValido
-                      ? "✓ Nombre válido"
-                      : "✕ Ingresa un nombre válido."}
-                  </p>
+                {mensajeCampo(
+                  "nombre",
+                  nombreValido,
+                  formulario.nombre.trim()
+                    ? "El nombre no puede tener más de 30 caracteres."
+                    : "Ingresa tu nombre."
                 )}
               </div>
 
@@ -813,6 +860,7 @@ function Login({ abierto, cerrar }) {
                   name="apellido"
                   value={formulario.apellido}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Ingresa tu apellido"
                   maxLength={30}
                   className={claseInput(
@@ -825,22 +873,12 @@ function Login({ abierto, cerrar }) {
                   {contador("apellido")} {formulario.apellido.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.apellido && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        apellidoValido
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {apellidoValido
-                      ? "✓ Apellido válido"
-                      : "✕ Ingresa un apellido válido."}
-                  </p>
+                {mensajeCampo(
+                  "apellido",
+                  apellidoValido,
+                  formulario.apellido.trim()
+                    ? "El apellido no puede tener más de 30 caracteres."
+                    : "Ingresa tu apellido."
                 )}
               </div>
 
@@ -855,6 +893,7 @@ function Login({ abierto, cerrar }) {
                   name="tipoDocumento"
                   value={formulario.tipoDocumento}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   className={claseInput(
                     "tipoDocumento",
                     formulario.tipoDocumento !== ""
@@ -881,14 +920,10 @@ function Login({ abierto, cerrar }) {
                   </option>
                 </select>
 
-                {formulario.tipoDocumento ? (
-                  <p className="mt-1 text-sm text-green-400">
-                    ✓ Tipo de documento seleccionado
-                  </p>
-                ) : (
-                  <p className="mt-1 text-sm text-red-400">
-                    ✕ Selecciona el tipo de documento.
-                  </p>
+                {mensajeCampo(
+                  "tipoDocumento",
+                  formulario.tipoDocumento !== "",
+                  "Selecciona el tipo de documento."
                 )}
               </div>
 
@@ -936,6 +971,7 @@ function Login({ abierto, cerrar }) {
                   name="numeroDocumento"
                   value={formulario.numeroDocumento}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Número de documento"
                   maxLength={15}
                   inputMode="numeric"
@@ -949,28 +985,18 @@ function Login({ abierto, cerrar }) {
                   {contador("numeroDocumento")} {formulario.numeroDocumento.length >= 15 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.numeroDocumento && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        documentoValido
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {documentoValido
-                      ? "✓ Número de documento válido"
-                      : !/^\d+$/.test(
-                          formulario.numeroDocumento
-                        )
-                      ? "✕ Solo se permiten números."
-                      : formulario.numeroDocumento.length < 10
-                      ? "✕ Debe tener mínimo 10 números."
-                      : "✕ Debe tener máximo 15 números."}
-                  </p>
+                {mensajeCampo(
+                  "numeroDocumento",
+                  documentoValido,
+                  !formulario.numeroDocumento
+                    ? "Ingresa tu número de documento."
+                    : !/^\d+$/.test(
+                        formulario.numeroDocumento
+                      )
+                    ? "Solo se permiten números."
+                    : formulario.numeroDocumento.length < 10
+                    ? "Debe tener mínimo 10 números."
+                    : "Debe tener máximo 15 números."
                 )}
               </div>
 
@@ -986,6 +1012,7 @@ function Login({ abierto, cerrar }) {
                   name="direccion"
                   value={formulario.direccion}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Ingresa tu dirección"
                   maxLength={30}
                   className={claseInput(
@@ -998,22 +1025,14 @@ function Login({ abierto, cerrar }) {
                   {contador("direccion")} {formulario.direccion.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.direccion && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        direccionValida
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {direccionValida
-                      ? "✓ Dirección válida"
-                      : "✕ Ingresa una dirección válida."}
-                  </p>
+                {mensajeCampo(
+                  "direccion",
+                  direccionValida,
+                  !formulario.direccion.trim()
+                    ? "Ingresa tu dirección."
+                    : formulario.direccion.length < 6
+                    ? "La dirección debe tener mínimo 6 caracteres."
+                    : "La dirección no puede tener más de 30 caracteres."
                 )}
               </div>
 
@@ -1029,6 +1048,7 @@ function Login({ abierto, cerrar }) {
                   name="telefono"
                   value={formulario.telefono}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Número de teléfono"
                   maxLength={15}
                   inputMode="numeric"
@@ -1042,28 +1062,18 @@ function Login({ abierto, cerrar }) {
                   {contador("telefono")} {formulario.telefono.length >= 15 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.telefono && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        telefonoValido
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {telefonoValido
-                      ? "✓ Teléfono válido"
-                      : !/^\d+$/.test(
-                          formulario.telefono
-                        )
-                      ? "✕ Solo se permiten números."
-                      : formulario.telefono.length < 7
-                      ? "✕ Debe tener mínimo 7 números."
-                      : "✕ Debe tener máximo 15 números."}
-                  </p>
+                {mensajeCampo(
+                  "telefono",
+                  telefonoValido,
+                  !formulario.telefono
+                    ? "Ingresa tu número de teléfono."
+                    : !/^\d+$/.test(
+                        formulario.telefono
+                      )
+                    ? "Solo se permiten números."
+                    : formulario.telefono.length < 7
+                    ? "Debe tener mínimo 7 números."
+                    : "Debe tener máximo 15 números."
                 )}
               </div>
 
@@ -1079,6 +1089,7 @@ function Login({ abierto, cerrar }) {
                   name="correo"
                   value={formulario.correo}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Ingresa tu correo"
                   className={claseInput(
                     "correo",
@@ -1090,22 +1101,13 @@ function Login({ abierto, cerrar }) {
                   {contador("correo")} {formulario.correo.length >= 150 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.correo && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        validarCorreo(formulario.correo)
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {validarCorreo(formulario.correo)
-                      ? "✓ Correo válido"
-                      : "✕ Correo electrónico inválido"}
-                  </p>
+                {mensajeCampo(
+                  "correo",
+                  validarCorreo(formulario.correo),
+                  !formulario.correo
+                    ? "Ingresa tu correo electrónico."
+                    : "Ingresa un correo electrónico válido.",
+                  "Correo válido"
                 )}
               </div>
 
@@ -1121,6 +1123,7 @@ function Login({ abierto, cerrar }) {
                   name="password"
                   value={formulario.password}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Ingresa tu contraseña"
                   className={claseInput(
                     "password",
@@ -1174,6 +1177,14 @@ function Login({ abierto, cerrar }) {
                     </p>
                   </div>
                 )}
+
+                {formulario.password &&
+                  !passwordValida && (
+                    <p className="mt-1 text-sm text-red-400">
+                      ✕ Completa todos los requisitos de la
+                      contraseña.
+                    </p>
+                  )}
               </div>
 
               {/* CONFIRMAR PASSWORD */}
@@ -1188,6 +1199,7 @@ function Login({ abierto, cerrar }) {
                   name="confirmarPassword"
                   value={formulario.confirmarPassword}
                   onChange={manejarCambio}
+                  onBlur={marcarTocado}
                   placeholder="Confirma tu contraseña"
                   className={claseInput(
                     "confirmarPassword",
@@ -1199,22 +1211,13 @@ function Login({ abierto, cerrar }) {
                   {contador("confirmarPassword")} {formulario.confirmarPassword.length >= 10 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
-                {formulario.confirmarPassword && (
-                  <p
-                    className={`
-                      mt-1
-                      text-sm
-                      ${
-                        confirmarPasswordValida
-                          ? "text-green-400"
-                          : "text-red-400"
-                      }
-                    `}
-                  >
-                    {confirmarPasswordValida
-                      ? "✓ Las contraseñas coinciden"
-                      : "✕ Las contraseñas no coinciden"}
-                  </p>
+                {mensajeCampo(
+                  "confirmarPassword",
+                  confirmarPasswordValida,
+                  !formulario.confirmarPassword
+                    ? "Confirma tu contraseña."
+                    : "Las contraseñas no coinciden.",
+                  "Las contraseñas coinciden"
                 )}
               </div>
 
