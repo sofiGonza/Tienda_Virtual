@@ -85,7 +85,14 @@ def listar_facturas(
     if numero:
         q = q.filter(Factura.numero.contains(numero))
     if estado:
-        q = q.filter(Factura.estado == estado)
+        # El filtro de estado cubre tanto el estado de la factura
+        # (emitida/anulada) como el estado del origen (venta o pedido):
+        # registrada, pendiente, procesando, enviado, entregado, cancelado...
+        q = q.filter(
+            (Factura.estado == estado)
+            | (Venta.estado == estado)
+            | (Pedido.estado == estado)
+        )
     if fecha:
         try:
             dia = date.fromisoformat(fecha)

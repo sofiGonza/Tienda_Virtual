@@ -5,7 +5,18 @@ import Paginador, { usePaginacion } from "../../components/panel/Paginador";
 const formatoPrecio = (v) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(v || 0);
 
-const OPCIONES_ESTADO = ["emitida", "anulada"];
+const OPCIONES_ESTADO = [
+  // Estados propios de la factura
+  "emitida",
+  "anulada",
+  // Estados del pedido/venta de origen
+  "registrada",
+  "pendiente",
+  "procesando",
+  "enviado",
+  "entregado",
+  "cancelado",
+];
 
 function Facturas() {
   const [items, setItems] = useState([]);
