@@ -118,6 +118,12 @@ function DashboardCliente() {
         >
           📄 Ver facturas
         </button>
+        <button
+          onClick={() => navigate("/productos")}
+          className="rounded-xl border border-gray-600 px-6 py-3 font-bold text-gray-300 transition hover:bg-gray-800"
+        >
+          🛍️ Ver productos
+        </button>
       </div>
 
       {/* GRÁFICOS ADICIONALES */}
