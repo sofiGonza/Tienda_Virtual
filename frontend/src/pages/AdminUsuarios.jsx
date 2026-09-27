@@ -261,6 +261,44 @@ function AdminUsuarios() {
 
 
   // =====================================================
+  // VALIDACIÓN PREVIA (mismos límites que el backend)
+  // =====================================================
+
+  const validarFormularioUsuario = () => {
+    const v = formulario;
+
+    const camposObligatorios = [
+      ["nombre", "Nombre"],
+      ["apellido", "Apellido"],
+      ["tipoDocumento", "Tipo de documento"],
+      ["numeroDocumento", "Número de documento"],
+      ["direccion", "Dirección"],
+      ["telefono", "Teléfono"],
+      ["correo", "Correo electrónico"],
+      ["password", "Contraseña"],
+    ];
+
+    for (const [campo, etiqueta] of camposObligatorios) {
+      if (!v[campo] || !String(v[campo]).trim()) {
+        return `El campo "${etiqueta}" es obligatorio.`;
+      }
+    }
+
+    if (v.nombre.length < 2) return "El nombre debe tener al menos 2 caracteres.";
+    if (v.apellido.length < 2) return "El apellido debe tener al menos 2 caracteres.";
+    if (!/^\d+$/.test(v.numeroDocumento)) return "El número de documento solo debe contener números.";
+    if (v.numeroDocumento.length < 5) return "El número de documento debe tener al menos 5 números.";
+    if (v.direccion.length < 5) return "La dirección debe tener al menos 5 caracteres.";
+    if (!/^\d+$/.test(v.telefono)) return "El teléfono solo debe contener números.";
+    if (v.telefono.length < 7) return "El teléfono debe tener al menos 7 números.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.correo)) return "Ingresa un correo electrónico válido.";
+    if (v.password.length < 6) return "La contraseña debe tener al menos 6 caracteres.";
+
+    return "";
+  };
+
+
+  // =====================================================
   // GUARDAR
   // =====================================================
 
@@ -276,6 +314,22 @@ function AdminUsuarios() {
 
 
       if (!token) {
+        return;
+      }
+
+
+      // =====================================================
+      // VALIDACIÓN PREVIA (mismos límites que el backend)
+      // =====================================================
+
+      const errorValidacion = validarFormularioUsuario();
+
+      if (errorValidacion) {
+        mostrarNotificacion(
+          "Faltan datos",
+          errorValidacion,
+          "⚠️"
+        );
         return;
       }
 
@@ -405,8 +459,17 @@ function AdminUsuarios() {
 
       if (!respuesta.ok) {
 
+        // En un 422, FastAPI devuelve detail como ARRAY de errores.
+        // Convertimos a texto legible en vez de "[object Object]".
+
+        const detalle = Array.isArray(datos.detail)
+          ? datos.detail
+              .map((d) => d.msg || JSON.stringify(d))
+              .join(" · ")
+          : datos.detail;
+
         throw new Error(
-          datos.detail ||
+          detalle ||
           "No se pudo guardar el usuario"
         );
 
