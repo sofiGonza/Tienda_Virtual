@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TarjetaNotificacion from "../components/TarjetaNotificacion";
+import TarjetaConfirmacion from "../components/TarjetaConfirmacion";
 import { obtenerSesion } from "../Services/AuthService";
 import API_URL from "../Services/api";
 
@@ -36,6 +37,7 @@ function AdminProductos() {
   const [productoEditar, setProductoEditar] = useState(null);
   const [rolUsuario, setRolUsuario] = useState("");
   const [notificacion, setNotificacion] = useState(null);
+  const [confirmarEliminar, setConfirmarEliminar] = useState(null);
 
   const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
     setNotificacion({ titulo, mensaje, emoji });
@@ -196,7 +198,7 @@ function AdminProductos() {
   };
 
   // ELIMINAR PRODUCTO (SOLO ADMIN)
-  const eliminarProducto = async (id) => {
+  const pedirEliminarProducto = (id, nombre) => {
     if (rolUsuario !== "administrador") {
       mostrarNotificacion(
         "Permiso denegado",
@@ -206,17 +208,18 @@ function AdminProductos() {
       return;
     }
 
-    const confirmar = window.confirm(
-      "¿Estás seguro de eliminar este producto?"
-    );
-    if (!confirmar) return;
+    setConfirmarEliminar({ id, nombre });
+  };
+
+  const eliminarProducto = async () => {
+    if (!confirmarEliminar) return;
 
     try {
       const token = obtenerToken();
       if (!token) return;
 
       const respuesta = await fetch(
-        `${API_URL}/productos/${id}`,
+        `${API_URL}/productos/${confirmarEliminar.id}`,
         {
           method: "DELETE",
           headers: {
@@ -232,9 +235,11 @@ function AdminProductos() {
       }
 
       mostrarNotificacion("Producto eliminado", "Se quitó del catálogo.");
+      setConfirmarEliminar(null);
       cargarProductos();
     } catch (error) {
       console.error("Error eliminando producto:", error);
+      setConfirmarEliminar(null);
       mostrarNotificacion("Error", error.message, "❌");
     }
   };
@@ -351,7 +356,7 @@ function AdminProductos() {
 
                     {rolUsuario === "administrador" && (
                       <button
-                        onClick={() => eliminarProducto(producto.id)}
+                        onClick={() => pedirEliminarProducto(producto.id, producto.nombre)}
                         className="flex-1 rounded-lg bg-red-500 px-3 py-2 font-bold text-white transition hover:bg-red-400"
                       >
                         🗑️ Eliminar
@@ -463,6 +468,19 @@ function AdminProductos() {
           onCerrar={() => setNotificacion(null)}
         />
       )}
+
+      {/* TARJETA DE CONFIRMACIÓN DE ELIMINACIÓN */}
+      <TarjetaConfirmacion
+        abierto={!!confirmarEliminar}
+        titulo="¿Eliminar producto?"
+        mensaje={confirmarEliminar
+          ? `¿Seguro que deseas eliminar "${confirmarEliminar.nombre}" del catálogo?`
+          : ""}
+        confirmarTexto="Sí, eliminar"
+        cancelarTexto="Cancelar"
+        onConfirmar={eliminarProducto}
+        onCancelar={() => setConfirmarEliminar(null)}
+      />
     </section>
   );
 }

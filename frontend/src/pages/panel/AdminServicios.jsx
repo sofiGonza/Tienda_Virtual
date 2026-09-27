@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listarServicios, crearServicio, actualizarServicio, eliminarServicio } from "../../Services/servicios";
 import { obtenerSesion } from "../../Services/AuthService";
+import TarjetaConfirmacion from "../../components/TarjetaConfirmacion";
 
 const formatoPrecio = (v) =>
   new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(v || 0);
@@ -12,6 +13,7 @@ function AdminServicios() {
   const [form, setForm] = useState(formVacio);
   const [editando, setEditando] = useState(null);
   const [msg, setMsg] = useState({ tipo: "", texto: "" });
+  const [confirmarEliminar, setConfirmarEliminar] = useState(null);
   const [cargando, setCargando] = useState(true);
   const rol = obtenerSesion()?.rol?.toLowerCase();
   const esAdmin = rol === "administrador";
@@ -57,12 +59,19 @@ function AdminServicios() {
   };
 
   const eliminar = async (id) => {
-    if (!window.confirm("¿Eliminar este servicio?")) return;
+    const servicio = items.find((s) => s.id === id);
+    setConfirmarEliminar(servicio || { id });
+  };
+
+  const confirmarEliminarServicio = async () => {
+    if (!confirmarEliminar) return;
     try {
-      await eliminarServicio(id);
+      await eliminarServicio(confirmarEliminar.id);
+      setConfirmarEliminar(null);
       setMsg({ tipo: "ok", texto: "✅ Servicio eliminado." });
       cargar();
     } catch (x) {
+      setConfirmarEliminar(null);
       setMsg({ tipo: "error", texto: x.message });
     }
   };
@@ -173,6 +182,19 @@ function AdminServicios() {
           </table>
         </div>
       )}
+
+      {/* TARJETA DE CONFIRMACIÓN DE ELIMINACIÓN */}
+      <TarjetaConfirmacion
+        abierto={!!confirmarEliminar}
+        titulo="¿Eliminar servicio?"
+        mensaje={confirmarEliminar
+          ? `¿Seguro que deseas eliminar el servicio "${confirmarEliminar.nombre || ""}"?`
+          : ""}
+        confirmarTexto="Sí, eliminar"
+        cancelarTexto="Cancelar"
+        onConfirmar={confirmarEliminarServicio}
+        onCancelar={() => setConfirmarEliminar(null)}
+      />
     </section>
   );
 }

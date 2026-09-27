@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Paginador, { usePaginacion } from "../components/panel/Paginador";
 import TarjetaNotificacion from "../components/TarjetaNotificacion";
+import TarjetaConfirmacion from "../components/TarjetaConfirmacion";
 
 import {
   obtenerSesion
@@ -31,6 +32,9 @@ function AdminUsuarios() {
     useState(null);
 
   const [notificacion, setNotificacion] =
+    useState(null);
+
+  const [confirmarEliminar, setConfirmarEliminar] =
     useState(null);
 
   const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
@@ -651,16 +655,14 @@ function AdminUsuarios() {
     usuario
   ) => {
 
-    if (
-      !window.confirm(
-        `¿Eliminar a ${usuario.nombre} ${usuario.apellido}?`
-      )
-    ) {
+    setConfirmarEliminar(usuario);
 
-      return;
+  };
 
-    }
 
+  const confirmarEliminarUsuario = async () => {
+
+    if (!confirmarEliminar) return;
 
     try {
 
@@ -676,7 +678,7 @@ function AdminUsuarios() {
       const respuesta =
         await fetch(
 
-          `${API_URL}/usuarios/${usuario.id}`,
+          `${API_URL}/usuarios/${confirmarEliminar.id}`,
 
           {
 
@@ -710,15 +712,17 @@ function AdminUsuarios() {
 
       mostrarNotificacion(
         "Usuario eliminado",
-        `Se desactivó a ${usuario.nombre} ${usuario.apellido}.`
+        `Se desactivó a ${confirmarEliminar.nombre} ${confirmarEliminar.apellido}.`
       );
 
 
+      setConfirmarEliminar(null);
       cargarUsuarios();
 
 
     } catch (error) {
 
+      setConfirmarEliminar(null);
       mostrarNotificacion(
         "Error",
         error.message,
@@ -1703,6 +1707,19 @@ function AdminUsuarios() {
           onCerrar={() => setNotificacion(null)}
         />
       )}
+
+      {/* TARJETA DE CONFIRMACIÓN DE ELIMINACIÓN */}
+      <TarjetaConfirmacion
+        abierto={!!confirmarEliminar}
+        titulo="¿Eliminar usuario?"
+        mensaje={confirmarEliminar
+          ? `¿Seguro que deseas eliminar a ${confirmarEliminar.nombre} ${confirmarEliminar.apellido}?`
+          : ""}
+        confirmarTexto="Sí, eliminar"
+        cancelarTexto="Cancelar"
+        onConfirmar={confirmarEliminarUsuario}
+        onCancelar={() => setConfirmarEliminar(null)}
+      />
 
     </section>
 
