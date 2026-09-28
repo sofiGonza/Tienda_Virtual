@@ -46,6 +46,11 @@ function Login({ abierto, cerrar }) {
 
   const [tocados, setTocados] = useState({});
 
+  // Se activa cuando el usuario pulsa "Registrarse"; hace que los campos
+  // vacíos se marquen en rojo con "campo obligatorio" debajo.
+
+  const [intentoEnvio, setIntentoEnvio] = useState(false);
+
   // ==========================================
   // REINICIAR AL CERRAR
   // ==========================================
@@ -58,6 +63,7 @@ function Login({ abierto, cerrar }) {
       setModo("login");
       setFormulario(formularioInicial);
       setTocados({});
+      setIntentoEnvio(false);
       setMensaje("");
       setError("");
       setCargando(false);
@@ -270,6 +276,7 @@ function Login({ abierto, cerrar }) {
     const errores = obtenerErroresRegistro();
 
     if (Object.keys(errores).length > 0) {
+      setIntentoEnvio(true);
       setError(
         "Corrige los campos marcados antes de continuar."
       );
@@ -317,6 +324,7 @@ function Login({ abierto, cerrar }) {
 
       setFormulario(formularioInicial);
       setTocados({});
+      setIntentoEnvio(false);
 
       setTimeout(() => {
         setModo("login");
@@ -424,6 +432,7 @@ function Login({ abierto, cerrar }) {
     setMensaje("");
     setFormulario(formularioInicial);
     setTocados({});
+    setIntentoEnvio(false);
   };
 
   // ==========================================
@@ -439,9 +448,9 @@ function Login({ abierto, cerrar }) {
   // ==========================================
 
   const claseInput = (campo, valido) => {
-    // El campo aún no se ha tocado: estilo neutro.
+    // El campo aún no se ha tocado ni hubo intento de envío: estilo neutro.
 
-    if (!tocados[campo] && !formulario[campo]) {
+    if (!tocados[campo] && !formulario[campo] && !intentoEnvio) {
       return `
         w-full
         rounded-lg
@@ -457,7 +466,8 @@ function Login({ abierto, cerrar }) {
       `;
     }
 
-    // El campo ya se tocó (o tiene texto): verde si todo está bien, rojo si falta algo.
+    // El campo ya se tocó (o hay texto, o hubo intento de envío):
+    // verde si todo está bien, rojo si falta algo.
 
     return `
       w-full
@@ -493,7 +503,14 @@ function Login({ abierto, cerrar }) {
   // Letrerito debajo del campo: el error específico que falta.
 
   const mensajeCampo = (campo, valido, mensajeInvalido, mensajeValido = null) => {
-    if (!tocados[campo] && !formulario[campo]) {
+    const vacio =
+      !formulario[campo] ||
+      (typeof formulario[campo] === "string" &&
+        !formulario[campo].trim());
+
+    // Sin tocar y sin intento de envío: no se muestra nada.
+
+    if (!tocados[campo] && !intentoEnvio) {
       return null;
     }
 
@@ -501,6 +518,16 @@ function Login({ abierto, cerrar }) {
       return (
         <p className="mt-1 text-sm text-green-400">
           ✓ {mensajeValido || "Campo válido"}
+        </p>
+      );
+    }
+
+    // Tras pulsar "Registrarse", un campo vacío dice "campo obligatorio".
+
+    if (vacio && intentoEnvio) {
+      return (
+        <p className="mt-1 text-sm text-red-400">
+          ✕ Campo obligatorio
         </p>
       );
     }
@@ -1152,6 +1179,12 @@ function Login({ abierto, cerrar }) {
                 <p className="mt-1 text-right text-xs text-gray-500">
                   {contador("password")} {formulario.password.length >= 10 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
+
+                {!formulario.password && intentoEnvio && (
+                  <p className="mt-1 text-sm text-red-400">
+                    ✕ Campo obligatorio
+                  </p>
+                )}
 
                 {formulario.password && (
                   <div className="mt-2 space-y-1 text-sm">
