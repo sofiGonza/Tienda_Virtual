@@ -24,6 +24,9 @@ class Settings(BaseSettings):
 
     FRONTEND_URL: str = "https://tienda-virtual-mocha.vercel.app"
 
+    # URL pública del backend (para enlazar imágenes estáticas en correos).
+    BACKEND_URL: str = ""
+
     # Configuración SMTP para recuperación de contraseña.
     # Se dejan vacíos por defecto para que el desarrollo local no dependa
     # de un proveedor de correo hasta configurar las variables en .env.

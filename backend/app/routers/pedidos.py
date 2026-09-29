@@ -24,6 +24,10 @@ from app.schemas.pedido import PedidoResponse
 from app.core.dependencies import obtener_usuario_actual
 from app.core.dependencies import verificar_roles
 
+from app.core.config import settings
+from app.core.email import EmailDeliveryError
+from app.core.email import enviar_actualizacion_pedido
+
 
 router = APIRouter(
     prefix="/api/pedidos",
@@ -460,6 +464,59 @@ def actualizar_estado_pedido(
 
     db.commit()
     db.refresh(pedido)
+
+    # ===== Notificar al cliente por correo (estilo Temu) =====
+    # Se intenta siempre; si el SMTP falla, la petición no se rompe.
+    if pedido.usuario and pedido.usuario.correo:
+        detalles_correo = []
+        for detalle in pedido.detalles:
+            if detalle.servicio_id:
+                servicio = (
+                    db.query(Servicio)
+                    .filter(Servicio.id == detalle.servicio_id)
+                    .first()
+                )
+                detalles_correo.append({
+                    "nombre": servicio.nombre if servicio else "Servicio",
+                    "imagen": None,
+                    "cantidad": detalle.cantidad,
+                    "precio_unitario": detalle.precio_unitario,
+                    "subtotal": detalle.subtotal,
+                })
+            else:
+                producto = (
+                    db.query(Producto)
+                    .filter(Producto.id == detalle.producto_id)
+                    .first()
+                )
+                detalles_correo.append({
+                    "nombre": producto.nombre if producto else "Producto",
+                    "imagen": producto.imagen if producto else None,
+                    "cantidad": detalle.cantidad,
+                    "precio_unitario": detalle.precio_unitario,
+                    "subtotal": detalle.subtotal,
+                })
+        try:
+            enviar_actualizacion_pedido(
+                destinatario=pedido.usuario.correo,
+                nombre_cliente=(
+                    f"{pedido.usuario.nombre} {pedido.usuario.apellido}".strip()
+                    or "cliente"
+                ),
+                numero_pedido=pedido.id,
+                estado=pedido.estado,
+                detalles=detalles_correo,
+                total=pedido.total,
+                base_url=(settings.BACKEND_URL or "").rstrip("/"),
+            )
+        except EmailDeliveryError as error:
+            # No se bloquea el cambio de estado: solo se registra.
+            import logging
+            logging.getLogger("pedidos").warning(
+                "No se pudo notificar el estado del pedido %s: %s",
+                pedido.id,
+                error,
+            )
 
     return _serializar_pedido(db, pedido)
 
