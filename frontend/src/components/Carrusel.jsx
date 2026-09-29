@@ -149,7 +149,7 @@ function Carrusel() {
               flex-col
               justify-center
               items-center
-              text-texto
+              text-white
               text-center
               px-5
             "
@@ -197,7 +197,7 @@ function Carrusel() {
           rounded-full
 
           bg-black/45
-          text-texto
+          text-white
 
           text-[28px]
 
@@ -233,7 +233,7 @@ function Carrusel() {
           rounded-full
 
           bg-black/45
-          text-texto
+          text-white
 
           text-[28px]
 

@@ -137,7 +137,7 @@ function Index() {
 
                 <h3
                   className="
-                    text-texto
+                    text-white
                     text-2xl
                     font-bold
                   "
@@ -145,7 +145,7 @@ function Index() {
                   {categoria.titulo}
                 </h3>
 
-                <p className="text-texto mt-2">
+                <p className="text-white mt-2">
                   {categoria.texto}
                 </p>
 

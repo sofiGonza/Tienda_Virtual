@@ -33,7 +33,7 @@ function Quienes() {
           justify-center
           items-center
 
-          text-texto
+          text-white
           text-center
 
           [text-shadow:2px_2px_5px_black]
