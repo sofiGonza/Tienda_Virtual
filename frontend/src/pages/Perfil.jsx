@@ -262,8 +262,8 @@ function Perfil() {
           min-h-[60vh]
           items-center
           justify-center
-          bg-gray-950
-          text-white
+          bg-fondo
+          text-texto
         "
       >
 
@@ -287,7 +287,7 @@ function Perfil() {
     <section
       className="
         min-h-screen
-        bg-gray-950
+        bg-fondo
         px-6
         py-16
       "
@@ -332,7 +332,7 @@ function Perfil() {
             className="
               text-4xl
               font-bold
-              text-white
+              text-texto
             "
           >
             Mi Perfil
@@ -342,7 +342,7 @@ function Perfil() {
           <p
             className="
               mt-2
-              text-gray-400
+              text-texto-tenue
             "
           >
             Administra la información de tu cuenta
@@ -358,8 +358,8 @@ function Perfil() {
             mb-8
             rounded-2xl
             border
-            border-gray-700
-            bg-[#1b2740e0]
+            border-borde
+            bg-superficie
             p-8
             shadow-xl
           "
@@ -369,7 +369,7 @@ function Perfil() {
             className="
               mb-8
               border-b
-              border-gray-700
+              border-borde
               pb-5
             "
           >
@@ -392,7 +392,7 @@ function Perfil() {
                 mt-1
                 text-2xl
                 font-bold
-                text-white
+                text-texto
               "
             >
               Datos personales
@@ -418,7 +418,7 @@ function Perfil() {
                 className="
                   text-sm
                   font-semibold
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Nombre completo
@@ -429,7 +429,7 @@ function Perfil() {
                   mt-1
                   text-lg
                   font-semibold
-                  text-white
+                  text-texto
                 "
               >
                 {usuario.nombre} {usuario.apellido}
@@ -446,7 +446,7 @@ function Perfil() {
                 className="
                   text-sm
                   font-semibold
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Tipo de documento
@@ -457,7 +457,7 @@ function Perfil() {
                   mt-1
                   text-lg
                   font-semibold
-                  text-white
+                  text-texto
                 "
               >
                 {usuario.tipoDocumento || "No disponible"}
@@ -474,7 +474,7 @@ function Perfil() {
                 className="
                   text-sm
                   font-semibold
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Número de documento
@@ -485,7 +485,7 @@ function Perfil() {
                   mt-1
                   text-lg
                   font-semibold
-                  text-white
+                  text-texto
                 "
               >
                 {usuario.numeroDocumento || "No disponible"}
@@ -502,7 +502,7 @@ function Perfil() {
                 className="
                   text-sm
                   font-semibold
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Correo electrónico
@@ -514,7 +514,7 @@ function Perfil() {
                   break-all
                   text-lg
                   font-semibold
-                  text-white
+                  text-texto
                 "
               >
                 {usuario.correo}
@@ -531,7 +531,7 @@ function Perfil() {
                 className="
                   text-sm
                   font-semibold
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Rol
@@ -567,8 +567,8 @@ function Perfil() {
             mb-8
             rounded-2xl
             border
-            border-gray-700
-            bg-[#1b2740e0]
+            border-borde
+            bg-superficie
             p-8
             shadow-xl
           "
@@ -606,7 +606,7 @@ function Perfil() {
                   mt-1
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 Cambiar contraseña
@@ -617,7 +617,7 @@ function Perfil() {
                 className="
                   mt-1
                   text-sm
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Actualiza la contraseña de tu cuenta.
@@ -696,7 +696,7 @@ function Perfil() {
                   block
                   text-sm
                   font-semibold
-                  text-gray-300
+                  text-texto-suave
                 "
               >
                 Contraseña actual
@@ -715,11 +715,11 @@ function Perfil() {
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-gray-900
+                  border-borde
+                  bg-fondo
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   transition
                   focus:border-cyan-400
@@ -741,7 +741,7 @@ function Perfil() {
                   block
                   text-sm
                   font-semibold
-                  text-gray-300
+                  text-texto-suave
                 "
               >
                 Nueva contraseña
@@ -760,11 +760,11 @@ function Perfil() {
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-gray-900
+                  border-borde
+                  bg-fondo
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   transition
                   focus:border-cyan-400
@@ -786,7 +786,7 @@ function Perfil() {
                   block
                   text-sm
                   font-semibold
-                  text-gray-300
+                  text-texto-suave
                 "
               >
                 Confirmar nueva contraseña
@@ -805,11 +805,11 @@ function Perfil() {
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-gray-900
+                  border-borde
+                  bg-fondo
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   transition
                   focus:border-cyan-400
@@ -827,8 +827,8 @@ function Perfil() {
               className="
                 rounded-xl
                 border
-                border-gray-700
-                bg-gray-900/60
+                border-borde
+                bg-fondo/60
                 p-4
               "
             >
@@ -838,7 +838,7 @@ function Perfil() {
                   mb-2
                   text-sm
                   font-semibold
-                  text-gray-300
+                  text-texto-suave
                 "
               >
                 La nueva contraseña debe tener:
@@ -848,7 +848,7 @@ function Perfil() {
                 className="
                   space-y-1
                   text-sm
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
 
@@ -899,7 +899,7 @@ function Perfil() {
                 px-5
                 py-3
                 font-bold
-                text-gray-900
+                text-[#06202e]
                 transition
                 hover:bg-cyan-300
                 disabled:cursor-not-allowed
@@ -929,7 +929,7 @@ function Perfil() {
             px-5
             py-4
             font-bold
-            text-gray-900
+            text-[#06202e]
             transition
             hover:bg-cyan-300
           "

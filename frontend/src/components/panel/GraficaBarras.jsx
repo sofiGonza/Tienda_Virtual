@@ -15,12 +15,12 @@ function GraficaBarras({ items, maxValue, formato }) {
         return (
           <div key={idx}>
             <div className="mb-1 flex items-center justify-between text-sm">
-              <span className="capitalize text-gray-300">{item.label}</span>
-              <span className={`font-semibold ${esPerdida ? "text-red-400" : "text-white"}`}>
+              <span className="capitalize text-texto-suave">{item.label}</span>
+              <span className={`font-semibold ${esPerdida ? "text-red-400" : "text-texto"}`}>
                 {formato ? formato(item.value) : item.value}
               </span>
             </div>
-            <div className="h-3 w-full overflow-hidden rounded-full bg-gray-800">
+            <div className="h-3 w-full overflow-hidden rounded-full bg-superficie-2">
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{ width: `${ancho}%`, backgroundColor: color }}

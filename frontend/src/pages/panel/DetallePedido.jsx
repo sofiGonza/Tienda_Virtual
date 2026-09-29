@@ -34,7 +34,7 @@ function DetallePedido() {
   }, [id]);
 
   if (error) return <p className="p-10 text-red-400">{error}</p>;
-  if (!pedido) return <p className="p-10 text-white">Cargando detalle...</p>;
+  if (!pedido) return <p className="p-10 text-texto">Cargando detalle...</p>;
 
   const detalles = pedido.detalles || [];
 
@@ -42,41 +42,41 @@ function DetallePedido() {
     <div className="p-8">
       <button
         onClick={() => navigate(-1)}
-        className="mb-4 rounded-lg border border-gray-600 px-4 py-2 text-sm font-bold text-gray-300 hover:bg-gray-800"
+        className="mb-4 rounded-lg border border-borde px-4 py-2 text-sm font-bold text-texto-suave hover:bg-superficie-2"
       >
         ← Volver
       </button>
 
       <header className="mb-6">
-        <h1 className="text-3xl font-bold text-white">🧾 Detalle del pedido</h1>
-        <p className="mt-1 text-sm text-gray-400">
+        <h1 className="text-3xl font-bold text-texto">🧾 Detalle del pedido</h1>
+        <p className="mt-1 text-sm text-texto-tenue">
           Pedido #{String(pedido.id).padStart(3, "0")} ·{" "}
           {pedido.fecha ? new Date(pedido.fecha).toLocaleString("es-CO") : ""}
         </p>
       </header>
 
       {/* ESTADO */}
-      <div className="mb-6 rounded-2xl border border-gray-800 bg-[#111827] p-5">
-        <p className="text-sm text-gray-400">Estado</p>
-        <span className={`mt-2 inline-block rounded-full px-4 py-2 text-sm font-bold capitalize ${COLORES[pedido.estado] || "bg-gray-500/20 text-gray-400"}`}>
+      <div className="mb-6 rounded-2xl border border-borde bg-fondo p-5">
+        <p className="text-sm text-texto-tenue">Estado</p>
+        <span className={`mt-2 inline-block rounded-full px-4 py-2 text-sm font-bold capitalize ${COLORES[pedido.estado] || "bg-gray-500/20 text-texto-tenue"}`}>
           {pedido.estado}
         </span>
       </div>
 
       {/* PRODUCTOS */}
-      <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-        <h2 className="mb-4 text-lg font-bold text-white">🛍 Productos del pedido</h2>
+      <div className="rounded-2xl border border-borde bg-fondo p-6">
+        <h2 className="mb-4 text-lg font-bold text-texto">🛍 Productos del pedido</h2>
         {detalles.length === 0 ? (
-          <p className="text-sm text-gray-500">Sin productos registrados.</p>
+          <p className="text-sm text-texto-tenue">Sin productos registrados.</p>
         ) : (
           <div className="space-y-3">
             {detalles.map((d) => (
-              <div key={d.id} className="flex items-center justify-between rounded-xl bg-gray-900 px-4 py-3">
+              <div key={d.id} className="flex items-center justify-between rounded-xl bg-fondo px-4 py-3">
                 <div>
-                  <p className="font-semibold text-white">
+                  <p className="font-semibold text-texto">
                     {d.producto?.nombre || d.nombre || `Producto #${d.producto_id}`}
                   </p>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-texto-tenue">
                     {d.cantidad} × {formatoPrecio(d.precio_unitario)}
                   </p>
                 </div>
@@ -86,8 +86,8 @@ function DetallePedido() {
           </div>
         )}
 
-        <div className="mt-5 flex items-center justify-between border-t border-gray-800 pt-4">
-          <span className="text-gray-400">Total</span>
+        <div className="mt-5 flex items-center justify-between border-t border-borde pt-4">
+          <span className="text-texto-tenue">Total</span>
           <span className="text-2xl font-bold text-cyan-400">{formatoPrecio(pedido.total)}</span>
         </div>
       </div>

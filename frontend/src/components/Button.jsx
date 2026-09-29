@@ -11,22 +11,22 @@ function Button({
 
     primary: `
       bg-cyan-400
-      text-gray-900
+      text-[#06202e]
       hover:bg-cyan-300
     `,
 
     secondary: `
-      bg-[#1b2740e0]
-      text-white
+      bg-superficie
+      text-texto
       border
       border-cyan-400
       hover:bg-cyan-400
-      hover:text-gray-900
+      hover:text-[#06202e]
     `,
 
     danger: `
       bg-red-500
-      text-white
+      text-texto
       hover:bg-red-600
     `
 

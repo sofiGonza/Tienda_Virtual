@@ -29,7 +29,7 @@ function SectionTitle({
 
       <h2
         className="
-          text-white
+          text-texto
           text-3xl
           md:text-4xl
           font-bold
@@ -42,7 +42,7 @@ function SectionTitle({
       {subtitle && (
         <p
           className="
-            text-gray-400
+            text-texto-tenue
             text-base
             md:text-lg
             leading-relaxed

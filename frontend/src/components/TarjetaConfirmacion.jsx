@@ -42,7 +42,7 @@ function TarjetaConfirmacion({
           rounded-2xl
           border
           border-cyan-400/20
-          bg-[#0f172a]
+          bg-fondo
           text-center
           shadow-2xl
         "
@@ -52,7 +52,7 @@ function TarjetaConfirmacion({
         <div
           className="
             border-b
-            border-gray-800
+            border-borde
             bg-gradient-to-r
             from-[#111827]
             via-[#1b2740]
@@ -82,7 +82,7 @@ function TarjetaConfirmacion({
               mt-4
               text-2xl
               font-bold
-              text-white
+              text-texto
             "
           >
             {titulo}
@@ -92,7 +92,7 @@ function TarjetaConfirmacion({
               className="
                 mt-2
                 text-sm
-                text-gray-400
+                text-texto-tenue
               "
             >
               {mensaje}
@@ -109,14 +109,14 @@ function TarjetaConfirmacion({
               flex-1
               rounded-lg
               border
-              border-gray-600
+              border-borde
               px-4
               py-3
               font-bold
-              text-gray-300
+              text-texto-suave
               transition
-              hover:bg-gray-800
-              hover:text-white
+              hover:bg-superficie-2
+              hover:text-texto
             "
           >
             {cancelarTexto}

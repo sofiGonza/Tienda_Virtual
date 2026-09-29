@@ -30,7 +30,7 @@ function Index() {
           py-[80px]
           px-6
           text-center
-          bg-gray-950
+          bg-fondo
         "
       >
 
@@ -49,7 +49,7 @@ function Index() {
         className="
           py-[80px]
           px-6
-          bg-gray-900
+          bg-fondo
         "
       >
 
@@ -137,7 +137,7 @@ function Index() {
 
                 <h3
                   className="
-                    text-white
+                    text-texto
                     text-2xl
                     font-bold
                   "
@@ -145,7 +145,7 @@ function Index() {
                   {categoria.titulo}
                 </h3>
 
-                <p className="text-gray-200 mt-2">
+                <p className="text-texto mt-2">
                   {categoria.texto}
                 </p>
 
@@ -166,7 +166,7 @@ function Index() {
         className="
           py-[90px]
           px-6
-          bg-gray-950
+          bg-fondo
         "
       >
 
@@ -220,7 +220,7 @@ function Index() {
           py-[80px]
           px-6
           text-center
-          bg-gray-900
+          bg-fondo
         "
       >
 

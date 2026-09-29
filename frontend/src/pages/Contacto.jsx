@@ -10,7 +10,7 @@ function Contacto() {
         max-w-[1200px]
         mx-auto
         my-[50px]
-        text-white
+        text-texto
       "
     >
 
@@ -39,7 +39,7 @@ function Contacto() {
 
         <div
           className="
-            bg-gray-900
+            bg-fondo
             rounded-[15px]
             p-[35px]
             shadow-[0_8px_20px_rgba(0,0,0,0.2)]
@@ -67,18 +67,18 @@ function Contacto() {
               </span>
 
               <div>
-                <h3 className="mb-[5px] text-white font-bold">
+                <h3 className="mb-[5px] text-texto font-bold">
                   SENA Medellín – Avenida El Ferrocarril
                 </h3>
 
-                <p className="text-[#aeb4c0] leading-relaxed">
+                <p className="text-texto-tenue leading-relaxed">
                   Av. del Ferrocarril #51-23, La Candelaria, Medellín,
                   Antioquia
                 </p>
               </div>
             </div>
 
-            <div className="mt-[22px] overflow-hidden rounded-xl border border-gray-700 bg-gray-800 shadow-inner">
+            <div className="mt-[22px] overflow-hidden rounded-xl border border-borde bg-superficie-2 shadow-inner">
               <iframe
                 title="Mapa de la ubicación del SENA Medellín"
                 src="https://www.google.com/maps?q=SENA%20Medell%C3%ADn%20Avenida%20El%20Ferrocarril%20La%20Candelaria%20Medell%C3%ADn&output=embed"
@@ -119,14 +119,14 @@ function Contacto() {
               <h3
                 className="
                   mb-[5px]
-                  text-white
+                  text-texto
                   font-bold
                 "
               >
                 Teléfono
               </h3>
 
-              <p className="text-[#aeb4c0]">
+              <p className="text-texto-tenue">
                 +57 300 000 0000
               </p>
 
@@ -155,14 +155,14 @@ function Contacto() {
               <h3
                 className="
                   mb-[5px]
-                  text-white
+                  text-texto
                   font-bold
                 "
               >
                 Correo electrónico
               </h3>
 
-              <p className="text-[#aeb4c0]">
+              <p className="text-texto-tenue">
                 contacto@pixelstore.com
               </p>
 
@@ -191,14 +191,14 @@ function Contacto() {
               <h3
                 className="
                   mb-[5px]
-                  text-white
+                  text-texto
                   font-bold
                 "
               >
                 Horario de atención
               </h3>
 
-              <p className="text-[#aeb4c0]">
+              <p className="text-texto-tenue">
                 Lunes a viernes: 8:00 AM - 6:00 PM
               </p>
 
@@ -213,7 +213,7 @@ function Contacto() {
 
         <div
           className="
-            bg-gray-900
+            bg-fondo
             rounded-[15px]
             p-[35px]
             shadow-[0_8px_20px_rgba(0,0,0,0.2)]
@@ -244,7 +244,7 @@ function Contacto() {
             <label
               className="
                 mb-2
-                text-gray-200
+                text-texto
                 font-bold
               "
             >
@@ -258,17 +258,17 @@ function Contacto() {
                 p-[13px]
                 mb-5
                 border
-                border-gray-700
+                border-borde
                 rounded-lg
-                bg-gray-800
-                text-white
+                bg-superficie-2
+                text-texto
                 text-[15px]
                 font-[Arial,Helvetica,sans-serif]
 
                 focus:outline-none
                 focus:border-cyan-400
 
-                placeholder:text-gray-400
+                placeholder:text-texto-tenue
               "
             />
 
@@ -278,7 +278,7 @@ function Contacto() {
             <label
               className="
                 mb-2
-                text-gray-200
+                text-texto
                 font-bold
               "
             >
@@ -292,17 +292,17 @@ function Contacto() {
                 p-[13px]
                 mb-5
                 border
-                border-gray-700
+                border-borde
                 rounded-lg
-                bg-gray-800
-                text-white
+                bg-superficie-2
+                text-texto
                 text-[15px]
                 font-[Arial,Helvetica,sans-serif]
 
                 focus:outline-none
                 focus:border-cyan-400
 
-                placeholder:text-gray-400
+                placeholder:text-texto-tenue
               "
             />
 
@@ -312,7 +312,7 @@ function Contacto() {
             <label
               className="
                 mb-2
-                text-gray-200
+                text-texto
                 font-bold
               "
             >
@@ -326,17 +326,17 @@ function Contacto() {
                 p-[13px]
                 mb-5
                 border
-                border-gray-700
+                border-borde
                 rounded-lg
-                bg-gray-800
-                text-white
+                bg-superficie-2
+                text-texto
                 text-[15px]
                 font-[Arial,Helvetica,sans-serif]
 
                 focus:outline-none
                 focus:border-cyan-400
 
-                placeholder:text-gray-400
+                placeholder:text-texto-tenue
               "
             />
 
@@ -346,7 +346,7 @@ function Contacto() {
             <label
               className="
                 mb-2
-                text-gray-200
+                text-texto
                 font-bold
               "
             >
@@ -360,10 +360,10 @@ function Contacto() {
                 p-[13px]
                 mb-5
                 border
-                border-gray-700
+                border-borde
                 rounded-lg
-                bg-gray-800
-                text-white
+                bg-superficie-2
+                text-texto
                 text-[15px]
                 font-[Arial,Helvetica,sans-serif]
                 resize-y
@@ -371,7 +371,7 @@ function Contacto() {
                 focus:outline-none
                 focus:border-cyan-400
 
-                placeholder:text-gray-400
+                placeholder:text-texto-tenue
               "
             ></textarea> <br />
 

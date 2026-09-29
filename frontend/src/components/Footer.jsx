@@ -11,8 +11,8 @@ function Footer() {
   return (
     <footer
       className="
-        bg-gray-900
-        text-white
+        bg-fondo
+        text-texto
         border-t-[3px]
         border-cyan-400
         mt-auto
@@ -80,7 +80,7 @@ function Footer() {
 
           <p
             className="
-              text-gray-300
+              text-texto-suave
               leading-relaxed
               text-[15px]
               max-w-[280px]
@@ -123,13 +123,13 @@ function Footer() {
 
         rounded-full
 
-        bg-gray-800
-        text-white
+        bg-superficie-2
+        text-texto
 
         transition
         duration-300
 
-        hover:bg-green-500
+        hover:bg-green-500 hover:text-white
         hover:scale-110
       "
     >
@@ -152,13 +152,13 @@ function Footer() {
 
         rounded-full
 
-        bg-gray-800
-        text-white
+        bg-superficie-2
+        text-texto
 
         transition
         duration-300
 
-        hover:bg-blue-600
+        hover:bg-blue-600 hover:text-white
         hover:scale-110
       "
     >
@@ -181,13 +181,13 @@ function Footer() {
 
         rounded-full
 
-        bg-gray-800
-        text-white
+        bg-superficie-2
+        text-texto
 
         transition
         duration-300
 
-        hover:bg-blue-500
+        hover:bg-blue-500 hover:text-white
         hover:scale-110
       "
     >
@@ -210,13 +210,13 @@ function Footer() {
 
         rounded-full
 
-        bg-gray-800
-        text-white
+        bg-superficie-2
+        text-texto
 
         transition
         duration-300
 
-        hover:bg-pink-500
+        hover:bg-pink-500 hover:text-white
         hover:scale-110
       "
     >
@@ -259,7 +259,7 @@ function Footer() {
               <a
                 href="/"
                 className="
-                  text-gray-300
+                  text-texto-suave
                   no-underline
                   transition
                   duration-300
@@ -274,7 +274,7 @@ function Footer() {
               <a
                 href="/quienes-somos"
                 className="
-                  text-gray-300
+                  text-texto-suave
                   no-underline
                   transition
                   duration-300
@@ -289,7 +289,7 @@ function Footer() {
               <a
                 href="/productos"
                 className="
-                  text-gray-300
+                  text-texto-suave
                   no-underline
                   transition
                   duration-300
@@ -304,7 +304,7 @@ function Footer() {
               <a
                 href="/contacto"
                 className="
-                  text-gray-300
+                  text-texto-suave
                   no-underline
                   transition
                   duration-300
@@ -344,19 +344,19 @@ function Footer() {
             "
           >
 
-            <li className="text-gray-300">
+            <li className="text-texto-suave">
               🚚 Envíos a todo el país
             </li>
 
-            <li className="text-gray-300">
+            <li className="text-texto-suave">
               🔒 Pagos seguros
             </li>
 
-            <li className="text-gray-300">
+            <li className="text-texto-suave">
               ⭐ Garantía oficial
             </li>
 
-            <li className="text-gray-300">
+            <li className="text-texto-suave">
               💻 Asesoría tecnológica
             </li>
 
@@ -388,15 +388,15 @@ function Footer() {
             "
           >
 
-            <div className="text-gray-300">
-              <p className="m-0 font-semibold text-white">
+            <div className="text-texto-suave">
+              <p className="m-0 font-semibold text-texto">
                 📍 SENA Medellín – Avenida El Ferrocarril
               </p>
-              <p className="mt-1 text-sm leading-relaxed text-gray-400">
+              <p className="mt-1 text-sm leading-relaxed text-texto-tenue">
                 Av. del Ferrocarril #51-23, La Candelaria, Medellín, Antioquia
               </p>
 
-              <div className="mt-3 overflow-hidden rounded-lg border border-gray-700 bg-gray-800">
+              <div className="mt-3 overflow-hidden rounded-lg border border-borde bg-superficie-2">
                 <iframe
                   title="Mapa del SENA Medellín en el footer"
                   src="https://www.google.com/maps?q=SENA%20Medell%C3%ADn%20Avenida%20El%20Ferrocarril%20La%20Candelaria%20Medell%C3%ADn&output=embed"
@@ -416,15 +416,15 @@ function Footer() {
               </a>
             </div>
 
-            <p className="text-gray-300 m-0">
+            <p className="text-texto-suave m-0">
               📞 +57 300 000 0000
             </p>
 
-            <p className="text-gray-300 m-0 break-all">
+            <p className="text-texto-suave m-0 break-all">
               ✉️ contacto@pixelstore.com
             </p>
 
-            <p className="text-gray-300 m-0">
+            <p className="text-texto-suave m-0">
               🕐 Lunes a viernes
               <br />
               &nbsp;&nbsp;&nbsp;&nbsp;8:00 AM - 6:00 PM
@@ -443,7 +443,7 @@ function Footer() {
       <div
         className="
           border-t
-          border-gray-700
+          border-borde
           py-5
           px-5
           text-center
@@ -452,7 +452,7 @@ function Footer() {
 
         <p
           className="
-            text-gray-400
+            text-texto-tenue
             text-sm
             m-0
           "

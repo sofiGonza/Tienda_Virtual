@@ -302,7 +302,7 @@ function PedidosAdmin({
 
     return (
       colores[estado] ||
-      "bg-gray-500/20 text-gray-400"
+      "bg-gray-500/20 text-texto-tenue"
     );
 
   };
@@ -316,7 +316,7 @@ function PedidosAdmin({
 
     return (
 
-      <p className="text-white">
+      <p className="text-texto">
         Cargando pedidos...
       </p>
 
@@ -339,7 +339,7 @@ function PedidosAdmin({
           className="
             text-3xl
             font-bold
-            text-white
+            text-texto
           "
         >
           📦 Pedidos
@@ -349,7 +349,7 @@ function PedidosAdmin({
         <p
           className="
             mt-2
-            text-gray-400
+            text-texto-tenue
           "
         >
           Consulta y gestiona los pedidos realizados.
@@ -389,11 +389,11 @@ function PedidosAdmin({
             className="
               rounded-2xl
               border
-              border-gray-700
-              bg-[#1b2740e0]
+              border-borde
+              bg-superficie
               p-10
               text-center
-              text-gray-400
+              text-texto-tenue
             "
           >
             No hay pedidos registrados.
@@ -410,8 +410,8 @@ function PedidosAdmin({
                   overflow-hidden
                   rounded-2xl
                   border
-                  border-gray-700
-                  bg-[#1b2740e0]
+                  border-borde
+                  bg-superficie
                   shadow-xl
                 "
               >
@@ -423,7 +423,7 @@ function PedidosAdmin({
                 <div
                   className="
                     border-b
-                    border-gray-700
+                    border-borde
                     p-6
                   "
                 >
@@ -444,7 +444,7 @@ function PedidosAdmin({
                       <p
                         className="
                           text-sm
-                          text-gray-400
+                          text-texto-tenue
                         "
                       >
                         Pedido #
@@ -458,7 +458,7 @@ function PedidosAdmin({
                         className="
                           mt-1
                           text-xs
-                          text-gray-500
+                          text-texto-tenue
                         "
                       >
                         {new Date(
@@ -498,7 +498,7 @@ function PedidosAdmin({
                 <div
                   className="
                     border-b
-                    border-gray-700
+                    border-borde
                     p-6
                   "
                 >
@@ -526,9 +526,9 @@ function PedidosAdmin({
                       "
                     >
 
-                      <p className="text-gray-300">
+                      <p className="text-texto-suave">
 
-                        <span className="text-gray-500">
+                        <span className="text-texto-tenue">
                           Nombre:
                         </span>{" "}
 
@@ -538,9 +538,9 @@ function PedidosAdmin({
                       </p>
 
 
-                      <p className="text-gray-300">
+                      <p className="text-texto-suave">
 
-                        <span className="text-gray-500">
+                        <span className="text-texto-tenue">
                           Correo:
                         </span>{" "}
 
@@ -549,9 +549,9 @@ function PedidosAdmin({
                       </p>
 
 
-                      <p className="text-gray-300">
+                      <p className="text-texto-suave">
 
-                        <span className="text-gray-500">
+                        <span className="text-texto-tenue">
                           Teléfono:
                         </span>{" "}
 
@@ -605,7 +605,7 @@ function PedidosAdmin({
                             flex-col
                             gap-3
                             rounded-xl
-                            bg-gray-800
+                            bg-superficie-2
                             p-4
                             md:flex-row
                             md:items-center
@@ -618,7 +618,7 @@ function PedidosAdmin({
                             <p
                               className="
                                 font-bold
-                                text-white
+                                text-texto
                               "
                             >
                               {producto.nombre}
@@ -629,7 +629,7 @@ function PedidosAdmin({
                               className="
                                 mt-1
                                 text-sm
-                                text-gray-400
+                                text-texto-tenue
                               "
                             >
                               Cantidad:
@@ -671,7 +671,7 @@ function PedidosAdmin({
                 <div
                   className="
                     border-t
-                    border-gray-700
+                    border-borde
                     p-6
                   "
                 >
@@ -691,7 +691,7 @@ function PedidosAdmin({
                       className="
                         text-2xl
                         font-bold
-                        text-white
+                        text-texto
                       "
                     >
                       Total:
@@ -742,7 +742,7 @@ function PedidosAdmin({
                             px-5
                             py-3
                             font-bold
-                            text-gray-900
+                            text-[#06202e]
                             transition
                             hover:bg-cyan-300
                           "

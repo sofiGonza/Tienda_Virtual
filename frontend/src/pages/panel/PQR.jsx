@@ -54,24 +54,24 @@ function PQR() {
   };
 
   return (
-    <section className="p-8 text-white">
+    <section className="p-8 text-texto">
       <header className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">PQR</p>
         <h1 className="mt-1 text-3xl font-bold">Peticiones, quejas y reclamos</h1>
       </header>
 
       {rol === "cliente" && (
-        <form onSubmit={enviar} className="mb-8 grid max-w-xl gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-6">
+        <form onSubmit={enviar} className="mb-8 grid max-w-xl gap-3 rounded-2xl border border-borde bg-fondo p-6">
           <h2 className="text-lg font-bold">➕ Nueva PQR</h2>
           <input
-            className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
             placeholder="Asunto"
             value={form.asunto}
             onChange={(e) => setForm({ ...form, asunto: e.target.value })}
             required
           />
           <select
-            className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
             value={form.tipo}
             onChange={(e) => setForm({ ...form, tipo: e.target.value })}
           >
@@ -80,14 +80,14 @@ function PQR() {
             <option value="reclamo">Reclamo</option>
           </select>
           <textarea
-            className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
             placeholder="Descripción"
             rows={4}
             value={form.descripcion}
             onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
             required
           />
-          <button className="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-gray-900 transition hover:bg-cyan-300">
+          <button className="rounded-lg bg-cyan-400 px-4 py-3 font-bold text-[#06202e] transition hover:bg-cyan-300">
             Registrar PQR
           </button>
         </form>
@@ -100,22 +100,22 @@ function PQR() {
       )}
 
       {cargando ? (
-        <p className="text-gray-400">Cargando PQR...</p>
+        <p className="text-texto-tenue">Cargando PQR...</p>
       ) : items.length === 0 ? (
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-10 text-center">
+        <div className="rounded-2xl border border-borde bg-fondo p-10 text-center">
           <p className="text-4xl">📭</p>
-          <p className="mt-3 text-gray-400">No hay PQR registradas.</p>
+          <p className="mt-3 text-texto-tenue">No hay PQR registradas.</p>
         </div>
       ) : (
         <>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {items.slice(inicio, fin).map((x) => (
-            <article key={x.id} className="rounded-2xl border border-gray-800 bg-[#111827] p-5">
+            <article key={x.id} className="rounded-2xl border border-borde bg-fondo p-5">
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <h3 className="font-bold">{x.asunto}</h3>
                   {x.usuario_nombre && (
-                    <p className="mt-1 flex items-center gap-1.5 text-sm text-gray-400">
+                    <p className="mt-1 flex items-center gap-1.5 text-sm text-texto-tenue">
                       <span aria-hidden="true">👤</span>
                       <span className="truncate">{x.usuario_nombre}</span>
                     </p>
@@ -129,7 +129,7 @@ function PQR() {
                 </span>
               </div>
               <p className="mt-1 text-xs uppercase tracking-wide text-cyan-400">{x.tipo}</p>
-              <p className="mt-3 text-sm text-gray-300">{x.descripcion}</p>
+              <p className="mt-3 text-sm text-texto-suave">{x.descripcion}</p>
               {x.respuesta && (
                 <p className="mt-3 rounded-lg border border-green-500/20 bg-green-500/10 p-3 text-sm text-green-300">
                   💬 {x.respuesta}
@@ -139,13 +139,13 @@ function PQR() {
               {rol !== "cliente" && (
                 <div className="mt-4 space-y-2">
                   {x.estado === "cerrada" ? (
-                    <p className="rounded-lg border border-gray-700 bg-gray-800/50 px-3 py-2 text-xs text-gray-400">
+                    <p className="rounded-lg border border-borde bg-superficie-2/50 px-3 py-2 text-xs text-texto-tenue">
                       🔒 Esta PQR está cerrada y ya no puede modificarse.
                     </p>
                   ) : (
                     <>
                       <select
-                        className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                        className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                         value={x.estado}
                         onChange={(e) => gestionar(x.id, { estado: e.target.value })}
                         aria-label={`Estado PQR ${x.id}`}
@@ -157,7 +157,7 @@ function PQR() {
                         ))}
                       </select>
                       <textarea
-                        className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white outline-none focus:border-cyan-400"
+                        className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-sm text-texto outline-none focus:border-cyan-400"
                         placeholder="Escribe la respuesta (opcional)"
                         rows={2}
                         defaultValue={x.respuesta || ""}

@@ -64,20 +64,20 @@ function MisPedidos() {
   return (
     <div className="p-8">
       <header className="mb-6">
-        <h1 className="text-3xl font-bold text-white">🧾 Mis Pedidos</h1>
-        <p className="mt-1 text-sm text-gray-400">Consulta el estado de tus pedidos y su detalle.</p>
+        <h1 className="text-3xl font-bold text-texto">🧾 Mis Pedidos</h1>
+        <p className="mt-1 text-sm text-texto-tenue">Consulta el estado de tus pedidos y su detalle.</p>
       </header>
 
       {error && <p className="mb-4 rounded-lg bg-red-500/10 p-3 text-red-400">{error}</p>}
       {cargando ? (
-        <p className="text-white">Cargando...</p>
+        <p className="text-texto">Cargando...</p>
       ) : pedidos.length === 0 ? (
-        <div className="rounded-2xl bg-[#111827] p-12 text-center">
+        <div className="rounded-2xl bg-fondo p-12 text-center">
           <p className="text-5xl">📦</p>
-          <p className="mt-4 text-xl text-gray-400">No tienes pedidos todavía</p>
+          <p className="mt-4 text-xl text-texto-tenue">No tienes pedidos todavía</p>
           <button
             onClick={() => navigate("/productos")}
-            className="mt-6 rounded-lg bg-cyan-400 px-6 py-3 font-bold text-gray-900"
+            className="mt-6 rounded-lg bg-cyan-400 px-6 py-3 font-bold text-[#06202e]"
           >
             Ver productos
           </button>
@@ -86,28 +86,28 @@ function MisPedidos() {
         <>
           <div className="space-y-4">
             {pedidos.slice(inicio, fin).map((p) => (
-            <div key={p.id} className="rounded-2xl border border-gray-800 bg-[#111827] p-5">
+            <div key={p.id} className="rounded-2xl border border-borde bg-fondo p-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-texto-tenue">
                     Pedido #{String(p.id).padStart(3, "0")} ·{" "}
                     {p.fecha ? new Date(p.fecha).toLocaleDateString("es-CO") : ""}
                   </p>
-                  <p className="mt-1 text-xl font-bold text-white">{formatoPrecio(p.total)}</p>
+                  <p className="mt-1 text-xl font-bold text-texto">{formatoPrecio(p.total)}</p>
                 </div>
-                <span className={`w-fit rounded-full px-4 py-2 text-sm font-bold capitalize ${COLORES[p.estado] || "bg-gray-500/20 text-gray-400"}`}>
+                <span className={`w-fit rounded-full px-4 py-2 text-sm font-bold capitalize ${COLORES[p.estado] || "bg-gray-500/20 text-texto-tenue"}`}>
                   {p.estado}
                 </span>
               </div>
 
               <div className="mt-4 space-y-2">
                 {(p.detalles || []).map((d) => (
-                  <div key={d.id} className="rounded-lg bg-gray-900 px-4 py-2 text-sm">
-                    <span className="font-semibold text-white">{d.nombre || "Producto"}</span>
+                  <div key={d.id} className="rounded-lg bg-fondo px-4 py-2 text-sm">
+                    <span className="font-semibold text-texto">{d.nombre || "Producto"}</span>
                     {d.servicio_id ? (
                       <span className="ml-2 text-cyan-300">🛠 {d.horas} horas × {formatoPrecio(d.precio_unitario)}</span>
                     ) : (
-                      <span className="ml-2 text-gray-400">× {d.cantidad}</span>
+                      <span className="ml-2 text-texto-tenue">× {d.cantidad}</span>
                     )}
                     <span className="float-right font-bold text-cyan-400">{formatoPrecio(d.subtotal)}</span>
                   </div>
@@ -116,7 +116,7 @@ function MisPedidos() {
               <div className="mt-4 flex flex-wrap gap-2">
                 <button
                   onClick={() => navigate(`/panel/detalle-pedido/${p.id}`)}
-                  className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-gray-900 hover:bg-cyan-300"
+                  className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-[#06202e] hover:bg-cyan-300"
                 >
                   🔍 Ver detalle
                 </button>

@@ -38,7 +38,7 @@ function TarjetaNotificacion({
           rounded-2xl
           border
           border-cyan-400/20
-          bg-[#0f172a]
+          bg-fondo
           text-center
           shadow-2xl
         "
@@ -48,7 +48,7 @@ function TarjetaNotificacion({
         <div
           className="
             border-b
-            border-gray-800
+            border-borde
             bg-gradient-to-r
             from-[#111827]
             via-[#1b2740]
@@ -78,7 +78,7 @@ function TarjetaNotificacion({
               mt-4
               text-2xl
               font-bold
-              text-white
+              text-texto
             "
           >
             {titulo}
@@ -88,7 +88,7 @@ function TarjetaNotificacion({
               className="
                 mt-2
                 text-sm
-                text-gray-400
+                text-texto-tenue
               "
             >
               {mensaje}
@@ -108,7 +108,7 @@ function TarjetaNotificacion({
               px-4
               py-3
               font-bold
-              text-gray-900
+              text-[#06202e]
               transition
               hover:bg-cyan-300
             "

@@ -6,6 +6,24 @@
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pixel Store</title>
+    <script>
+      // Aplica el tema guardado antes del primer render para evitar parpadeo.
+      (function () {
+        var t = "oscuro";
+        try {
+          var guardado = localStorage.getItem("pixel-store-tema");
+          if (guardado === "claro" || guardado === "oscuro" || guardado === "sistema") {
+            t = guardado;
+          }
+          if (t === "sistema") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "oscuro"
+              : "claro";
+          }
+        } catch (e) {}
+        document.documentElement.classList.add(t);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

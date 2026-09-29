@@ -171,17 +171,17 @@ function HistorialVentas() {
   ];
 
   return (
-    <section className="p-8 text-white">
+    <section className="p-8 text-texto">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Ventas</p>
           <div className="mt-1 flex items-center gap-3">
             <h1 className="text-3xl font-bold">Historial de ventas</h1>
-            <div className="flex gap-1 rounded-lg border border-gray-700 bg-[#111827] p-1">
+            <div className="flex gap-1 rounded-lg border border-borde bg-fondo p-1">
               <button
                 onClick={() => setVista("tabla")}
                 className={`rounded-md px-3 py-1.5 text-sm font-bold transition ${
-                  vista === "tabla" ? "bg-cyan-400 text-gray-900" : "border border-gray-600 text-gray-300 hover:bg-gray-800"
+                  vista === "tabla" ? "bg-cyan-400 text-[#06202e]" : "border border-borde text-texto-suave hover:bg-superficie-2"
                 }`}
               >
                 📋 Ventas
@@ -189,7 +189,7 @@ function HistorialVentas() {
               <button
                 onClick={() => setVista("graficas")}
                 className={`rounded-md px-3 py-1.5 text-sm font-bold transition ${
-                  vista === "graficas" ? "bg-cyan-400 text-gray-900" : "border border-gray-600 text-gray-300 hover:bg-gray-800"
+                  vista === "graficas" ? "bg-cyan-400 text-[#06202e]" : "border border-borde text-texto-suave hover:bg-superficie-2"
                 }`}
               >
                 📊 Gráficas
@@ -201,7 +201,7 @@ function HistorialVentas() {
           <div className="flex gap-2">
             <button
               onClick={() => descargar("pdf")}
-              className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-gray-900 transition hover:bg-cyan-300"
+              className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-[#06202e] transition hover:bg-cyan-300"
             >
               ⬇️ PDF
             </button>
@@ -217,7 +217,7 @@ function HistorialVentas() {
               <select
                 value={estado}
                 onChange={(e) => setEstado(e.target.value)}
-                className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                 aria-label="Filtrar por estado"
               >
                 <option value="">Todos los estados</option>
@@ -229,7 +229,7 @@ function HistorialVentas() {
                 type="date"
                 value={fecha}
                 onChange={(e) => setFecha(e.target.value)}
-                className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                 aria-label="Filtrar por fecha"
               />
             </>
@@ -246,7 +246,7 @@ function HistorialVentas() {
             <select
               value={periodo}
               onChange={(e) => setPeriodo(e.target.value)}
-              className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+              className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
               aria-label="Periodo"
             >
               <option value="dia">Día</option>
@@ -258,13 +258,13 @@ function HistorialVentas() {
               type="date"
               value={fechaGrafica}
               onChange={(e) => setFechaGrafica(e.target.value)}
-              className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+              className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
               aria-label="Filtrar gráficas por fecha"
             />
             <div className="flex gap-2">
               <button
                 onClick={() => descargar("pdf")}
-                className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-gray-900 transition hover:bg-cyan-300"
+                className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-bold text-[#06202e] transition hover:bg-cyan-300"
               >
                 ⬇️ PDF
               </button>
@@ -280,8 +280,8 @@ function HistorialVentas() {
           {/* Cards de indicadores */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {Cards.map((c) => (
-              <div key={c.label} className="rounded-2xl border border-gray-800 bg-[#111827] p-5">
-                <p className="text-sm text-gray-400">{c.label}</p>
+              <div key={c.label} className="rounded-2xl border border-borde bg-fondo p-5">
+                <p className="text-sm text-texto-tenue">{c.label}</p>
                 <p className="mt-1 text-2xl font-bold text-cyan-400">
                   {c.esMoneda ? formatoPrecio(c.valor) : c.valor}
                 </p>
@@ -291,22 +291,22 @@ function HistorialVentas() {
 
           {/* Gráficas */}
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-              <h2 className="mb-4 text-lg font-bold text-white">📊 Ingresos por {periodo}</h2>
+            <div className="rounded-2xl border border-borde bg-fondo p-6">
+              <h2 className="mb-4 text-lg font-bold text-texto">📊 Ingresos por {periodo}</h2>
               <GraficaBarras items={seriesBarras} formato={formatoPrecio} />
             </div>
-            <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-              <h2 className="mb-4 text-lg font-bold text-white">📈 Tendencia de ventas</h2>
+            <div className="rounded-2xl border border-borde bg-fondo p-6">
+              <h2 className="mb-4 text-lg font-bold text-texto">📈 Tendencia de ventas</h2>
               <GraficaLineal items={seriesLineal} />
             </div>
           </div>
         </div>
       ) : cargando ? (
-        <p className="text-gray-400">Cargando ventas...</p>
+        <p className="text-texto-tenue">Cargando ventas...</p>
       ) : items.length === 0 ? (
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-10 text-center">
+        <div className="rounded-2xl border border-borde bg-fondo p-10 text-center">
           <p className="text-4xl">📋</p>
-          <p className="mt-3 text-gray-400">Aún no hay ventas registradas.</p>
+          <p className="mt-3 text-texto-tenue">Aún no hay ventas registradas.</p>
         </div>
       ) : (
         <>
@@ -314,7 +314,7 @@ function HistorialVentas() {
             {items.slice(inicio, fin).map((v) => {
             const fechaTexto = v.fecha ? new Date(v.fecha).toLocaleString("es-CO") : "—";
             return (
-              <article key={v.id} className="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-5">
+              <article key={v.id} className="flex flex-col gap-3 rounded-2xl border border-borde bg-fondo p-5">
                 <div className="flex items-start justify-between gap-2">
                   <Link to={v.tipo === "Pedido" ? `/panel/detalle-pedido/${v.id}` : `/panel/ventas/${v.id}`} className="font-bold transition hover:text-cyan-300">
                     {v.tipo} #{v.id}
@@ -330,8 +330,8 @@ function HistorialVentas() {
                   </span>
                 </div>
                 <p className="text-2xl font-bold text-cyan-400">{formatoPrecio(v.total)}</p>
-                <p className="text-sm text-gray-400">{fechaTexto}</p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-texto-tenue">{fechaTexto}</p>
+                <p className="text-sm text-texto-tenue">
                   👤 {v.cliente_nombre || (v.usuario ? `${v.usuario.nombre || ""} ${v.usuario.apellido || ""}`.trim() : "") || `Cliente #${v.cliente_id}`}
                 </p>
                 {rol !== "cliente" && v.tipo !== "Pedido" && v.estado !== "anulada" && (

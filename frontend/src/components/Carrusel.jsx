@@ -149,7 +149,7 @@ function Carrusel() {
               flex-col
               justify-center
               items-center
-              text-white
+              text-texto
               text-center
               px-5
             "
@@ -197,7 +197,7 @@ function Carrusel() {
           rounded-full
 
           bg-black/45
-          text-white
+          text-texto
 
           text-[28px]
 
@@ -209,7 +209,7 @@ function Carrusel() {
           z-10
 
           hover:bg-cyan-400
-          hover:text-gray-900
+          hover:text-[#06202e]
         "
       >
         ❮
@@ -233,7 +233,7 @@ function Carrusel() {
           rounded-full
 
           bg-black/45
-          text-white
+          text-texto
 
           text-[28px]
 
@@ -245,7 +245,7 @@ function Carrusel() {
           z-10
 
           hover:bg-cyan-400
-          hover:text-gray-900
+          hover:text-[#06202e]
         "
       >
         ❯

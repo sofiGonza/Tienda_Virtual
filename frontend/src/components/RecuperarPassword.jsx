@@ -368,7 +368,7 @@ function RecuperarPassword({
           w-full
           max-w-md
           rounded-2xl
-          bg-[#111827]
+          bg-fondo
           p-7
           shadow-2xl
         "
@@ -384,7 +384,7 @@ function RecuperarPassword({
             right-5
             top-4
             text-2xl
-            text-gray-400
+            text-texto-tenue
             hover:text-cyan-400
           "
         >
@@ -417,7 +417,7 @@ function RecuperarPassword({
             className="
               text-2xl
               font-bold
-              text-white
+              text-texto
             "
           >
             Recuperar contraseña
@@ -427,7 +427,7 @@ function RecuperarPassword({
             className="
               mt-2
               text-sm
-              text-gray-400
+              text-texto-tenue
             "
           >
             {paso === 1
@@ -505,7 +505,7 @@ function RecuperarPassword({
                   mb-2
                   block
                   font-semibold
-                  text-gray-200
+                  text-texto
                 "
               >
                 Correo electrónico
@@ -528,11 +528,11 @@ function RecuperarPassword({
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-[#1f2937]
+                  border-borde
+                  bg-superficie-2
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   focus:border-cyan-400
                 "
@@ -551,7 +551,7 @@ function RecuperarPassword({
                 px-4
                 py-3
                 font-bold
-                text-[#111827]
+                text-[#06202e]
                 hover:bg-cyan-300
                 disabled:opacity-50
               "
@@ -589,7 +589,7 @@ function RecuperarPassword({
                   mb-2
                   block
                   font-semibold
-                  text-gray-200
+                  text-texto
                 "
               >
                 Código de recuperación
@@ -617,14 +617,14 @@ function RecuperarPassword({
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-[#1f2937]
+                  border-borde
+                  bg-superficie-2
                   px-4
                   py-3
                   text-center
                   text-xl
                   tracking-[0.5em]
-                  text-white
+                  text-texto
                   outline-none
                   focus:border-cyan-400
                 "
@@ -642,7 +642,7 @@ function RecuperarPassword({
                   mb-2
                   block
                   font-semibold
-                  text-gray-200
+                  text-texto
                 "
               >
                 Nueva contraseña
@@ -667,11 +667,11 @@ function RecuperarPassword({
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-[#1f2937]
+                  border-borde
+                  bg-superficie-2
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   focus:border-cyan-400
                 "
@@ -681,7 +681,7 @@ function RecuperarPassword({
                 className="
                   mt-2
                   text-xs
-                  text-gray-500
+                  text-texto-tenue
                 "
               >
                 6-10 caracteres, una mayúscula
@@ -700,7 +700,7 @@ function RecuperarPassword({
                   mb-2
                   block
                   font-semibold
-                  text-gray-200
+                  text-texto
                 "
               >
                 Confirmar contraseña
@@ -725,11 +725,11 @@ function RecuperarPassword({
                   w-full
                   rounded-lg
                   border
-                  border-gray-600
-                  bg-[#1f2937]
+                  border-borde
+                  bg-superficie-2
                   px-4
                   py-3
-                  text-white
+                  text-texto
                   outline-none
                   focus:border-cyan-400
                 "
@@ -748,7 +748,7 @@ function RecuperarPassword({
                 px-4
                 py-3
                 font-bold
-                text-[#111827]
+                text-[#06202e]
                 hover:bg-cyan-300
                 disabled:opacity-50
               "

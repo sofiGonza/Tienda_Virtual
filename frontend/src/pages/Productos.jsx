@@ -847,7 +847,7 @@ function Productos() {
           items-center
           justify-between
           border-b
-          border-gray-700
+          border-borde
           pb-5
         "
       >
@@ -872,7 +872,7 @@ function Productos() {
             className="
               text-4xl
               font-bold
-              text-white
+              text-texto
             "
           >
             Nuestros Productos
@@ -882,7 +882,7 @@ function Productos() {
           <p
             className="
               mt-2
-              text-gray-400
+              text-texto-tenue
             "
           >
             Descubre la mejor tecnología
@@ -902,8 +902,8 @@ function Productos() {
               onClick={() => setCategoriaActiva("Todas")}
               className={`rounded-full px-5 py-2 text-sm font-bold transition ${
                 categoriaActiva === "Todas"
-                  ? "bg-cyan-400 text-gray-900"
-                  : "border border-gray-600 text-gray-300 hover:bg-gray-800"
+                  ? "bg-cyan-400 text-[#06202e]"
+                  : "border border-borde text-texto-suave hover:bg-superficie-2"
               }`}
             >
               Todas
@@ -915,8 +915,8 @@ function Productos() {
                 onClick={() => setCategoriaActiva(cat)}
                 className={`rounded-full px-5 py-2 text-sm font-bold transition ${
                   categoriaActiva === cat
-                    ? "bg-cyan-400 text-gray-900"
-                    : "border border-gray-600 text-gray-300 hover:bg-gray-800"
+                    ? "bg-cyan-400 text-[#06202e]"
+                    : "border border-borde text-texto-suave hover:bg-superficie-2"
                 }`}
               >
                 {cat}
@@ -943,15 +943,15 @@ function Productos() {
             justify-center
             rounded-xl
             border
-            border-gray-600
-            bg-[#1b2740e0]
+            border-borde
+            bg-superficie
             px-5
             py-4
             text-3xl
             transition
             duration-300
             hover:border-cyan-400
-            hover:bg-[#243452]
+            hover:bg-hover
             hover:scale-105
           "
         >
@@ -975,7 +975,7 @@ function Productos() {
                 bg-cyan-400
                 text-xs
                 font-bold
-                text-gray-900
+                text-[#06202e]
               "
             >
               {cantidadTotal}
@@ -998,7 +998,7 @@ function Productos() {
           className="
             text-center
             text-xl
-            text-white
+            text-texto
           "
         >
           Cargando productos...
@@ -1036,7 +1036,7 @@ function Productos() {
           <p
             className="
               text-center
-              text-gray-400
+              text-texto-tenue
             "
           >
             No hay productos disponibles.
@@ -1120,7 +1120,7 @@ function Productos() {
               max-h-[85vh]
               overflow-y-auto
               rounded-2xl
-              bg-[#111827]
+              bg-fondo
               p-6
               shadow-2xl
             "
@@ -1141,7 +1141,7 @@ function Productos() {
                 items-center
                 justify-between
                 border-b
-                border-gray-700
+                border-borde
                 pb-4
               "
             >
@@ -1150,7 +1150,7 @@ function Productos() {
                 className="
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 🛒 Mi carrito
@@ -1166,7 +1166,7 @@ function Productos() {
 
                 className="
                   text-2xl
-                  text-gray-400
+                  text-texto-tenue
                   hover:text-cyan-400
                 "
               >
@@ -1202,7 +1202,7 @@ function Productos() {
                   className="
                     mt-4
                     text-lg
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Tu carrito está vacío.
@@ -1237,7 +1237,7 @@ function Productos() {
                           items-center
                           gap-4
                           rounded-xl
-                          bg-[#1b2740]
+                          bg-superficie
                           p-4
                         "
                       >
@@ -1273,7 +1273,7 @@ function Productos() {
                           <h3
                             className="
                               font-bold
-                              text-white
+                              text-texto
                             "
                           >
                             {producto.nombre}
@@ -1299,7 +1299,7 @@ function Productos() {
                             className="
                               mt-1
                               text-xs
-                              text-gray-400
+                              text-texto-tenue
                             "
                           >
                             Stock disponible:{" "}
@@ -1332,9 +1332,9 @@ function Productos() {
                               h-8
                               w-8
                               rounded-lg
-                              bg-gray-700
-                              text-white
-                              hover:bg-gray-600
+                              bg-superficie-2
+                              text-texto
+                              hover:bg-hover
                             "
                           >
                             −
@@ -1346,7 +1346,7 @@ function Productos() {
                               min-w-[25px]
                               text-center
                               font-bold
-                              text-white
+                              text-texto
                             "
                           >
                             {producto.cantidad}
@@ -1368,7 +1368,7 @@ function Productos() {
                               rounded-lg
                               bg-cyan-400
                               font-bold
-                              text-gray-900
+                              text-[#06202e]
                               hover:bg-cyan-300
                             "
                           >
@@ -1416,7 +1416,7 @@ function Productos() {
                   className="
                     mt-6
                     border-t
-                    border-gray-700
+                    border-borde
                     pt-5
                   "
                 >
@@ -1426,7 +1426,7 @@ function Productos() {
                       flex
                       justify-between
                       text-lg
-                      text-gray-300
+                      text-texto-suave
                     "
                   >
 
@@ -1453,7 +1453,7 @@ function Productos() {
 
                     <span
                       className="
-                        text-white
+                        text-texto
                       "
                     >
                       Total:
@@ -1527,7 +1527,7 @@ function Productos() {
                         px-4
                         py-3
                         font-bold
-                        text-gray-900
+                        text-[#06202e]
                         transition
                         hover:bg-cyan-300
                       "
@@ -1574,7 +1574,7 @@ function Productos() {
               rounded-2xl
               border
               border-cyan-400/20
-              bg-[#0f172a]
+              bg-fondo
               text-center
               shadow-2xl
             "
@@ -1586,7 +1586,7 @@ function Productos() {
             <div
               className="
                 border-b
-                border-gray-800
+                border-borde
                 bg-gradient-to-r
                 from-[#111827]
                 via-[#1b2740]
@@ -1616,7 +1616,7 @@ function Productos() {
                   mt-4
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 ¡Pedido realizado correctamente!
@@ -1625,7 +1625,7 @@ function Productos() {
                 className="
                   mt-2
                   text-sm
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Tu pedido ya fue registrado.
@@ -1646,7 +1646,7 @@ function Productos() {
                   px-4
                   py-3
                   font-bold
-                  text-gray-900
+                  text-[#06202e]
                   transition
                   hover:bg-cyan-300
                 "
@@ -1684,7 +1684,7 @@ function Productos() {
               rounded-2xl
               border
               border-cyan-400/20
-              bg-[#0f172a]
+              bg-fondo
               shadow-2xl
             "
             role="dialog"
@@ -1699,7 +1699,7 @@ function Productos() {
                 items-center
                 justify-between
                 border-b
-                border-gray-800
+                border-borde
                 bg-gradient-to-r
                 from-[#111827]
                 via-[#1b2740]
@@ -1725,7 +1725,7 @@ function Productos() {
                     mt-1
                     text-lg
                     font-bold
-                    text-white
+                    text-texto
                   "
                 >
                   🏦 Cuenta bancaria
@@ -1738,9 +1738,9 @@ function Productos() {
                 className="
                   rounded-full
                   px-2
-                  text-gray-400
+                  text-texto-tenue
                   transition
-                  hover:text-white
+                  hover:text-texto
                 "
               >
                 ✕
@@ -1752,7 +1752,7 @@ function Productos() {
               onSubmit={confirmarCuenta}
               className="space-y-4 p-6"
             >
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-texto-tenue">
                 Para continuar con tu pedido,
                 necesitamos la cuenta donde se
                 realizará el pago.
@@ -1785,7 +1785,7 @@ function Productos() {
                     font-semibold
                     uppercase
                     tracking-wide
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Número de cuenta
@@ -1805,12 +1805,12 @@ function Productos() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-600
-                    bg-gray-800
+                    border-borde
+                    bg-superficie-2
                     px-4
                     py-3
                     text-sm
-                    text-white
+                    text-texto
                     outline-none
                     transition
                     focus:border-cyan-400
@@ -1828,7 +1828,7 @@ function Productos() {
                     font-semibold
                     uppercase
                     tracking-wide
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Banco
@@ -1848,12 +1848,12 @@ function Productos() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-600
-                    bg-gray-800
+                    border-borde
+                    bg-superficie-2
                     px-4
                     py-3
                     text-sm
-                    text-white
+                    text-texto
                     outline-none
                     transition
                     focus:border-cyan-400
@@ -1871,7 +1871,7 @@ function Productos() {
                     font-semibold
                     uppercase
                     tracking-wide
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Nombre del titular
@@ -1891,12 +1891,12 @@ function Productos() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-600
-                    bg-gray-800
+                    border-borde
+                    bg-superficie-2
                     px-4
                     py-3
                     text-sm
-                    text-white
+                    text-texto
                     outline-none
                     transition
                     focus:border-cyan-400
@@ -1920,13 +1920,13 @@ function Productos() {
                     flex-1
                     rounded-lg
                     border
-                    border-gray-600
+                    border-borde
                     px-4
                     py-3
                     font-bold
-                    text-gray-300
+                    text-texto-suave
                     transition
-                    hover:bg-gray-700
+                    hover:bg-hover
                     disabled:cursor-not-allowed
                     disabled:opacity-50
                   "
@@ -1943,7 +1943,7 @@ function Productos() {
                     px-4
                     py-3
                     font-bold
-                    text-gray-900
+                    text-[#06202e]
                     transition
                     hover:bg-cyan-300
                     disabled:cursor-not-allowed

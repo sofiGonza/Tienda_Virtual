@@ -22,13 +22,13 @@ function SocialIcons() {
           justify-center
           rounded-full
 
-          bg-gray-800
-          text-white
+          bg-superficie-2
+          text-texto
 
           transition
           duration-300
 
-          hover:bg-green-500
+          hover:bg-green-500 hover:text-white
           hover:scale-110
         "
       >
@@ -49,13 +49,13 @@ function SocialIcons() {
           justify-center
           rounded-full
 
-          bg-gray-800
-          text-white
+          bg-superficie-2
+          text-texto
 
           transition
           duration-300
 
-          hover:bg-blue-600
+          hover:bg-blue-600 hover:text-white
           hover:scale-110
         "
       >
@@ -76,13 +76,13 @@ function SocialIcons() {
           justify-center
           rounded-full
 
-          bg-gray-800
-          text-white
+          bg-superficie-2
+          text-texto
 
           transition
           duration-300
 
-          hover:bg-blue-500
+          hover:bg-blue-500 hover:text-white
           hover:scale-110
         "
       >
@@ -103,13 +103,13 @@ function SocialIcons() {
           justify-center
           rounded-full
 
-          bg-gray-800
-          text-white
+          bg-superficie-2
+          text-texto
 
           transition
           duration-300
 
-          hover:bg-pink-500
+          hover:bg-pink-500 hover:text-white
           hover:scale-110
         "
       >

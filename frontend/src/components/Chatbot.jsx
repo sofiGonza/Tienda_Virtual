@@ -61,11 +61,11 @@ function Chatbot() {
     <div className="fixed bottom-6 left-6 right-6 z-[9999] flex flex-col items-end gap-3 sm:left-auto sm:right-6">
       {open && (
         <div
-          className="flex w-full max-w-sm flex-col overflow-hidden rounded-2xl border border-cyan-400/40 bg-slate-900 text-white shadow-2xl sm:w-80"
+          className="flex w-full max-w-sm flex-col overflow-hidden rounded-2xl border border-cyan-400/40 bg-fondo text-texto shadow-2xl sm:w-80"
           role="dialog"
           aria-label="Chatbot Pixel Store"
         >
-          <div className="flex items-center justify-between border-b border-gray-800 bg-[#0f172a] px-4 py-3">
+          <div className="flex items-center justify-between border-b border-borde bg-fondo px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 rounded-full bg-green-400" />
               <b>Asistente Pixel Store</b>
@@ -73,7 +73,7 @@ function Chatbot() {
             <button
               aria-label="Cerrar chatbot"
               onClick={() => setOpen(false)}
-              className="rounded-full px-2 text-gray-400 transition hover:text-white"
+              className="rounded-full px-2 text-texto-tenue transition hover:text-texto"
             >
               ✕
             </button>
@@ -85,8 +85,8 @@ function Chatbot() {
                 <p
                   className={
                     m.rol === "user"
-                      ? "max-w-[85%] rounded-2xl rounded-br-sm bg-cyan-400 px-3 py-2 text-sm text-gray-900"
-                      : "max-w-[85%] rounded-2xl rounded-bl-sm bg-gray-800 px-3 py-2 text-sm text-gray-100"
+                      ? "max-w-[85%] rounded-2xl rounded-br-sm bg-cyan-400 px-3 py-2 text-sm text-[#06202e]"
+                      : "max-w-[85%] rounded-2xl rounded-bl-sm bg-superficie-2 px-3 py-2 text-sm text-texto"
                   }
                 >
                   {m.contenido}
@@ -95,19 +95,19 @@ function Chatbot() {
             ))}
             {escribiendo && (
               <div className="flex justify-start">
-                <p className="rounded-2xl rounded-bl-sm bg-gray-800 px-3 py-2 text-sm text-gray-400">Escribiendo...</p>
+                <p className="rounded-2xl rounded-bl-sm bg-superficie-2 px-3 py-2 text-sm text-texto-tenue">Escribiendo...</p>
               </div>
             )}
           </div>
 
           {sesion && (
-            <div className="border-t border-gray-800 p-3">
+            <div className="border-t border-borde p-3">
               <button
                 type="button"
                 onClick={() => setSugeridasAbiertas(!sugeridasAbiertas)}
                 aria-expanded={sugeridasAbiertas}
                 aria-controls="preguntas-sugeridas-lista"
-                className="flex w-full items-center justify-between text-[11px] uppercase tracking-wide text-gray-400 transition hover:text-cyan-300"
+                className="flex w-full items-center justify-between text-[11px] uppercase tracking-wide text-texto-tenue transition hover:text-cyan-300"
               >
                 <span>Preguntas sugeridas</span>
                 <span aria-hidden="true" className="text-base leading-none">{sugeridasAbiertas ? "−" : "+"}</span>
@@ -130,24 +130,24 @@ function Chatbot() {
           )}
 
           {sesion ? (
-            <form onSubmit={send} className="flex gap-2 border-t border-gray-800 p-3">
+            <form onSubmit={send} className="flex gap-2 border-t border-borde p-3">
               <input
-                className="min-w-0 flex-1 rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white outline-none focus:border-cyan-400"
+                className="min-w-0 flex-1 rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-sm text-texto outline-none focus:border-cyan-400"
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Escribe tu mensaje..."
                 aria-label="Mensaje para el asistente"
               />
-              <button className="rounded-lg bg-cyan-400 px-4 text-sm font-bold text-gray-900 transition hover:bg-cyan-300">
+              <button className="rounded-lg bg-cyan-400 px-4 text-sm font-bold text-[#06202e] transition hover:bg-cyan-300">
                 Enviar
               </button>
             </form>
           ) : (
-            <div className="border-t border-gray-800 p-3 text-center text-sm text-gray-400">
+            <div className="border-t border-borde p-3 text-center text-sm text-texto-tenue">
               🔒 Inicia sesión para chatear con el asistente.
             </div>
           )}
-          <small className="bg-[#0f172a] px-4 py-2 text-[11px] text-gray-500">
+          <small className="bg-fondo px-4 py-2 text-[11px] text-texto-tenue">
             IA externa opcional; fallback FAQ activo.
           </small>
         </div>
@@ -157,12 +157,12 @@ function Chatbot() {
         <div className="group relative">
           <button
             onClick={() => setOpen(!open)}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-400 text-2xl text-gray-900 shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-cyan-300 focus:outline-none focus:ring-4 focus:ring-cyan-300/50"
+            className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-400 text-2xl text-[#06202e] shadow-2xl transition-all duration-300 hover:scale-105 hover:bg-cyan-300 focus:outline-none focus:ring-4 focus:ring-cyan-300/50"
             aria-label={open ? "Cerrar chatbot" : "Abrir chatbot"}
           >
             <span aria-hidden="true">💬</span>
           </button>
-          <span className="pointer-events-none absolute bottom-full right-0 mb-2 whitespace-nowrap rounded-lg bg-gray-800 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition group-hover:opacity-100">
+          <span className="pointer-events-none absolute bottom-full right-0 mb-2 whitespace-nowrap rounded-lg bg-superficie-2 px-2 py-1 text-xs text-texto opacity-0 shadow-lg transition group-hover:opacity-100">
             Chat
           </span>
         </div>

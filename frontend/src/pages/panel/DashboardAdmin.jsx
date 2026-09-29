@@ -41,7 +41,7 @@ function DashboardAdmin() {
   }, [navigate]);
 
   if (error) return <p className="p-10 text-red-400">{error}</p>;
-  if (!data) return <p className="p-10 text-white">Cargando dashboard...</p>;
+  if (!data) return <p className="p-10 text-texto">Cargando dashboard...</p>;
 
   const progreso = Object.entries(data.pedidos_por_estado).map(([k, v]) => ({
     label: k,
@@ -59,10 +59,10 @@ function DashboardAdmin() {
     <div className="p-8">
       <header className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Panel de administrador</p>
-        <h1 className="mt-1 text-3xl font-bold text-white">
+        <h1 className="mt-1 text-3xl font-bold text-texto">
           Hola, {sesion.nombre} 👋
         </h1>
-        <p className="mt-2 flex items-center gap-3 text-sm text-gray-400">
+        <p className="mt-2 flex items-center gap-3 text-sm text-texto-tenue">
           <span className="rounded-full bg-cyan-400/10 px-3 py-1 capitalize text-cyan-400">Rol: administrador</span>
           <span className="rounded-full bg-green-400/10 px-3 py-1 text-green-400">● Activo</span>
         </p>
@@ -70,10 +70,10 @@ function DashboardAdmin() {
 
       {/* TARJETAS SUPERIORES */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">Productos agotados</p>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">Productos agotados</p>
           <p className="mt-1 text-4xl font-bold text-red-400">{data.productos_agotados.length}</p>
-          <ul className="mt-3 max-h-28 space-y-1 overflow-y-auto text-xs text-gray-400">
+          <ul className="mt-3 max-h-28 space-y-1 overflow-y-auto text-xs text-texto-tenue">
             {data.productos_agotados.length === 0 && <li>Ninguno ✅</li>}
             {data.productos_agotados.map((p) => (
               <li key={p.id}>• {p.nombre}</li>
@@ -81,37 +81,37 @@ function DashboardAdmin() {
           </ul>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">Usuarios registrados</p>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">Usuarios registrados</p>
           <p className="mt-1 text-4xl font-bold text-cyan-400">{data.total_usuarios}</p>
-          <p className="mt-2 text-xs text-gray-500">Cuentas en la plataforma</p>
+          <p className="mt-2 text-xs text-texto-tenue">Cuentas en la plataforma</p>
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">Pedidos por estado</p>
-          <p className="mt-1 text-4xl font-bold text-white">
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">Pedidos por estado</p>
+          <p className="mt-1 text-4xl font-bold text-texto">
             {Object.values(data.pedidos_por_estado).reduce((a, b) => a + b, 0)}
           </p>
-          <p className="mt-2 text-xs text-gray-500">Total de pedidos</p>
+          <p className="mt-2 text-xs text-texto-tenue">Total de pedidos</p>
         </div>
       </div>
 
       {/* VENTAS + MÁS VENDIDOS */}
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">💰 Ventas del día, semana y mes</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">💰 Ventas del día, semana y mes</h2>
           <GraficaBarras items={ventas} formato={formatoPrecio} />
         </div>
 
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">🏆 Productos más vendidos</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">🏆 Productos más vendidos</h2>
           {data.productos_mas_vendidos.length === 0 ? (
-            <p className="text-sm text-gray-500">Aún no hay ventas registradas.</p>
+            <p className="text-sm text-texto-tenue">Aún no hay ventas registradas.</p>
           ) : (
             <ul className="space-y-3">
               {data.productos_mas_vendidos.map((p, i) => (
-                <li key={i} className="flex items-center justify-between rounded-xl bg-gray-900 px-4 py-3">
-                  <span className="text-sm text-gray-300">
+                <li key={i} className="flex items-center justify-between rounded-xl bg-fondo px-4 py-3">
+                  <span className="text-sm text-texto-suave">
                     <span className="mr-2 font-bold text-cyan-400">#{i + 1}</span> {p.nombre}
                   </span>
                   <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-sm font-bold text-cyan-400">
@@ -125,19 +125,19 @@ function DashboardAdmin() {
       </div>
 
       {/* PROGRESO DE PEDIDOS */}
-      <div className="mt-6 rounded-2xl border border-gray-800 bg-[#111827] p-6">
-        <h2 className="mb-4 text-lg font-bold text-white">📈 Progreso de pedidos por estado</h2>
+      <div className="mt-6 rounded-2xl border border-borde bg-fondo p-6">
+        <h2 className="mb-4 text-lg font-bold text-texto">📈 Progreso de pedidos por estado</h2>
         <GraficaBarras items={progreso} />
       </div>
 
       {/* GRÁFICOS ADICIONALES */}
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">📉 Distribución de estados</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">📉 Distribución de estados</h2>
           <GraficaDona items={progreso} />
         </div>
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">📊 Tendencia de ventas</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">📊 Tendencia de ventas</h2>
           <GraficaLineal items={[
             { label: "Hoy", value: data.ventas_dia },
             { label: "Semana", value: data.ventas_semana },

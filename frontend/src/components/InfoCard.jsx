@@ -7,7 +7,7 @@ function InfoCard({
   return (
     <div
       className={`
-        bg-[#1b2740e0]
+        bg-superficie
         p-[30px]
         rounded-[15px]
 
@@ -40,7 +40,7 @@ function InfoCard({
 
       <h3
         className="
-          text-white
+          text-texto
           text-xl
           font-bold
           mb-4
@@ -52,7 +52,7 @@ function InfoCard({
       {text && (
         <p
           className="
-            text-gray-300
+            text-texto-suave
             leading-relaxed
           "
         >

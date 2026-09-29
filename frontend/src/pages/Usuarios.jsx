@@ -625,7 +625,7 @@ function Usuarios() {
         return "bg-red-500/20 text-red-400";
 
       default:
-        return "bg-gray-500/20 text-gray-400";
+        return "bg-gray-500/20 text-texto-tenue";
     }
   };
 
@@ -639,10 +639,10 @@ function Usuarios() {
       className="
         min-h-screen
         w-full
-        bg-[#0f172a]
+        bg-fondo
         px-5
         py-10
-        text-white
+        text-texto
         md:px-10
       "
     >
@@ -665,7 +665,7 @@ function Usuarios() {
             flex-col
             gap-5
             border-b
-            border-gray-700
+            border-borde
             pb-6
             md:flex-row
             md:items-center
@@ -701,7 +701,7 @@ function Usuarios() {
             <p
               className="
                 mt-2
-                text-gray-400
+                text-texto-tenue
               "
             >
               Administra usuarios, roles, estados y pedidos.
@@ -717,7 +717,7 @@ function Usuarios() {
               px-5
               py-3
               font-bold
-              text-gray-900
+              text-[#06202e]
               transition
               hover:scale-105
               hover:bg-cyan-300
@@ -737,8 +737,8 @@ function Usuarios() {
             mb-6
             rounded-xl
             border
-            border-gray-700
-            bg-[#111827]
+            border-borde
+            bg-fondo
             p-4
           "
         >
@@ -754,11 +754,11 @@ function Usuarios() {
               w-full
               rounded-lg
               border
-              border-gray-700
-              bg-[#1b2740]
+              border-borde
+              bg-superficie
               px-4
               py-3
-              text-white
+              text-texto
               outline-none
               transition
               focus:border-cyan-400
@@ -797,7 +797,7 @@ function Usuarios() {
 
           <div className="py-20 text-center">
 
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-texto-tenue">
               Cargando usuarios...
             </p>
 
@@ -810,8 +810,8 @@ function Usuarios() {
               overflow-x-auto
               rounded-xl
               border
-              border-gray-700
-              bg-[#111827]
+              border-borde
+              bg-fondo
             "
           >
 
@@ -828,8 +828,8 @@ function Usuarios() {
                 <tr
                   className="
                     border-b
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                   "
                 >
 
@@ -879,9 +879,9 @@ function Usuarios() {
                         key={usuario._id}
                         className="
                           border-b
-                          border-gray-800
+                          border-borde
                           transition
-                          hover:bg-[#1b2740]
+                          hover:bg-superficie
                         "
                       >
 
@@ -896,7 +896,7 @@ function Usuarios() {
                               {usuario.apellido}
                             </p>
 
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-texto-tenue">
                               {usuario.numeroDocumento}
                             </p>
 
@@ -906,7 +906,7 @@ function Usuarios() {
 
                         {/* CORREO */}
 
-                        <td className="px-5 py-4 text-gray-300">
+                        <td className="px-5 py-4 text-texto-suave">
 
                           {usuario.correo}
 
@@ -927,11 +927,11 @@ function Usuarios() {
                             className="
                               rounded-lg
                               border
-                              border-gray-600
-                              bg-[#1b2740]
+                              border-borde
+                              bg-superficie
                               px-3
                               py-2
-                              text-white
+                              text-texto
                               outline-none
                               focus:border-cyan-400
                             "
@@ -1095,7 +1095,7 @@ function Usuarios() {
                 className="
                   py-16
                   text-center
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 No se encontraron usuarios.
@@ -1138,7 +1138,7 @@ function Usuarios() {
               max-w-3xl
               overflow-y-auto
               rounded-2xl
-              bg-[#111827]
+              bg-fondo
               p-6
               shadow-2xl
             "
@@ -1154,7 +1154,7 @@ function Usuarios() {
                 items-center
                 justify-between
                 border-b
-                border-gray-700
+                border-borde
                 pb-4
               "
             >
@@ -1173,7 +1173,7 @@ function Usuarios() {
                 }
                 className="
                   text-2xl
-                  text-gray-400
+                  text-texto-tenue
                   hover:text-cyan-400
                 "
               >
@@ -1196,7 +1196,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Nombre
                 </label>
 
@@ -1210,11 +1210,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1226,7 +1226,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Apellido
                 </label>
 
@@ -1240,11 +1240,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1256,7 +1256,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Tipo de documento
                 </label>
 
@@ -1271,11 +1271,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1305,7 +1305,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Número de documento
                 </label>
 
@@ -1320,11 +1320,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1336,7 +1336,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Dirección
                 </label>
 
@@ -1351,11 +1351,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1367,7 +1367,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Teléfono
                 </label>
 
@@ -1382,11 +1382,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1398,7 +1398,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Correo
                 </label>
 
@@ -1414,11 +1414,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1430,11 +1430,11 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
 
                   Contraseña
                   {modoEdicion && (
-                    <span className="ml-2 text-gray-500">
+                    <span className="ml-2 text-texto-tenue">
                       (opcional)
                     </span>
                   )}
@@ -1453,11 +1453,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1469,7 +1469,7 @@ function Usuarios() {
 
               <div>
 
-                <label className="mb-2 block text-sm text-gray-300">
+                <label className="mb-2 block text-sm text-texto-suave">
                   Rol
                 </label>
 
@@ -1482,11 +1482,11 @@ function Usuarios() {
                     w-full
                     rounded-lg
                     border
-                    border-gray-700
-                    bg-[#1b2740]
+                    border-borde
+                    bg-superficie
                     px-4
                     py-3
-                    text-white
+                    text-texto
                     outline-none
                     focus:border-cyan-400
                   "
@@ -1516,7 +1516,7 @@ function Usuarios() {
                   items-center
                   gap-3
                   rounded-lg
-                  bg-[#1b2740]
+                  bg-superficie
                   p-4
                 "
               >
@@ -1565,13 +1565,13 @@ function Usuarios() {
                     flex-1
                     rounded-lg
                     border
-                    border-gray-600
+                    border-borde
                     px-4
                     py-3
                     font-bold
-                    text-gray-300
+                    text-texto-suave
                     transition
-                    hover:bg-gray-700
+                    hover:bg-hover
                   "
                 >
                   Cancelar
@@ -1586,7 +1586,7 @@ function Usuarios() {
                     px-4
                     py-3
                     font-bold
-                    text-gray-900
+                    text-[#06202e]
                     transition
                     hover:bg-cyan-300
                   "
@@ -1637,7 +1637,7 @@ function Usuarios() {
               max-w-4xl
               overflow-y-auto
               rounded-2xl
-              bg-[#111827]
+              bg-fondo
               p-6
               shadow-2xl
             "
@@ -1655,7 +1655,7 @@ function Usuarios() {
                 items-center
                 justify-between
                 border-b
-                border-gray-700
+                border-borde
                 pb-4
               "
             >
@@ -1673,7 +1673,7 @@ function Usuarios() {
 
                 {clienteSeleccionado && (
 
-                  <p className="mt-1 text-gray-400">
+                  <p className="mt-1 text-texto-tenue">
 
                     Cliente:{" "}
                     <span className="text-cyan-400">
@@ -1695,7 +1695,7 @@ function Usuarios() {
                 }
                 className="
                   text-2xl
-                  text-gray-400
+                  text-texto-tenue
                   hover:text-cyan-400
                 "
               >
@@ -1710,7 +1710,7 @@ function Usuarios() {
 
               <div className="py-12 text-center">
 
-                <p className="text-gray-400">
+                <p className="text-texto-tenue">
                   Cargando pedidos...
                 </p>
 
@@ -1721,7 +1721,7 @@ function Usuarios() {
               <div
                 className="
                   rounded-xl
-                  bg-[#1b2740]
+                  bg-superficie
                   py-12
                   text-center
                 "
@@ -1731,7 +1731,7 @@ function Usuarios() {
                   📦
                 </p>
 
-                <p className="mt-4 text-gray-400">
+                <p className="mt-4 text-texto-tenue">
                   Este cliente no tiene pedidos.
                 </p>
 
@@ -1748,8 +1748,8 @@ function Usuarios() {
                     className="
                       rounded-xl
                       border
-                      border-gray-700
-                      bg-[#1b2740]
+                      border-borde
+                      bg-superficie
                       p-5
                     "
                   >
@@ -1767,7 +1767,7 @@ function Usuarios() {
 
                       <div>
 
-                        <p className="font-bold text-white">
+                        <p className="font-bold text-texto">
 
                           Pedido #
                           {pedido.numero ||
@@ -1777,7 +1777,7 @@ function Usuarios() {
 
                         </p>
 
-                        <p className="mt-1 text-sm text-gray-400">
+                        <p className="mt-1 text-sm text-texto-tenue">
 
                           {pedido.createdAt
                             ? new Date(
@@ -1808,7 +1808,7 @@ function Usuarios() {
 
                       <div>
 
-                        <label className="mb-2 block text-sm text-gray-400">
+                        <label className="mb-2 block text-sm text-texto-tenue">
                           Estado del pedido
                         </label>
 
@@ -1826,7 +1826,7 @@ function Usuarios() {
                           className={`
                             rounded-lg
                             border
-                            border-gray-600
+                            border-borde
                             px-4
                             py-2
                             font-bold
@@ -1873,7 +1873,7 @@ function Usuarios() {
                           className="
                             mt-4
                             border-t
-                            border-gray-700
+                            border-borde
                             pt-4
                           "
                         >
@@ -1896,7 +1896,7 @@ function Usuarios() {
                                     flex
                                     justify-between
                                     text-sm
-                                    text-gray-400
+                                    text-texto-tenue
                                   "
                                 >
 

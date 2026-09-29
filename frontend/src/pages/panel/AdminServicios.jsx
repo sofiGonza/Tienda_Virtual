@@ -77,7 +77,7 @@ function AdminServicios() {
   };
 
   return (
-    <section className="p-8 text-white">
+    <section className="p-8 text-texto">
       <header className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Panel</p>
         <h1 className="mt-1 text-3xl font-bold">🛠 Servicios</h1>
@@ -89,17 +89,17 @@ function AdminServicios() {
         </p>
       )}
 
-      <form onSubmit={guardar} className="mb-8 grid max-w-3xl gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-6 md:grid-cols-2">
+      <form onSubmit={guardar} className="mb-8 grid max-w-3xl gap-3 rounded-2xl border border-borde bg-fondo p-6 md:grid-cols-2">
         <h2 className="text-lg font-bold md:col-span-2">{editando ? "✏️ Editar servicio" : "➕ Nuevo servicio"}</h2>
         <input
-          className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+          className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
           placeholder="Nombre"
           value={form.nombre}
           onChange={(e) => setForm({ ...form, nombre: e.target.value })}
           required
         />
         <input
-          className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+          className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
           placeholder="Precio por hora"
           type="number"
           min="0"
@@ -108,13 +108,13 @@ function AdminServicios() {
           required
         />
         <input
-          className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400 md:col-span-2"
+          className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400 md:col-span-2"
           placeholder="Icono (ej: laptop, download, cog)"
           value={form.icono}
           onChange={(e) => setForm({ ...form, icono: e.target.value })}
         />
         <textarea
-          className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400 md:col-span-2"
+          className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400 md:col-span-2"
           placeholder="Descripción"
           rows={3}
           value={form.descripcion}
@@ -122,14 +122,14 @@ function AdminServicios() {
           required
         />
         <div className="flex gap-3 md:col-span-2">
-          <button className="rounded-lg bg-cyan-400 px-5 py-2 font-bold text-gray-900 transition hover:bg-cyan-300">
+          <button className="rounded-lg bg-cyan-400 px-5 py-2 font-bold text-[#06202e] transition hover:bg-cyan-300">
             {editando ? "💾 Guardar cambios" : "➕ Crear servicio"}
           </button>
           {editando && (
             <button
               type="button"
               onClick={() => { setEditando(null); setForm(formVacio); }}
-              className="rounded-lg border border-gray-600 px-5 py-2 text-gray-300 transition hover:bg-gray-800"
+              className="rounded-lg border border-borde px-5 py-2 text-texto-suave transition hover:bg-superficie-2"
             >
               Cancelar
             </button>
@@ -138,13 +138,13 @@ function AdminServicios() {
       </form>
 
       {cargando ? (
-        <p className="text-gray-400">Cargando servicios...</p>
+        <p className="text-texto-tenue">Cargando servicios...</p>
       ) : items.length === 0 ? (
-        <p className="text-gray-400">No hay servicios.</p>
+        <p className="text-texto-tenue">No hay servicios.</p>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-gray-800">
+        <div className="overflow-x-auto rounded-2xl border border-borde">
           <table className="w-full text-left text-sm">
-            <thead className="bg-gray-900 text-gray-300">
+            <thead className="bg-fondo text-texto-suave">
               <tr>
                 <th className="px-4 py-3">Nombre</th>
                 <th className="px-4 py-3">Descripción</th>
@@ -155,9 +155,9 @@ function AdminServicios() {
             </thead>
             <tbody className="divide-y divide-gray-800">
               {items.map((s) => (
-                <tr key={s.id} className="bg-[#111827]">
+                <tr key={s.id} className="bg-fondo">
                   <td className="px-4 py-3 font-semibold">{s.nombre}</td>
-                  <td className="max-w-[280px] px-4 py-3 text-gray-400">{s.descripcion}</td>
+                  <td className="max-w-[280px] px-4 py-3 text-texto-tenue">{s.descripcion}</td>
                   <td className="px-4 py-3 font-bold text-cyan-400">{formatoPrecio(s.precio)}</td>
                   <td className="px-4 py-3">
                     <span className={`rounded-full px-3 py-1 text-xs font-bold ${s.estado ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"}`}>

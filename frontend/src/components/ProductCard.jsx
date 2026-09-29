@@ -35,8 +35,8 @@ function ProductCard({
         overflow-hidden
         rounded-2xl
         border
-        border-gray-700/50
-        bg-[#1b2740e0]
+        border-borde/50
+        bg-superficie
         shadow-[0_10px_20px_rgba(0,0,0,0.2)]
         transition
         duration-300
@@ -55,7 +55,7 @@ function ProductCard({
           h-[220px]
           w-full
           overflow-hidden
-          bg-gray-800
+          bg-superficie-2
         "
       >
 
@@ -108,7 +108,7 @@ function ProductCard({
             mb-3
             text-xl
             font-bold
-            text-white
+            text-texto
           "
         >
           {producto.nombre}
@@ -121,7 +121,7 @@ function ProductCard({
             min-h-[65px]
             text-sm
             leading-relaxed
-            text-gray-300
+            text-texto-suave
           "
         >
           {producto.descripcion}
@@ -154,7 +154,7 @@ function ProductCard({
             block
             text-sm
             font-semibold
-            text-gray-400
+            text-texto-tenue
           "
         >
           Stock disponible: {producto.stock}
@@ -177,7 +177,7 @@ function ProductCard({
               py-3
               text-base
               font-bold
-              text-gray-900
+              text-[#06202e]
               transition
               duration-300
               hover:scale-[1.02]

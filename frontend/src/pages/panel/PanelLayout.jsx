@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { obtenerSesion, cerrarSesion } from "../../Services/AuthService";
+import { useTema } from "../../Context/ThemeContext";
 import logo from "../../img/logo/logoPixel.png";
 
 
@@ -10,6 +12,7 @@ import logo from "../../img/logo/logoPixel.png";
 
 function Sidebar({ sesion, rol, cerrar, abierta, cerrarSidebar }) {
   const navigate = useNavigate();
+  const { tema, alternarTema } = useTema();
 
   const enlaces = [];
 
@@ -48,22 +51,22 @@ function Sidebar({ sesion, rol, cerrar, abierta, cerrarSidebar }) {
         />
       )}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 flex h-full w-64 transform flex-col border-r border-gray-800 bg-[#0f172a] transition-transform duration-300 md:static md:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 flex h-full w-64 transform flex-col border-r border-borde bg-fondo transition-transform duration-300 md:static md:translate-x-0 ${
           abierta ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* LOGO */}
-        <div className="flex items-center gap-3 border-b border-gray-800 px-5 py-5">
+        <div className="flex items-center gap-3 border-b border-borde px-5 py-5">
           <img src={logo} alt="Pixel Store" className="h-11 w-11 object-contain" />
           <div>
             <p className="text-lg font-bold text-cyan-400">Pixel Store</p>
-            <p className="text-xs text-gray-500">Panel de gestión</p>
+            <p className="text-xs text-texto-tenue">Panel de gestión</p>
           </div>
         </div>
 
         {/* USUARIO */}
-        <div className="border-b border-gray-800 px-5 py-4">
-          <p className="truncate text-sm font-semibold text-white">
+        <div className="border-b border-borde px-5 py-4">
+          <p className="truncate text-sm font-semibold text-texto">
             👤 {sesion.nombre} {sesion.apellido}
           </p>
           <p className="mt-1 text-xs capitalize text-cyan-400">
@@ -86,7 +89,7 @@ function Sidebar({ sesion, rol, cerrar, abierta, cerrarSidebar }) {
                 `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${
                   isActive
                     ? "bg-cyan-400/10 text-cyan-400"
-                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                    : "text-texto-tenue hover:bg-superficie-2 hover:text-texto"
                 }`
               }
             >
@@ -96,10 +99,10 @@ function Sidebar({ sesion, rol, cerrar, abierta, cerrarSidebar }) {
         </nav>
 
         {/* ACCIONES FINALES */}
-        <div className="space-y-2 border-t border-gray-800 px-3 py-4">
+        <div className="space-y-2 border-t border-borde px-3 py-4">
           <button
             onClick={irPagina}
-            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white"
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-texto-suave transition hover:bg-superficie-2 hover:text-texto"
           >
             🌐 Ir a la página
           </button>
@@ -108,6 +111,17 @@ function Sidebar({ sesion, rol, cerrar, abierta, cerrarSidebar }) {
             className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
           >
             🚪 Cerrar sesión
+          </button>
+          <button
+            onClick={alternarTema}
+            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-texto-suave transition hover:bg-superficie-2 hover:text-texto"
+          >
+            {tema === "claro" ? (
+              <FaSun className="text-yellow-400" />
+            ) : (
+              <FaMoon className="text-cyan-400" />
+            )}
+            {tema === "claro" ? "Modo claro" : "Modo oscuro"}
           </button>
         </div>
       </aside>
@@ -146,7 +160,7 @@ function PanelLayout() {
   };
 
   return (
-    <div className="flex h-screen w-full overflow-hidden bg-gray-950">
+    <div className="flex h-screen w-full overflow-hidden bg-fondo">
       <Sidebar
         sesion={sesion}
         rol={rol}
@@ -154,11 +168,11 @@ function PanelLayout() {
         abierta={sidebarAbierta}
         cerrarSidebar={() => setSidebarAbierta(false)}
       />
-      <main className="relative flex-1 overflow-y-auto bg-gray-950">
+      <main className="relative flex-1 overflow-y-auto bg-fondo">
         {/* BOTÓN HAMBURGUESA MÓVIL */}
         <button
           onClick={() => setSidebarAbierta(true)}
-          className="fixed left-4 top-4 z-30 flex h-11 w-11 items-center justify-center rounded-lg border border-gray-700 bg-[#0f172a] text-white shadow-lg md:hidden"
+          className="fixed left-4 top-4 z-30 flex h-11 w-11 items-center justify-center rounded-lg border border-borde bg-fondo text-texto shadow-lg md:hidden"
           aria-label="Abrir menú"
         >
           <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

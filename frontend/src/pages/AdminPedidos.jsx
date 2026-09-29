@@ -547,7 +547,7 @@ function AdminPedidos() {
         default:
 
           return (
-            "bg-gray-500/20 text-gray-400"
+            "bg-gray-500/20 text-texto-tenue"
           );
 
       }
@@ -564,7 +564,7 @@ function AdminPedidos() {
     <section
       className="
         min-h-full
-        bg-gray-950
+        bg-fondo
         p-8
       "
     >
@@ -587,7 +587,7 @@ function AdminPedidos() {
             flex-col
             gap-4
             border-b
-            border-gray-700
+            border-borde
             pb-6
             md:flex-row
             md:items-center
@@ -615,7 +615,7 @@ function AdminPedidos() {
                 mt-2
                 text-4xl
                 font-bold
-                text-white
+                text-texto
               "
             >
               🛒 Pedidos
@@ -633,7 +633,7 @@ function AdminPedidos() {
                 px-5
                 py-3
                 font-bold
-                text-gray-900
+                text-[#06202e]
                 hover:bg-cyan-300
               "
             >
@@ -653,7 +653,7 @@ function AdminPedidos() {
           <p
             className="
               text-center
-              text-white
+              text-texto
             "
           >
             Cargando pedidos...
@@ -664,7 +664,7 @@ function AdminPedidos() {
           <div
             className="
               rounded-2xl
-              bg-[#111827]
+              bg-fondo
               p-12
               text-center
             "
@@ -683,7 +683,7 @@ function AdminPedidos() {
               className="
                 mt-4
                 text-xl
-                text-gray-400
+                text-texto-tenue
               "
             >
               No hay pedidos registrados.
@@ -718,8 +718,8 @@ function AdminPedidos() {
                     overflow-hidden
                     rounded-2xl
                     border
-                    border-gray-700
-                    bg-[#111827]
+                    border-borde
+                    bg-fondo
                   "
                 >
 
@@ -733,7 +733,7 @@ function AdminPedidos() {
                       flex-col
                       gap-4
                       border-b
-                      border-gray-700
+                      border-borde
                       p-6
                       md:flex-row
                       md:items-center
@@ -746,7 +746,7 @@ function AdminPedidos() {
                       <p
                         className="
                           text-sm
-                          text-gray-500
+                          text-texto-tenue
                         "
                       >
                         Pedido #
@@ -764,7 +764,7 @@ function AdminPedidos() {
                           mt-1
                           text-xl
                           font-bold
-                          text-white
+                          text-texto
                         "
                       >
                         👤{" "}
@@ -781,7 +781,7 @@ function AdminPedidos() {
                       <p
                         className="
                           mt-1
-                          text-gray-400
+                          text-texto-tenue
                         "
                       >
                         {pedido.usuario?.correo}
@@ -792,7 +792,7 @@ function AdminPedidos() {
                         className="
                           mt-1
                           text-sm
-                          text-gray-500
+                          text-texto-tenue
                         "
                       >
                         Documento:
@@ -851,7 +851,7 @@ function AdminPedidos() {
                             items-center
                             justify-between
                             rounded-xl
-                            bg-[#1b2740]
+                            bg-superficie
                             p-4
                           "
                         >
@@ -861,7 +861,7 @@ function AdminPedidos() {
                             <h3
                               className="
                                 font-bold
-                                text-white
+                                text-texto
                               "
                             >
                               {producto.nombre}
@@ -872,7 +872,7 @@ function AdminPedidos() {
                               className="
                                 mt-1
                                 text-sm
-                                text-gray-400
+                                text-texto-tenue
                               "
                             >
                               Cantidad:
@@ -885,7 +885,7 @@ function AdminPedidos() {
                               className="
                                 mt-1
                                 text-sm
-                                text-gray-500
+                                text-texto-tenue
                               "
                             >
                               Precio:
@@ -927,7 +927,7 @@ function AdminPedidos() {
                       flex-col
                       gap-5
                       border-t
-                      border-gray-700
+                      border-borde
                       p-6
                       md:flex-row
                       md:items-center
@@ -939,7 +939,7 @@ function AdminPedidos() {
 
                       <span
                         className="
-                          text-gray-400
+                          text-texto-tenue
                         "
                       >
                         Total:
@@ -991,12 +991,12 @@ function AdminPedidos() {
                         className="
                           rounded-lg
                           border
-                          border-gray-600
-                          bg-gray-800
+                          border-borde
+                          bg-superficie-2
                           px-4
                           py-3
                           font-semibold
-                          text-white
+                          text-texto
                           outline-none
                           focus:ring-2
                           focus:ring-cyan-400
@@ -1073,12 +1073,12 @@ function AdminPedidos() {
 
       {mostrarCrear && (
         <div className="fixed inset-0 z-[3000] flex items-center justify-center bg-black/70 p-4">
-          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-[#111827] p-6">
+          <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-fondo p-6">
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">＋ Agregar pedido</h2>
+              <h2 className="text-2xl font-bold text-texto">＋ Agregar pedido</h2>
               <button
                 onClick={() => setMostrarCrear(false)}
-                className="text-2xl text-gray-400 hover:text-white"
+                className="text-2xl text-texto-tenue hover:text-texto"
               >
                 ✕
               </button>
@@ -1091,7 +1091,7 @@ function AdminPedidos() {
             )}
 
             {/* CLIENTE */}
-            <label className="mb-1 block text-sm font-semibold text-gray-300">
+            <label className="mb-1 block text-sm font-semibold text-texto-suave">
               Cliente
             </label>
             <select
@@ -1099,7 +1099,7 @@ function AdminPedidos() {
               onChange={(e) =>
                 setNuevoPedido((prev) => ({ ...prev, usuario_id: e.target.value }))
               }
-              className="mb-4 w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+              className="mb-4 w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
             >
               <option value="">Selecciona un cliente...</option>
               {clientes.map((c) => (
@@ -1110,7 +1110,7 @@ function AdminPedidos() {
             </select>
 
             {/* PRODUCTO */}
-            <label className="mb-1 block text-sm font-semibold text-gray-300">
+            <label className="mb-1 block text-sm font-semibold text-texto-suave">
               Producto
             </label>
             <div className="mb-4 flex gap-2">
@@ -1119,7 +1119,7 @@ function AdminPedidos() {
                   if (e.target.value) agregarItem(e.target.value);
                   e.target.value = "";
                 }}
-                className="flex-1 rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="flex-1 rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               >
                 <option value="">Agregar producto...</option>
                 {productos.map((p) => (
@@ -1136,10 +1136,10 @@ function AdminPedidos() {
                 {nuevoPedido.items.map((item) => (
                   <div
                     key={item.producto_id}
-                    className="flex items-center justify-between rounded-xl bg-gray-900 px-4 py-3"
+                    className="flex items-center justify-between rounded-xl bg-fondo px-4 py-3"
                   >
                     <div>
-                      <p className="text-sm font-semibold text-white">{item.nombre}</p>
+                      <p className="text-sm font-semibold text-texto">{item.nombre}</p>
                       <div className="mt-1 flex items-center gap-2">
                         <button
                           onClick={() =>
@@ -1152,11 +1152,11 @@ function AdminPedidos() {
                               ),
                             }))
                           }
-                          className="rounded bg-gray-700 px-2 text-white"
+                          className="rounded bg-superficie-2 px-2 text-texto"
                         >
                           −
                         </button>
-                        <span className="text-sm text-gray-300">{item.cantidad}</span>
+                        <span className="text-sm text-texto-suave">{item.cantidad}</span>
                         <button
                           onClick={() =>
                             setNuevoPedido((prev) => ({
@@ -1168,7 +1168,7 @@ function AdminPedidos() {
                               ),
                             }))
                           }
-                          className="rounded bg-gray-700 px-2 text-white"
+                          className="rounded bg-superficie-2 px-2 text-texto"
                         >
                           +
                         </button>
@@ -1188,14 +1188,14 @@ function AdminPedidos() {
             <div className="mt-6 flex gap-3">
               <button
                 onClick={() => setMostrarCrear(false)}
-                className="flex-1 rounded-lg border border-gray-600 px-4 py-3 font-bold text-gray-300 hover:bg-gray-800"
+                className="flex-1 rounded-lg border border-borde px-4 py-3 font-bold text-texto-suave hover:bg-superficie-2"
               >
                 Cancelar
               </button>
               <button
                 onClick={guardarPedido}
                 disabled={crearCargando}
-                className="flex-1 rounded-lg bg-cyan-400 px-4 py-3 font-bold text-gray-900 hover:bg-cyan-300 disabled:opacity-50"
+                className="flex-1 rounded-lg bg-cyan-400 px-4 py-3 font-bold text-[#06202e] hover:bg-cyan-300 disabled:opacity-50"
               >
                 {crearCargando ? "Creando..." : "Crear pedido"}
               </button>

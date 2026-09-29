@@ -58,7 +58,7 @@ function DashboardCliente() {
   }, [navigate]);
 
   if (error) return <p className="p-10 text-red-400">{error}</p>;
-  if (!data) return <p className="p-10 text-white">Cargando dashboard...</p>;
+  if (!data) return <p className="p-10 text-texto">Cargando dashboard...</p>;
 
   const progreso = Object.entries(data.pedidos_por_estado).map(([k, v]) => ({
     label: k,
@@ -70,10 +70,10 @@ function DashboardCliente() {
     <div className="p-8">
       <header className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Panel de cliente</p>
-        <h1 className="mt-1 text-3xl font-bold text-white">
+        <h1 className="mt-1 text-3xl font-bold text-texto">
           Hola, {sesion.nombre} 👋
         </h1>
-        <p className="mt-2 flex items-center gap-3 text-sm text-gray-400">
+        <p className="mt-2 flex items-center gap-3 text-sm text-texto-tenue">
           <span className="rounded-full bg-cyan-400/10 px-3 py-1 capitalize text-cyan-400">Rol: cliente</span>
           <span className={`rounded-full px-3 py-1 ${sesion.estado ? "bg-green-400/10 text-green-400" : "bg-red-400/10 text-red-400"}`}>
             {sesion.estado ? "● Activo" : "● Inactivo"}
@@ -83,16 +83,16 @@ function DashboardCliente() {
 
       {/* TARJETAS */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">⏱ Tiempo en la página</p>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">⏱ Tiempo en la página</p>
           <p className="mt-1 font-mono text-3xl font-bold text-cyan-400">{formatearTiempo(tiempo)}</p>
         </div>
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">🧾 Total de pedidos</p>
-          <p className="mt-1 text-4xl font-bold text-white">{data.total_pedidos}</p>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">🧾 Total de pedidos</p>
+          <p className="mt-1 text-4xl font-bold text-texto">{data.total_pedidos}</p>
         </div>
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <p className="text-sm text-gray-400">🛒 En curso</p>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <p className="text-sm text-texto-tenue">🛒 En curso</p>
           <p className="mt-1 text-4xl font-bold text-blue-400">
             {(data.pedidos_por_estado.pendiente || 0) + (data.pedidos_por_estado.procesando || 0) + (data.pedidos_por_estado.enviado || 0)}
           </p>
@@ -100,27 +100,27 @@ function DashboardCliente() {
       </div>
 
       {/* PROGRESO */}
-      <div className="mt-6 rounded-2xl border border-gray-800 bg-[#111827] p-6">
-        <h2 className="mb-4 text-lg font-bold text-white">📈 Progreso de tus pedidos</h2>
+      <div className="mt-6 rounded-2xl border border-borde bg-fondo p-6">
+        <h2 className="mb-4 text-lg font-bold text-texto">📈 Progreso de tus pedidos</h2>
         <GraficaBarras items={progreso} />
       </div>
 
       <div className="mt-6 flex flex-wrap gap-3">
         <button
           onClick={() => navigate("/panel/mis-pedidos")}
-          className="rounded-xl bg-cyan-400 px-6 py-3 font-bold text-gray-900 transition hover:bg-cyan-300"
+          className="rounded-xl bg-cyan-400 px-6 py-3 font-bold text-[#06202e] transition hover:bg-cyan-300"
         >
           🧾 Ver mis pedidos
         </button>
         <button
           onClick={() => navigate("/panel/facturas")}
-          className="rounded-xl border border-gray-600 px-6 py-3 font-bold text-gray-300 transition hover:bg-gray-800"
+          className="rounded-xl border border-borde px-6 py-3 font-bold text-texto-suave transition hover:bg-superficie-2"
         >
           📄 Ver facturas
         </button>
         <button
           onClick={() => navigate("/productos")}
-          className="rounded-xl border border-gray-600 px-6 py-3 font-bold text-gray-300 transition hover:bg-gray-800"
+          className="rounded-xl border border-borde px-6 py-3 font-bold text-texto-suave transition hover:bg-superficie-2"
         >
           🛍️ Ver productos
         </button>
@@ -128,12 +128,12 @@ function DashboardCliente() {
 
       {/* GRÁFICOS ADICIONALES */}
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">🥧 Distribución de tus pedidos</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">🥧 Distribución de tus pedidos</h2>
           <GraficaDona items={progreso} />
         </div>
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
-          <h2 className="mb-4 text-lg font-bold text-white">📊 Distribución por estados</h2>
+        <div className="rounded-2xl border border-borde bg-fondo p-6">
+          <h2 className="mb-4 text-lg font-bold text-texto">📊 Distribución por estados</h2>
           <GraficaLineal items={progreso} />
         </div>
       </div>

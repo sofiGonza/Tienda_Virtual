@@ -258,18 +258,18 @@ function AdminProductos() {
   }
 
   return (
-    <section className="min-h-full bg-gray-950 p-8">
+    <section className="min-h-full bg-fondo p-8">
       <div className="mx-auto max-w-[1300px]">
         {/* ENCABEZADO */}
-        <div className="mb-8 flex flex-col gap-4 border-b border-gray-700 pb-6 md:flex-row md:items-center md:justify-between">
+        <div className="mb-8 flex flex-col gap-4 border-b border-borde pb-6 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">
               {rolUsuario === "administrador"
                 ? "Administración"
                 : "Panel del empleado"}
             </p>
-            <h1 className="mt-2 text-4xl font-bold text-white">📦 Productos</h1>
-            <p className="mt-2 text-gray-400">
+            <h1 className="mt-2 text-4xl font-bold text-texto">📦 Productos</h1>
+            <p className="mt-2 text-texto-tenue">
               {rolUsuario === "administrador"
                 ? "Administra el catálogo de productos."
                 : "Consulta, agrega y edita productos."}
@@ -279,7 +279,7 @@ function AdminProductos() {
           <div className="flex flex-wrap gap-3">
             <button
               onClick={abrirAgregar}
-              className="rounded-lg bg-cyan-400 px-5 py-3 font-bold text-gray-900 transition hover:bg-cyan-300"
+              className="rounded-lg bg-cyan-400 px-5 py-3 font-bold text-[#06202e] transition hover:bg-cyan-300"
             >
               + Agregar producto
             </button>
@@ -295,11 +295,11 @@ function AdminProductos() {
 
         {/* CARGANDO / LISTA */}
         {cargando ? (
-          <p className="py-10 text-center text-white">Cargando productos...</p>
+          <p className="py-10 text-center text-texto">Cargando productos...</p>
         ) : productos.length === 0 ? (
-          <div className="rounded-2xl bg-[#111827] p-12 text-center">
+          <div className="rounded-2xl bg-fondo p-12 text-center">
             <p className="text-5xl">📦</p>
-            <p className="mt-4 text-xl text-gray-400">
+            <p className="mt-4 text-xl text-texto-tenue">
               No hay productos registrados.
             </p>
           </div>
@@ -308,7 +308,7 @@ function AdminProductos() {
             {productos.map((producto) => (
               <article
                 key={producto.id}
-                className="overflow-hidden rounded-2xl border border-gray-700 bg-[#1b2740e0] transition hover:-translate-y-1 hover:border-cyan-400/50"
+                className="overflow-hidden rounded-2xl border border-borde bg-superficie transition hover:-translate-y-1 hover:border-cyan-400/50"
               >
                 {/* IMAGEN CORREGIDA */}
                 <img
@@ -321,18 +321,18 @@ function AdminProductos() {
                 />
 
                 <div className="p-5">
-                  <h2 className="text-xl font-bold text-white">
+                  <h2 className="text-xl font-bold text-texto">
                     {producto.nombre}
                   </h2>
-                  <p className="mt-2 line-clamp-3 text-sm text-gray-400">
+                  <p className="mt-2 line-clamp-3 text-sm text-texto-tenue">
                     {producto.descripcion}
                   </p>
                   <p className="mt-4 text-xl font-bold text-cyan-400">
                     {formatoPrecio(producto.precio)}
                   </p>
 
-                  <div className="mt-3 rounded-lg bg-gray-900 px-3 py-2">
-                    <p className="text-sm text-gray-400">Stock</p>
+                  <div className="mt-3 rounded-lg bg-fondo px-3 py-2">
+                    <p className="text-sm text-texto-tenue">Stock</p>
                     <p
                       className={`font-bold ${
                         producto.stock === 0
@@ -375,10 +375,10 @@ function AdminProductos() {
         <div className="fixed inset-0 z-[3000] flex items-center justify-center bg-black/70 p-4">
           <form
             onSubmit={guardarProducto}
-            className="w-full max-w-xl rounded-2xl bg-[#111827] p-6"
+            className="w-full max-w-xl rounded-2xl bg-fondo p-6"
           >
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-texto">
                 {productoEditar
                   ? "✏️ Editar producto"
                   : "➕ Agregar producto"}
@@ -386,7 +386,7 @@ function AdminProductos() {
               <button
                 type="button"
                 onClick={() => setMostrarFormulario(false)}
-                className="text-2xl text-gray-400 hover:text-white"
+                className="text-2xl text-texto-tenue hover:text-texto"
               >
                 ✕
               </button>
@@ -400,7 +400,7 @@ function AdminProductos() {
                 placeholder="Nombre"
                 required
                 maxLength="100"
-                className="w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               />
               <textarea
                 name="descripcion"
@@ -409,7 +409,7 @@ function AdminProductos() {
                 placeholder="Descripción"
                 required
                 rows="3"
-                className="w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               />
               <input
                 name="precio"
@@ -419,7 +419,7 @@ function AdminProductos() {
                 onChange={cambiarCampo}
                 placeholder="Precio"
                 required
-                className="w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               />
               <input
                 name="stock"
@@ -429,14 +429,14 @@ function AdminProductos() {
                 onChange={cambiarCampo}
                 placeholder="Stock"
                 required
-                className="w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               />
               <input
                 name="imagen"
                 value={formulario.imagen}
                 onChange={cambiarCampo}
                 placeholder="URL de imagen (opcional)"
-                className="w-full rounded-lg bg-gray-800 p-3 text-white outline-none focus:ring-2 focus:ring-cyan-400"
+                className="w-full rounded-lg bg-superficie-2 p-3 text-texto outline-none focus:ring-2 focus:ring-cyan-400"
               />
             </div>
 
@@ -444,13 +444,13 @@ function AdminProductos() {
               <button
                 type="button"
                 onClick={() => setMostrarFormulario(false)}
-                className="flex-1 rounded-lg border border-gray-600 px-4 py-3 font-bold text-gray-300 hover:bg-gray-800"
+                className="flex-1 rounded-lg border border-borde px-4 py-3 font-bold text-texto-suave hover:bg-superficie-2"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="flex-1 rounded-lg bg-cyan-400 px-4 py-3 font-bold text-gray-900 hover:bg-cyan-300"
+                className="flex-1 rounded-lg bg-cyan-400 px-4 py-3 font-bold text-[#06202e] hover:bg-cyan-300"
               >
                 {productoEditar ? "Guardar cambios" : "Crear producto"}
               </button>

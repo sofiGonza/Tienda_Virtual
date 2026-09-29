@@ -793,7 +793,7 @@ function AdminUsuarios() {
     <section
       className="
         min-h-full
-        bg-gray-950
+        bg-fondo
         p-8
       "
     >
@@ -814,7 +814,7 @@ function AdminUsuarios() {
             flex-col
             gap-4
             border-b
-            border-gray-700
+            border-borde
             pb-6
             md:flex-row
             md:items-center
@@ -842,7 +842,7 @@ function AdminUsuarios() {
                 mt-2
                 text-4xl
                 font-bold
-                text-white
+                text-texto
               "
             >
               👥 Usuarios
@@ -863,7 +863,7 @@ function AdminUsuarios() {
                 px-5
                 py-3
                 font-bold
-                text-gray-900
+                text-[#06202e]
               "
             >
               + Agregar usuario
@@ -895,10 +895,10 @@ function AdminUsuarios() {
             w-full
             rounded-xl
             border
-            border-gray-700
-            bg-[#111827]
+            border-borde
+            bg-fondo
             p-4
-            text-white
+            text-texto
             outline-none
             focus:border-cyan-400
           "
@@ -909,7 +909,7 @@ function AdminUsuarios() {
 
         {cargando ? (
 
-          <p className="text-center text-white">
+          <p className="text-center text-texto">
             Cargando usuarios...
           </p>
 
@@ -932,8 +932,8 @@ function AdminUsuarios() {
                   className="
                     rounded-2xl
                     border
-                    border-gray-700
-                    bg-[#1b2740e0]
+                    border-borde
+                    bg-superficie
                     p-5
                   "
                 >
@@ -955,7 +955,7 @@ function AdminUsuarios() {
                         className="
                           text-xl
                           font-bold
-                          text-white
+                          text-texto
                         "
                       >
                         {usuario.nombre}
@@ -967,7 +967,7 @@ function AdminUsuarios() {
                       <p
                         className="
                           mt-1
-                          text-gray-400
+                          text-texto-tenue
                         "
                       >
                         {usuario.correo}
@@ -978,7 +978,7 @@ function AdminUsuarios() {
                         className="
                           mt-1
                           text-sm
-                          text-gray-500
+                          text-texto-tenue
                         "
                       >
                         Documento:
@@ -1068,7 +1068,7 @@ function AdminUsuarios() {
                           px-4
                           py-2
                           font-bold
-                          text-gray-900
+                          text-[#06202e]
                         "
                       >
                         {usuario.estado
@@ -1148,7 +1148,7 @@ function AdminUsuarios() {
         max-h-[90vh]
         overflow-y-auto
         rounded-2xl
-        bg-[#111827]
+        bg-fondo
         p-6
         shadow-2xl
       "
@@ -1171,7 +1171,7 @@ function AdminUsuarios() {
           className="
             text-3xl
             font-bold
-            text-white
+            text-texto
           "
         >
           ➕{" "}
@@ -1191,7 +1191,7 @@ function AdminUsuarios() {
           className="
             text-3xl
             font-light
-            text-gray-400
+            text-texto-tenue
             transition
             hover:text-cyan-400
           "
@@ -1234,12 +1234,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1270,12 +1270,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1303,12 +1303,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               outline-none
               transition
               focus:border-cyan-400
@@ -1361,12 +1361,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1398,12 +1398,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1433,12 +1433,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1469,12 +1469,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1508,12 +1508,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               placeholder-gray-400
               outline-none
               transition
@@ -1541,12 +1541,12 @@ function AdminUsuarios() {
               w-full
               rounded-xl
               border
-              border-gray-700
-              bg-[#1f2937]
+              border-borde
+              bg-superficie-2
               px-4
               py-4
               text-base
-              text-white
+              text-texto
               outline-none
               transition
               focus:border-cyan-400
@@ -1588,11 +1588,11 @@ function AdminUsuarios() {
                 gap-3
                 rounded-xl
                 border
-                border-gray-700
-                bg-[#1f2937]
+                border-borde
+                bg-superficie-2
                 px-4
                 py-4
-                text-white
+                text-texto
               "
             >
 
@@ -1648,15 +1648,15 @@ function AdminUsuarios() {
               flex-1
               rounded-xl
               border
-              border-gray-600
+              border-borde
               px-4
               py-4
               text-lg
               font-bold
-              text-gray-300
+              text-texto-suave
               transition
-              hover:bg-gray-800
-              hover:text-white
+              hover:bg-superficie-2
+              hover:text-texto
             "
           >
             Cancelar
@@ -1675,7 +1675,7 @@ function AdminUsuarios() {
               py-4
               text-lg
               font-bold
-              text-gray-900
+              text-[#06202e]
               transition
               hover:bg-cyan-300
               disabled:cursor-not-allowed

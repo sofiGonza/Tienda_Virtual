@@ -382,7 +382,7 @@ function ProductosAdmin({
 
     return (
 
-      <p className="text-white">
+      <p className="text-texto">
         Cargando productos...
       </p>
 
@@ -417,7 +417,7 @@ function ProductosAdmin({
             className="
               text-3xl
               font-bold
-              text-white
+              text-texto
             "
           >
             🛒 Productos
@@ -427,7 +427,7 @@ function ProductosAdmin({
           <p
             className="
               mt-2
-              text-gray-400
+              text-texto-tenue
             "
           >
             Consulta y administra los productos.
@@ -444,7 +444,7 @@ function ProductosAdmin({
             px-5
             py-3
             font-bold
-            text-gray-900
+            text-[#06202e]
             transition
             hover:bg-cyan-300
           "
@@ -486,8 +486,8 @@ function ProductosAdmin({
             mb-8
             rounded-2xl
             border
-            border-gray-700
-            bg-[#1b2740e0]
+            border-borde
+            bg-superficie
             p-6
           "
         >
@@ -523,9 +523,9 @@ function ProductosAdmin({
               required
               className="
                 rounded-lg
-                bg-gray-800
+                bg-superficie-2
                 p-3
-                text-white
+                text-texto
                 outline-none
                 focus:ring-2
                 focus:ring-cyan-400
@@ -540,9 +540,9 @@ function ProductosAdmin({
               placeholder="URL de imagen"
               className="
                 rounded-lg
-                bg-gray-800
+                bg-superficie-2
                 p-3
-                text-white
+                text-texto
                 outline-none
                 focus:ring-2
                 focus:ring-cyan-400
@@ -560,9 +560,9 @@ function ProductosAdmin({
               required
               className="
                 rounded-lg
-                bg-gray-800
+                bg-superficie-2
                 p-3
-                text-white
+                text-texto
               "
             />
 
@@ -577,9 +577,9 @@ function ProductosAdmin({
               required
               className="
                 rounded-lg
-                bg-gray-800
+                bg-superficie-2
                 p-3
-                text-white
+                text-texto
               "
             />
 
@@ -597,9 +597,9 @@ function ProductosAdmin({
               mt-4
               w-full
               rounded-lg
-              bg-gray-800
+              bg-superficie-2
               p-3
-              text-white
+              text-texto
             "
           />
 
@@ -635,12 +635,12 @@ function ProductosAdmin({
               }
               className="
                 rounded-lg
-                bg-gray-700
+                bg-superficie-2
                 px-5
                 py-3
                 font-bold
-                text-white
-                hover:bg-gray-600
+                text-texto
+                hover:bg-hover
               "
             >
               Cancelar
@@ -676,8 +676,8 @@ function ProductosAdmin({
                 overflow-hidden
                 rounded-2xl
                 border
-                border-gray-700
-                bg-[#1b2740e0]
+                border-borde
+                bg-superficie
                 shadow-xl
               "
             >
@@ -685,7 +685,7 @@ function ProductosAdmin({
               <div
                 className="
                   h-[220px]
-                  bg-gray-800
+                  bg-superficie-2
                 "
               >
 
@@ -726,7 +726,7 @@ function ProductosAdmin({
                   className="
                     text-xl
                     font-bold
-                    text-white
+                    text-texto
                   "
                 >
                   {producto.nombre}
@@ -737,7 +737,7 @@ function ProductosAdmin({
                   className="
                     mt-2
                     text-sm
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   {producto.descripcion}
@@ -762,7 +762,7 @@ function ProductosAdmin({
                 <p
                   className="
                     mt-2
-                    text-gray-300
+                    text-texto-suave
                   "
                 >
                   Stock:

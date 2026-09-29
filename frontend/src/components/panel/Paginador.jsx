@@ -33,7 +33,7 @@ function Paginador({ pagina, totalPaginas, irA }) {
         type="button"
         onClick={() => irA(pagina - 1)}
         disabled={pagina <= 1}
-        className="rounded-lg border border-gray-700 bg-[#111827] px-3 py-2 text-sm font-bold text-gray-300 transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-40"
+        className="rounded-lg border border-borde bg-fondo px-3 py-2 text-sm font-bold text-texto-suave transition hover:bg-superficie-2 disabled:cursor-not-allowed disabled:opacity-40"
         aria-label="Página anterior"
       >
         ‹
@@ -46,8 +46,8 @@ function Paginador({ pagina, totalPaginas, irA }) {
           aria-current={n === pagina ? "page" : undefined}
           className={`rounded-lg px-3 py-2 text-sm font-bold transition ${
             n === pagina
-              ? "bg-cyan-400 text-gray-900"
-              : "border border-gray-700 bg-[#111827] text-gray-300 hover:bg-gray-800"
+              ? "bg-cyan-400 text-[#06202e]"
+              : "border border-borde bg-fondo text-texto-suave hover:bg-superficie-2"
           }`}
         >
           {n}
@@ -57,7 +57,7 @@ function Paginador({ pagina, totalPaginas, irA }) {
         type="button"
         onClick={() => irA(pagina + 1)}
         disabled={pagina >= totalPaginas}
-        className="rounded-lg border border-gray-700 bg-[#111827] px-3 py-2 text-sm font-bold text-gray-300 transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-40"
+        className="rounded-lg border border-borde bg-fondo px-3 py-2 text-sm font-bold text-texto-suave transition hover:bg-superficie-2 disabled:cursor-not-allowed disabled:opacity-40"
         aria-label="Página siguiente"
       >
         ›

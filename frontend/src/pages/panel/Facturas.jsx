@@ -47,7 +47,7 @@ function Facturas() {
   }, [q, estado, fecha]);
 
   return (
-    <section className="p-8 text-white">
+    <section className="p-8 text-texto">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Facturación</p>
@@ -55,7 +55,7 @@ function Facturas() {
         </div>
         <div className="flex flex-wrap items-end gap-3">
           <input
-            className="rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-4 py-2 text-texto outline-none focus:border-cyan-400"
             placeholder="Buscar por número"
             value={q}
             onChange={(e) => setQ(e.target.value)}
@@ -64,7 +64,7 @@ function Facturas() {
           <select
             value={estado}
             onChange={(e) => setEstado(e.target.value)}
-            className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
             aria-label="Filtrar por estado"
           >
             <option value="">Todos los estados</option>
@@ -76,7 +76,7 @@ function Facturas() {
             type="date"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
-            className="rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+            className="rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
             aria-label="Filtrar por fecha"
           />
         </div>
@@ -84,26 +84,26 @@ function Facturas() {
 
       {error && <p className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-red-400">{error}</p>}
       {cargando ? (
-        <p className="text-gray-400">Cargando facturas...</p>
+        <p className="text-texto-tenue">Cargando facturas...</p>
       ) : items.length === 0 ? (
-        <div className="rounded-2xl border border-gray-800 bg-[#111827] p-10 text-center">
+        <div className="rounded-2xl border border-borde bg-fondo p-10 text-center">
           <p className="text-4xl">🧾</p>
-          <p className="mt-3 text-gray-400">No hay facturas que coincidan con los filtros.</p>
+          <p className="mt-3 text-texto-tenue">No hay facturas que coincidan con los filtros.</p>
         </div>
       ) : (
         <>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {items.slice(inicio, fin).map((f) => (
-            <article key={f.id} className="flex flex-col gap-3 rounded-2xl border border-gray-800 bg-[#111827] p-5">
+            <article key={f.id} className="flex flex-col gap-3 rounded-2xl border border-borde bg-fondo p-5">
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <p className="font-bold text-cyan-400">{f.numero}</p>
-                  <p className="mt-1 text-xs text-gray-500">{f.fecha ? new Date(f.fecha).toLocaleString("es-CO") : "—"}</p>
+                  <p className="mt-1 text-xs text-texto-tenue">{f.fecha ? new Date(f.fecha).toLocaleString("es-CO") : "—"}</p>
                 </div>
                 <span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-bold text-cyan-400">{f.estado}</span>
               </div>
               {f.cliente_nombre && (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-texto-tenue">
                   👤 {f.cliente_nombre}
                 </p>
               )}
@@ -113,16 +113,16 @@ function Facturas() {
                 </span>
               )}
               <p className="text-2xl font-bold">{formatoPrecio(f.total)}</p>
-              <div className="mt-2 space-y-1 text-sm text-gray-400">
+              <div className="mt-2 space-y-1 text-sm text-texto-tenue">
                 <p className="flex justify-between"><span>Subtotal</span><span>{formatoPrecio(f.subtotal)}</span></p>
                 <p className="flex justify-between"><span>Impuesto</span><span>{formatoPrecio(f.impuestos)}</span></p>
-                <p className="flex justify-between border-t border-gray-700 pt-1 font-semibold text-white"><span>Total</span><span>{formatoPrecio(f.total)}</span></p>
+                <p className="flex justify-between border-t border-borde pt-1 font-semibold text-texto"><span>Total</span><span>{formatoPrecio(f.total)}</span></p>
                 {f.operador ? (
-                  <p className="mt-2 rounded-lg bg-gray-900 px-3 py-2 text-xs text-gray-300">
+                  <p className="mt-2 rounded-lg bg-fondo px-3 py-2 text-xs text-texto-suave">
                     🧑‍💼 Añadida por: {f.operador.nombre} {f.operador.apellido}
                   </p>
                 ) : (
-                  <p className="mt-2 rounded-lg bg-gray-900 px-3 py-2 text-xs text-gray-400">
+                  <p className="mt-2 rounded-lg bg-fondo px-3 py-2 text-xs text-texto-tenue">
                     🛒 Factura de pedido
                   </p>
                 )}
@@ -130,7 +130,7 @@ function Facturas() {
               <div className="mt-auto flex gap-2">
                 <button
                   onClick={() => descargarFacturaPdf(f.id).catch((e) => setError(e.message))}
-                  className="flex-1 rounded-lg bg-cyan-400 px-3 py-2 text-sm font-bold text-gray-900 transition hover:bg-cyan-300"
+                  className="flex-1 rounded-lg bg-cyan-400 px-3 py-2 text-sm font-bold text-[#06202e] transition hover:bg-cyan-300"
                 >
                   ⬇️ PDF
                 </button>

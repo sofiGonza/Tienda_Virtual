@@ -11,7 +11,7 @@ function GraficaLineal({ items }) {
   const padY = 24;
 
   if (!items.length) {
-    return <p className="text-sm text-gray-500">Sin datos para mostrar.</p>;
+    return <p className="text-sm text-texto-tenue">Sin datos para mostrar.</p>;
   }
 
   // Rango: [-maxAbs, maxAbs]; y=0 en el centro vertical.
@@ -42,7 +42,7 @@ function GraficaLineal({ items }) {
             x2={width - padX}
             y1={height - padY - f * (height - padY * 2)}
             y2={height - padY - f * (height - padY * 2)}
-            stroke="#1e293b"
+            stroke="var(--color-borde)"
             strokeDasharray="4 4"
           />
         ))}
@@ -52,7 +52,7 @@ function GraficaLineal({ items }) {
           x2={width - padX}
           y1={yCero}
           y2={yCero}
-          stroke="#475569"
+          stroke="var(--color-texto-tenue)"
           strokeWidth="1.5"
         />
         {area && <polygon points={area} fill="#22d3ee" opacity="0.15" />}
@@ -60,10 +60,10 @@ function GraficaLineal({ items }) {
         {puntos.map((p, idx) => (
           <g key={idx}>
             <circle cx={p.x} cy={p.y} r="4" fill={p.valor < 0 ? "#ef4444" : "#0ea5e9"} />
-            <text x={p.x} y={p.y - 10} textAnchor="middle" fontSize="11" fill={p.valor < 0 ? "#ef4444" : "#94a3b8"}>
+            <text x={p.x} y={p.y - 10} textAnchor="middle" fontSize="11" fill={p.valor < 0 ? "#ef4444" : "var(--color-texto-tenue)"}>
               {p.total ?? p.value ?? 0}
             </text>
-            <text x={p.x} y={height - 6} textAnchor="middle" fontSize="10" fill="#64748b">
+            <text x={p.x} y={height - 6} textAnchor="middle" fontSize="10" fill="var(--color-texto-tenue)">
               {p.fecha ?? p.label ?? ""}
             </text>
           </g>

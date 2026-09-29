@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { obtenerSesion, cerrarSesion } from "../Services/AuthService";
+import { useTema } from "../Context/ThemeContext";
 import logo from "../img/logo/logoPixel.png";
 import Login from "./Login";
 
@@ -9,6 +11,7 @@ function Header() {
   const [usuario, setUsuario] = useState(null);
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [dropdownAbierto, setDropdownAbierto] = useState(false);
+  const { tema, alternarTema } = useTema();
 
   const navigate = useNavigate();
 
@@ -35,7 +38,7 @@ function Header() {
   // ESTILO NAVLINK
   const estiloNavLink = ({ isActive }) => `
     text-lg
-    text-white
+    text-texto
     transition
     hover:text-cyan-400
     ${isActive ? "border-b-2 border-cyan-400 pb-1 text-cyan-400" : ""}
@@ -43,7 +46,7 @@ function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-[1000] w-full bg-[#111827] shadow-lg">
+      <header className="sticky top-0 z-[1000] w-full bg-fondo shadow-lg">
         <nav className="flex items-center justify-between px-4 py-3 md:px-[70px] md:py-4">
           {/* LOGO */}
           <div className="flex items-center gap-2">
@@ -60,11 +63,11 @@ function Header() {
           {/* BOTÓN HAMBURGUESA (SÓLO PANTALLAS PEQUEÑAS) */}
           <button
             onClick={() => setMenuAbierto(!menuAbierto)}
-            className="text-white focus:outline-none md:hidden"
+            className="text-texto focus:outline-none md:hidden"
             aria-label="Abrir Menú"
           >
             <svg
-              className="h-8 w-8 text-white"
+              className="h-8 w-8 text-texto"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -123,16 +126,16 @@ function Header() {
               <li className="relative flex items-center gap-2">
                 <button
                   onClick={() => setDropdownAbierto((v) => !v)}
-                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-white transition hover:bg-slate-700"
+                  className="flex items-center gap-2 rounded-lg px-3 py-2 text-texto transition hover:bg-hover"
                 >
                   <span className="text-2xl">👤</span>
                   <span>{usuario.nombre}</span>
-                  <span className="text-xs text-gray-400">▼</span>
+                  <span className="text-xs text-texto-tenue">▼</span>
                 </button>
 
                 {dropdownAbierto && (
-                  <div className="absolute right-0 top-full z-[1200] mt-2 w-52 overflow-hidden rounded-xl border border-gray-700 bg-[#1b2740] shadow-2xl">
-                    <p className="border-b border-gray-700 px-4 py-3 text-xs capitalize text-gray-400">
+                  <div className="absolute right-0 top-full z-[1200] mt-2 w-52 overflow-hidden rounded-xl border border-borde bg-superficie shadow-2xl">
+                    <p className="border-b border-borde px-4 py-3 text-xs capitalize text-texto-tenue">
                       Rol: {usuario.rol}
                     </p>
                     <button
@@ -140,7 +143,7 @@ function Header() {
                         setDropdownAbierto(false);
                         navigate("/perfil");
                       }}
-                      className="flex w-full items-center gap-3 px-4 py-3 text-sm text-white transition hover:bg-slate-700"
+                      className="flex w-full items-center gap-3 px-4 py-3 text-sm text-texto transition hover:bg-hover"
                     >
                       👤 Mi Perfil
                     </button>
@@ -149,13 +152,13 @@ function Header() {
                         setDropdownAbierto(false);
                         navigate("/panel");
                       }}
-                      className="flex w-full items-center gap-3 px-4 py-3 text-sm text-white transition hover:bg-slate-700"
+                      className="flex w-full items-center gap-3 px-4 py-3 text-sm text-texto transition hover:bg-hover"
                     >
                       📊 Mi Panel
                     </button>
                     <button
                       onClick={manejarCerrarSesion}
-                      className="flex w-full items-center gap-3 border-t border-gray-700 px-4 py-3 text-sm text-red-400 transition hover:bg-red-500/10"
+                      className="flex w-full items-center gap-3 border-t border-borde px-4 py-3 text-sm text-red-400 transition hover:bg-red-500/10"
                     >
                       🚪 Cerrar sesión
                     </button>
@@ -166,18 +169,30 @@ function Header() {
               <li>
                 <button
                   onClick={() => setMostrarLogin(true)}
-                  className="rounded-lg border border-cyan-400 px-4 py-2 text-white transition hover:bg-cyan-400 hover:text-slate-900"
+                  className="rounded-lg border border-cyan-400 px-4 py-2 text-texto transition hover:bg-cyan-400 hover:text-[#06202e]"
                 >
                   Login
                 </button>
               </li>
             )}
+
+            {/* TOGGLE DE TEMA */}
+            <li>
+              <button
+                onClick={alternarTema}
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-borde text-texto transition hover:bg-hover"
+                aria-label={tema === "claro" ? "Cambiar a modo oscuro" : "Cambiar a modo claro"}
+                title={tema === "claro" ? "Modo claro" : "Modo oscuro"}
+              >
+                {tema === "claro" ? <FaSun className="text-xl text-yellow-400" /> : <FaMoon className="text-xl text-cyan-400" />}
+              </button>
+            </li>
           </ul>
         </nav>
 
         {/* MENÚ DESPLEGABLE MÓVIL (PANTALLAS PEQUEÑAS) */}
         {menuAbierto && (
-          <div className="border-t border-gray-800 bg-[#111827] px-6 py-4 md:hidden">
+          <div className="border-t border-borde bg-fondo px-6 py-4 md:hidden">
             <ul className="flex flex-col gap-4">
               <li>
                 <NavLink
@@ -249,7 +264,7 @@ function Header() {
                         setMenuAbierto(false);
                         navigate("/perfil");
                       }}
-                      className="flex items-center gap-2 text-white"
+                      className="flex items-center gap-2 text-texto"
                     >
                       <span className="text-xl">👤</span>
                       <span>{usuario.nombre} (Mi Perfil)</span>
@@ -277,11 +292,29 @@ function Header() {
                       setMenuAbierto(false);
                       setMostrarLogin(true);
                     }}
-                    className="w-full rounded-lg border border-cyan-400 py-2 text-white hover:bg-cyan-400 hover:text-slate-900"
+                    className="w-full rounded-lg border border-cyan-400 py-2 text-texto hover:bg-cyan-400 hover:text-[#06202e]"
                   >
                     Login
                   </button>
                 )}
+              </li>
+
+              {/* TOGGLE DE TEMA (MÓVIL) */}
+              <li className="border-t border-borde pt-3">
+                <button
+                  onClick={() => {
+                    setMenuAbierto(false);
+                    alternarTema();
+                  }}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg border border-borde py-2 text-texto transition hover:bg-hover"
+                >
+                  {tema === "claro" ? (
+                    <FaSun className="text-yellow-400" />
+                  ) : (
+                    <FaMoon className="text-cyan-400" />
+                  )}
+                  {tema === "claro" ? "Modo claro" : "Modo oscuro"}
+                </button>
               </li>
             </ul>
           </div>

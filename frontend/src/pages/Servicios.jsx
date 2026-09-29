@@ -88,10 +88,10 @@ function Servicios() {
 
   return (
     <section className="mx-auto w-[90%] max-w-[1200px] py-20">
-      <div className="mb-10 border-b border-gray-700 pb-6 text-center">
+      <div className="mb-10 border-b border-borde pb-6 text-center">
         <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-cyan-400">Pixel Store</p>
-        <h1 className="text-4xl font-bold text-white">Nuestros Servicios</h1>
-        <p className="mt-2 text-gray-400">
+        <h1 className="text-4xl font-bold text-texto">Nuestros Servicios</h1>
+        <p className="mt-2 text-texto-tenue">
           Además de ofrecer productos tecnológicos, contamos con servicios especializados. Contrata por horas y paga según el tiempo.
         </p>
       </div>
@@ -104,23 +104,23 @@ function Servicios() {
       )}
 
       {cargando ? (
-        <p className="text-center text-white">Cargando servicios...</p>
+        <p className="text-center text-texto">Cargando servicios...</p>
       ) : (
         <div className="grid grid-cols-1 gap-7 justify-items-center sm:grid-cols-2 lg:grid-cols-3">
           {servicios.map((servicio, idx) => (
             <div
               key={servicio.id}
-              className="w-full rounded-[15px] bg-[#1b2740e0] p-8 text-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,212,255,0.15)]"
+              className="w-full rounded-[15px] bg-superficie p-8 text-center shadow-[0_10px_25px_rgba(0,0,0,0.2)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(0,212,255,0.15)]"
             >
               <div className="mb-5 flex items-center justify-center text-[55px] text-cyan-400">
                 {ICONOS[idx % ICONOS.length]}
               </div>
-              <h3 className="mb-4 text-xl font-bold text-white">{servicio.nombre}</h3>
-              <p className="text-[15px] leading-relaxed text-gray-300">{servicio.descripcion}</p>
-              <p className="mt-4 text-2xl font-bold text-cyan-400">{formatoPrecio(servicio.precio)}<span className="text-sm text-gray-400"> /hora</span></p>
+              <h3 className="mb-4 text-xl font-bold text-texto">{servicio.nombre}</h3>
+              <p className="text-[15px] leading-relaxed text-texto-suave">{servicio.descripcion}</p>
+              <p className="mt-4 text-2xl font-bold text-cyan-400">{formatoPrecio(servicio.precio)}<span className="text-sm text-texto-tenue"> /hora</span></p>
               <button
                 onClick={() => abrirModal(servicio)}
-                className="mt-6 rounded-lg bg-cyan-400 px-6 py-3 font-bold text-gray-900 transition duration-300 hover:scale-105 hover:bg-cyan-300"
+                className="mt-6 rounded-lg bg-cyan-400 px-6 py-3 font-bold text-[#06202e] transition duration-300 hover:scale-105 hover:bg-cyan-300"
               >
                 Contratar
               </button>
@@ -131,38 +131,38 @@ function Servicios() {
 
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onClick={() => setModal(null)}>
-          <div className="w-full max-w-md rounded-2xl border border-gray-700 bg-[#0f172a] p-8 text-white shadow-2xl" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-md rounded-2xl border border-borde bg-fondo p-8 text-texto shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <h2 className="text-2xl font-bold text-cyan-400">Contratar: {modal.nombre}</h2>
-            <p className="mt-2 text-sm text-gray-400">{modal.descripcion}</p>
+            <p className="mt-2 text-sm text-texto-tenue">{modal.descripcion}</p>
             <p className="mt-4 text-lg">
               Valor hora: <span className="font-bold text-cyan-400">{formatoPrecio(modal.precio)}</span>
             </p>
             <form onSubmit={contratar} className="mt-6 space-y-4">
               <label className="block">
-                <span className="mb-1 block text-sm text-gray-400">Horas</span>
+                <span className="mb-1 block text-sm text-texto-tenue">Horas</span>
                 <input
                   type="number"
                   min="1"
                   value={horas}
                   onChange={(e) => setHoras(e.target.value)}
-                  className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                  className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                   required
                 />
               </label>
-              <p className="rounded-xl bg-gray-900 px-4 py-3 text-center text-xl font-bold text-cyan-400">
+              <p className="rounded-xl bg-fondo px-4 py-3 text-center text-xl font-bold text-cyan-400">
                 Total: {formatoPrecio(Number(horas || 0) * Number(modal.precio || 0))}
               </p>
               <button
                 type="submit"
                 disabled={enviando}
-                className="w-full rounded-lg bg-cyan-400 px-6 py-3 font-bold text-gray-900 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
+                className="w-full rounded-lg bg-cyan-400 px-6 py-3 font-bold text-[#06202e] transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {enviando ? "Contratando..." : "✅ Confirmar contratación"}
               </button>
               <button
                 type="button"
                 onClick={() => setModal(null)}
-                className="w-full rounded-lg border border-gray-600 px-6 py-2 text-gray-300 transition hover:bg-gray-800"
+                className="w-full rounded-lg border border-borde px-6 py-2 text-texto-suave transition hover:bg-superficie-2"
               >
                 Cancelar
               </button>

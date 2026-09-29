@@ -61,7 +61,7 @@ function Panel() {
     <section
       className="
         min-h-[75vh]
-        bg-gray-950
+        bg-fondo
         px-6
         py-16
       "
@@ -82,7 +82,7 @@ function Panel() {
           className="
             mb-10
             border-b
-            border-gray-700
+            border-borde
             pb-6
           "
         >
@@ -105,7 +105,7 @@ function Panel() {
               mt-2
               text-4xl
               font-bold
-              text-white
+              text-texto
             "
           >
             Bienvenido,{" "}
@@ -116,7 +116,7 @@ function Panel() {
           <p
             className="
               mt-2
-              text-gray-400
+              text-texto-tenue
             "
           >
             Rol:{" "}
@@ -164,8 +164,8 @@ function Panel() {
               className="
                 rounded-2xl
                 border
-                border-gray-700
-                bg-[#1b2740e0]
+                border-borde
+                bg-superficie
                 p-8
                 text-left
                 transition
@@ -188,7 +188,7 @@ function Panel() {
                   mt-5
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 Productos
@@ -198,7 +198,7 @@ function Panel() {
               <p
                 className="
                   mt-2
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 {esAdministrador
@@ -232,8 +232,8 @@ function Panel() {
               className="
                 rounded-2xl
                 border
-                border-gray-700
-                bg-[#1b2740e0]
+                border-borde
+                bg-superficie
                 p-8
                 text-left
                 transition
@@ -256,7 +256,7 @@ function Panel() {
                   mt-5
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 Pedidos
@@ -266,7 +266,7 @@ function Panel() {
               <p
                 className="
                   mt-2
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Ver pedidos, clientes,
@@ -295,8 +295,8 @@ function Panel() {
               className="
                 rounded-2xl
                 border
-                border-gray-700
-                bg-[#1b2740e0]
+                border-borde
+                bg-superficie
                 p-8
                 text-left
                 transition
@@ -319,7 +319,7 @@ function Panel() {
                   mt-5
                   text-2xl
                   font-bold
-                  text-white
+                  text-texto
                 "
               >
                 Usuarios
@@ -329,7 +329,7 @@ function Panel() {
               <p
                 className="
                   mt-2
-                  text-gray-400
+                  text-texto-tenue
                 "
               >
                 Crear, editar, eliminar y

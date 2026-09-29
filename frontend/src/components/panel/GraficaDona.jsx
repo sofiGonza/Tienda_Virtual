@@ -4,7 +4,7 @@
 function GraficaDona({ items, formato }) {
   const total = items.reduce((acc, i) => acc + Number(i.value || 0), 0);
   if (!total) {
-    return <p className="text-sm text-gray-500">Sin datos para mostrar.</p>;
+    return <p className="text-sm text-texto-tenue">Sin datos para mostrar.</p>;
   }
 
   let acumulado = 0;
@@ -31,8 +31,8 @@ function GraficaDona({ items, formato }) {
         {items.map((i, idx) => (
           <li key={idx} className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full" style={{ backgroundColor: i.color || "#22d3ee" }} />
-            <span className="capitalize text-gray-300">{i.label}</span>
-            <span className="font-semibold text-white">{formato ? formato(i.value) : i.value}</span>
+            <span className="capitalize text-texto-suave">{i.label}</span>
+            <span className="font-semibold text-texto">{formato ? formato(i.value) : i.value}</span>
           </li>
         ))}
       </ul>

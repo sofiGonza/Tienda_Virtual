@@ -84,17 +84,17 @@ function Ventas() {
   };
 
   return (
-    <section className="p-8 text-white">
+    <section className="p-8 text-texto">
       <header className="mb-8">
         <p className="text-sm font-semibold uppercase tracking-widest text-cyan-400">Ventas</p>
         <h1 className="mt-1 text-3xl font-bold">Registrar venta</h1>
       </header>
 
       <form onSubmit={enviar} className="grid max-w-5xl gap-6 lg:grid-cols-[1fr_320px]">
-        <div className="space-y-4 rounded-2xl border border-gray-800 bg-[#111827] p-6">
+        <div className="space-y-4 rounded-2xl border border-borde bg-fondo p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold">🛍️ Líneas de venta</h2>
-            <button type="button" onClick={agregarLinea} className="rounded-lg bg-cyan-400 px-3 py-2 text-sm font-bold text-gray-900 transition hover:bg-cyan-300">
+            <button type="button" onClick={agregarLinea} className="rounded-lg bg-cyan-400 px-3 py-2 text-sm font-bold text-[#06202e] transition hover:bg-cyan-300">
               + Agregar producto
             </button>
           </div>
@@ -102,10 +102,10 @@ function Ventas() {
           {lineas.map((linea, idx) => {
             const producto = productos.find((p) => p.id === Number(linea.producto_id));
             return (
-              <div key={idx} className="rounded-xl border border-gray-700 bg-gray-900 p-4">
+              <div key={idx} className="rounded-xl border border-borde bg-fondo p-4">
           <div className="grid gap-3 md:grid-cols-[1fr_90px_110px_auto]">
                   <select
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                    className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                     value={linea.producto_id}
                     onChange={(e) => actualizarLinea(idx, "producto_id", e.target.value)}
                     aria-label={`Producto línea ${idx + 1}`}
@@ -122,7 +122,7 @@ function Ventas() {
                     min="1"
                     value={linea.cantidad}
                     onChange={(e) => actualizarLinea(idx, "cantidad", e.target.value)}
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                    className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                     aria-label={`Cantidad línea ${idx + 1}`}
                   />
                   <input
@@ -130,7 +130,7 @@ function Ventas() {
                     min="0"
                     value={linea.descuento}
                     onChange={(e) => actualizarLinea(idx, "descuento", e.target.value)}
-                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                    className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                     aria-label={`Descuento línea ${idx + 1}`}
                   />
                   <button
@@ -143,7 +143,7 @@ function Ventas() {
                   </button>
                 </div>
                 {producto && (
-                  <p className="mt-2 text-xs text-gray-400">
+                  <p className="mt-2 text-xs text-texto-tenue">
                     Subtotal línea: {formatoPrecio(Math.max(0, Number(producto.precio) * Number(linea.cantidad || 0) - Number(linea.descuento || 0)))}
                   </p>
                 )}
@@ -153,23 +153,23 @@ function Ventas() {
 
               <div className="grid gap-3 md:grid-cols-2">
             <label className="block">
-              <span className="mb-1 block text-sm text-gray-400">Impuesto (%)</span>
+              <span className="mb-1 block text-sm text-texto-tenue">Impuesto (%)</span>
               <input
                 type="number"
                 min="0"
                 max="100"
                 value={impuestoPorcentaje}
                 onChange={(e) => setImpuestoPorcentaje(e.target.value)}
-                className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
               />
             </label>
             {rol === "administrador" && (
               <label className="block">
-                <span className="mb-1 block text-sm text-gray-400">Cliente</span>
+                <span className="mb-1 block text-sm text-texto-tenue">Cliente</span>
                 <select
                   value={clienteId}
                   onChange={(e) => setClienteId(e.target.value)}
-                  className="w-full rounded-lg border border-gray-600 bg-gray-800 px-3 py-2 text-white outline-none focus:border-cyan-400"
+                  className="w-full rounded-lg border border-borde bg-superficie-2 px-3 py-2 text-texto outline-none focus:border-cyan-400"
                 >
                   <option value="">Sin cliente (sesión actual)</option>
                   {clientes.map((c) => (
@@ -184,12 +184,12 @@ function Ventas() {
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-2xl border border-gray-800 bg-[#111827] p-6">
+          <div className="rounded-2xl border border-borde bg-fondo p-6">
             <h2 className="mb-4 text-lg font-bold">🧾 Resumen</h2>
             <dl className="space-y-3 text-sm">
-              <div className="flex justify-between"><dt className="text-gray-400">Subtotal</dt><dd className="font-semibold">{formatoPrecio(subtotal)}</dd></div>
-              <div className="flex justify-between"><dt className="text-gray-400">Impuestos</dt><dd className="font-semibold">{formatoPrecio(impuestos)}</dd></div>
-              <div className="flex justify-between border-t border-gray-700 pt-3 text-base"><dt className="font-bold">Total</dt><dd className="text-2xl font-bold text-cyan-400">{formatoPrecio(total)}</dd></div>
+              <div className="flex justify-between"><dt className="text-texto-tenue">Subtotal</dt><dd className="font-semibold">{formatoPrecio(subtotal)}</dd></div>
+              <div className="flex justify-between"><dt className="text-texto-tenue">Impuestos</dt><dd className="font-semibold">{formatoPrecio(impuestos)}</dd></div>
+              <div className="flex justify-between border-t border-borde pt-3 text-base"><dt className="font-bold">Total</dt><dd className="text-2xl font-bold text-cyan-400">{formatoPrecio(total)}</dd></div>
             </dl>
           </div>
           {msg.texto && (
@@ -197,7 +197,7 @@ function Ventas() {
               {msg.texto}
             </p>
           )}
-          <button type="submit" disabled={enviando} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-gray-900 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-50">
+          <button type="submit" disabled={enviando} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-[#06202e] transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-50">
             {enviando ? "Guardando..." : "💾 Guardar venta"}
           </button>
         </aside>

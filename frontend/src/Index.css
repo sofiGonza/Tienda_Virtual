@@ -1,38 +1,84 @@
- @import "tailwindcss";
+@import "tailwindcss";
 
-@layer base {
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-fondo: var(--fondo);
+  --color-superficie: var(--superficie);
+  --color-superficie-2: var(--superficie-2);
+  --color-hover: var(--hover);
+  --color-texto: var(--texto);
+  --color-texto-suave: var(--texto-suave);
+  --color-texto-tenue: var(--texto-tenue);
+  --color-borde: var(--borde);
+  --color-borde-suave: var(--borde-suave);
 }
 
-body,
-#root {
+@layer base {
+  /* ===== TEMA OSCURO (valor por defecto, igual al diseño actual) ===== */
+  :root,
+  .dark {
+    color-scheme: dark;
+    --fondo: #111827;
+    --superficie: #1b2740;
+    --superficie-2: #1f2937;
+    --hover: #243452;
+    --texto: #ffffff;
+    --texto-suave: #d1d5db;
+    --texto-tenue: #9ca3af;
+    --borde: #374151;
+    --borde-suave: #1f2937;
+  }
+
+  /* ===== TEMA CLARO ===== */
+  .light {
+    color-scheme: light;
+    --fondo: #f1f4f9;
+    --superficie: #ffffff;
+    --superficie-2: #e8edf4;
+    --hover: #dde4ee;
+    --texto: #0f172a;
+    --texto-suave: #334155;
+    --texto-tenue: #64748b;
+    --borde: #cbd5e1;
+    --borde-suave: #e2e8f0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body,
+  #root {
     margin: 0;
     padding: 0;
     width: 100%;
     min-height: 100%;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
-body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#1b1d23;
-}
-
-#root{
-    display:flex;
-    flex-direction:column;
-}
+/* Fondo global: fuera de capas para que mande sobre preflight/utilities */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--fondo) !important;
+  color: var(--texto) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .campo {
   width: 100%;
-  border: 1px solid #374151;
+  border: 1px solid var(--borde);
   border-radius: 0.75rem;
-  background-color: #111827;
+  background-color: var(--superficie-2);
   padding: 0.75rem 1rem;
-  color: white;
+  color: var(--texto);
   outline: none;
 }
 
@@ -41,5 +87,13 @@ body{
 }
 
 .campo::placeholder {
-  color: #6b7280;
-}.line-chart-grid{background:repeating-linear-gradient(to top,transparent 0 35px,rgba(148,163,184,.12) 36px)}
+  color: var(--texto-tenue);
+}
+
+.line-chart-grid {
+  background: repeating-linear-gradient(
+    to top,
+    transparent 0 35px,
+    rgba(148, 163, 184, 0.12) 36px
+  );
+}

@@ -282,7 +282,7 @@ function Pedidos() {
         return "bg-red-500/20 text-red-400";
 
       default:
-        return "bg-gray-500/20 text-gray-400";
+        return "bg-gray-500/20 text-texto-tenue";
 
     }
 
@@ -306,7 +306,7 @@ function Pedidos() {
         "
       >
 
-        <p className="text-xl text-white">
+        <p className="text-xl text-texto">
           Cargando tus pedidos...
         </p>
 
@@ -336,7 +336,7 @@ function Pedidos() {
         className="
           mb-10
           border-b
-          border-gray-700
+          border-borde
           pb-6
         "
       >
@@ -359,14 +359,14 @@ function Pedidos() {
           className="
             text-4xl
             font-bold
-            text-white
+            text-texto
           "
         >
           📦 Mis Pedidos
         </h1>
 
 
-        <p className="mt-2 text-gray-400">
+        <p className="mt-2 text-texto-tenue">
 
           Consulta tus pedidos y revisa el estado
           de cada compra.
@@ -411,8 +411,8 @@ function Pedidos() {
           className="
             rounded-2xl
             border
-            border-gray-700
-            bg-[#111827]
+            border-borde
+            bg-fondo
             p-12
             text-center
           "
@@ -428,7 +428,7 @@ function Pedidos() {
               mt-5
               text-2xl
               font-bold
-              text-white
+              text-texto
             "
           >
             No tienes pedidos todavía
@@ -438,7 +438,7 @@ function Pedidos() {
           <p
             className="
               mt-2
-              text-gray-400
+              text-texto-tenue
             "
           >
             Cuando realices una compra,
@@ -457,7 +457,7 @@ function Pedidos() {
               px-6
               py-3
               font-bold
-              text-gray-900
+              text-[#06202e]
               transition
               hover:bg-cyan-300
             "
@@ -484,8 +484,8 @@ function Pedidos() {
               overflow-hidden
               rounded-2xl
               border
-              border-gray-700
-              bg-[#111827]
+              border-borde
+              bg-fondo
               shadow-xl
             "
           >
@@ -498,7 +498,7 @@ function Pedidos() {
                 flex-col
                 gap-4
                 border-b
-                border-gray-700
+                border-borde
                 p-5
                 sm:flex-row
                 sm:items-center
@@ -511,7 +511,7 @@ function Pedidos() {
                 <p
                   className="
                     text-sm
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Pedido #{String(index + 1).padStart(3, "0")}
@@ -522,7 +522,7 @@ function Pedidos() {
                   className="
                     mt-1
                     text-xs
-                    text-gray-500
+                    text-texto-tenue
                   "
                 >
                   {new Date(
@@ -571,7 +571,7 @@ function Pedidos() {
                       items-center
                       gap-4
                       rounded-xl
-                      bg-[#1b2740]
+                      bg-superficie
                       p-4
                     "
                   >
@@ -581,7 +581,7 @@ function Pedidos() {
                       <h3
                         className="
                           font-bold
-                          text-white
+                          text-texto
                         "
                       >
                         {producto.nombre}
@@ -592,7 +592,7 @@ function Pedidos() {
                         className="
                           mt-1
                           text-sm
-                          text-gray-400
+                          text-texto-tenue
                         "
                       >
                         Cantidad:
@@ -630,7 +630,7 @@ function Pedidos() {
                 flex-col
                 gap-4
                 border-t
-                border-gray-700
+                border-borde
                 p-5
                 sm:flex-row
                 sm:items-center
@@ -642,7 +642,7 @@ function Pedidos() {
 
                 <span
                   className="
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   Total:

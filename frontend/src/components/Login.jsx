@@ -455,11 +455,11 @@ function Login({ abierto, cerrar }) {
         w-full
         rounded-lg
         border
-        border-gray-600
-        bg-[#1f2937]
+        border-borde
+        bg-superficie-2
         px-4
         py-3
-        text-white
+        text-texto
         outline-none
         transition
         focus:border-cyan-400
@@ -474,10 +474,10 @@ function Login({ abierto, cerrar }) {
       rounded-lg
       border
       ${valido ? "border-green-500" : "border-red-500"}
-      bg-[#1f2937]
+      bg-superficie-2
       px-4
       py-3
-      text-white
+      text-texto
       outline-none
       transition
       focus:ring-1
@@ -624,7 +624,7 @@ function Login({ abierto, cerrar }) {
             max-h-[90vh]
             overflow-y-auto
             rounded-2xl
-            bg-[#111827]
+            bg-fondo
             p-8
             shadow-2xl
           "
@@ -639,7 +639,7 @@ function Login({ abierto, cerrar }) {
               right-5
               top-4
               text-2xl
-              text-gray-400
+              text-texto-tenue
               transition
               hover:text-cyan-400
             "
@@ -682,7 +682,7 @@ function Login({ abierto, cerrar }) {
               text-center
               text-3xl
               font-bold
-              text-white
+              text-texto
             "
           >
             {modo === "login"
@@ -740,7 +740,7 @@ function Login({ abierto, cerrar }) {
               {/* CORREO */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Correo electrónico
                 </label>
 
@@ -778,7 +778,7 @@ function Login({ abierto, cerrar }) {
               {/* CONTRASEÑA */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Contraseña
                 </label>
 
@@ -833,7 +833,7 @@ function Login({ abierto, cerrar }) {
                   px-4
                   py-3
                   font-bold
-                  text-[#111827]
+                  text-[#06202e]
                   transition
                   hover:bg-cyan-500
                   disabled:cursor-not-allowed
@@ -862,7 +862,7 @@ function Login({ abierto, cerrar }) {
               {/* NOMBRE */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Nombre
                 </label>
 
@@ -880,7 +880,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("nombre")} {formulario.nombre.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -896,7 +896,7 @@ function Login({ abierto, cerrar }) {
               {/* APELLIDO */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Apellido
                 </label>
 
@@ -914,7 +914,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("apellido")} {formulario.apellido.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -930,7 +930,7 @@ function Login({ abierto, cerrar }) {
               {/* TIPO DOCUMENTO */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Tipo de documento
                 </label>
 
@@ -975,7 +975,7 @@ function Login({ abierto, cerrar }) {
               {/* ROL */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Rol
                 </label>
 
@@ -987,11 +987,11 @@ function Login({ abierto, cerrar }) {
                     cursor-not-allowed
                     rounded-lg
                     border
-                    border-gray-600
-                    bg-[#1f2937]
+                    border-borde
+                    bg-superficie-2
                     px-4
                     py-3
-                    text-gray-400
+                    text-texto-tenue
                   "
                 >
                   <option value="cliente">
@@ -999,7 +999,7 @@ function Login({ abierto, cerrar }) {
                   </option>
                 </select>
 
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-texto-tenue">
                   Los nuevos usuarios se registran como clientes.
                 </p>
               </div>
@@ -1007,7 +1007,7 @@ function Login({ abierto, cerrar }) {
               {/* NÚMERO DOCUMENTO */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Número de documento
                 </label>
 
@@ -1026,7 +1026,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("numeroDocumento")} {formulario.numeroDocumento.length >= 15 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1048,7 +1048,7 @@ function Login({ abierto, cerrar }) {
               {/* DIRECCIÓN */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Dirección
                 </label>
 
@@ -1066,7 +1066,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("direccion")} {formulario.direccion.length >= 30 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1084,7 +1084,7 @@ function Login({ abierto, cerrar }) {
               {/* TELÉFONO */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Teléfono
                 </label>
 
@@ -1103,7 +1103,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("telefono")} {formulario.telefono.length >= 15 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1125,7 +1125,7 @@ function Login({ abierto, cerrar }) {
               {/* CORREO */}
 
               <div className="md:col-span-2">
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Correo electrónico
                 </label>
 
@@ -1142,7 +1142,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("correo")} {formulario.correo.length >= 150 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1159,7 +1159,7 @@ function Login({ abierto, cerrar }) {
               {/* CONTRASEÑA */}
 
               <div className="md:col-span-2">
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Contraseña
                 </label>
 
@@ -1176,7 +1176,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("password")} {formulario.password.length >= 10 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1241,7 +1241,7 @@ function Login({ abierto, cerrar }) {
               {/* CONFIRMAR PASSWORD */}
 
               <div className="md:col-span-2">
-                <label className="mb-2 block font-semibold text-gray-200">
+                <label className="mb-2 block font-semibold text-texto">
                   Confirmar contraseña
                 </label>
 
@@ -1258,7 +1258,7 @@ function Login({ abierto, cerrar }) {
                   )}
                 />
 
-                <p className="mt-1 text-right text-xs text-gray-500">
+                <p className="mt-1 text-right text-xs text-texto-tenue">
                   {contador("confirmarPassword")} {formulario.confirmarPassword.length >= 10 && <span className="text-red-400">· alcanzó el límite</span>}
                 </p>
 
@@ -1284,7 +1284,7 @@ function Login({ abierto, cerrar }) {
                   px-4
                   py-3
                   font-bold
-                  text-[#111827]
+                  text-[#06202e]
                   transition
                   hover:bg-cyan-500
                   disabled:cursor-not-allowed
@@ -1304,7 +1304,7 @@ function Login({ abierto, cerrar }) {
             className="
               mt-6
               text-center
-              text-gray-400
+              text-texto-tenue
             "
           >
             {modo === "login"
