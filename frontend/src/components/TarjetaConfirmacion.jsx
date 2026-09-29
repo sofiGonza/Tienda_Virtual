@@ -54,9 +54,9 @@ function TarjetaConfirmacion({
             border-b
             border-borde
             bg-gradient-to-r
-            from-[#111827]
-            via-[#1b2740]
-            to-[#111827]
+            from-fondo
+            via-superficie
+            to-fondo
             px-6
             py-8
           "
