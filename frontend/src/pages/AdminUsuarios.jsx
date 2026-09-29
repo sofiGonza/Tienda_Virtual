@@ -40,6 +40,9 @@ function AdminUsuarios() {
   const [avisoDesactivar, setAvisoDesactivar] =
     useState(null);
 
+  const [avisoAdministrador, setAvisoAdministrador] =
+    useState(null);
+
   const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
     setNotificacion({ titulo, mensaje, emoji });
 
@@ -657,6 +660,16 @@ function AdminUsuarios() {
   const eliminarUsuario = async (
     usuario
   ) => {
+
+    // El administrador no se puede eliminar: es el administrador de la página.
+    const rolUsuario =
+      usuario.rol?.nombre ||
+      usuario.rol;
+
+    if (rolUsuario === "administrador") {
+      setAvisoAdministrador(usuario);
+      return;
+    }
 
     // Si el usuario está activo, primero hay que desactivarlo.
     if (usuario.estado) {
@@ -1828,6 +1841,17 @@ function AdminUsuarios() {
         cancelarTexto="Cancelar"
         onConfirmar={desactivarYPreguntarEliminar}
         onCancelar={() => setAvisoDesactivar(null)}
+      />
+
+      {/* TARJETA: EL ADMINISTRADOR NO SE PUEDE ELIMINAR */}
+      <TarjetaNotificacion
+        abierto={!!avisoAdministrador}
+        titulo="No se puede eliminar"
+        mensaje={avisoAdministrador
+          ? `El usuario ${avisoAdministrador.nombre} ${avisoAdministrador.apellido} no se puede eliminar porque es el administrador de la página.`
+          : ""}
+        emoji="🚫"
+        onCerrar={() => setAvisoAdministrador(null)}
       />
 
     </section>
