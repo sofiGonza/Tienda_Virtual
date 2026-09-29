@@ -112,6 +112,8 @@ app.add_middleware(
         "https://pixel-store-frontend.vercel.app",
         "http://127.0.0.1:5173",
         "http://localhost:5173",
+        "http://127.0.0.1:5199",
+        "http://localhost:5199",
     ],
 
     # Cubre cualquier subdominio *.up.railway.app (útil si Railway

@@ -37,6 +37,9 @@ function AdminUsuarios() {
   const [confirmarEliminar, setConfirmarEliminar] =
     useState(null);
 
+  const [avisoDesactivar, setAvisoDesactivar] =
+    useState(null);
+
   const mostrarNotificacion = (titulo, mensaje = "", emoji = "✅") =>
     setNotificacion({ titulo, mensaje, emoji });
 
@@ -655,7 +658,100 @@ function AdminUsuarios() {
     usuario
   ) => {
 
+    // Si el usuario está activo, primero hay que desactivarlo.
+    if (usuario.estado) {
+      setAvisoDesactivar(usuario);
+      return;
+    }
+
+    // Ya está inactivo: se puede eliminar directamente.
     setConfirmarEliminar(usuario);
+
+  };
+
+
+  // Desactiva al usuario desde la primera tarjeta y
+  // pasa directamente a la confirmación de eliminación.
+  const desactivarYPreguntarEliminar = async () => {
+
+    if (!avisoDesactivar) return;
+
+    try {
+
+      const token =
+        obtenerTokenAdmin();
+
+
+      if (!token) {
+        return;
+      }
+
+
+      const respuesta =
+        await fetch(
+
+          `${API_URL}/usuarios/${avisoDesactivar.id}/estado`,
+
+          {
+
+            method:
+              "PUT",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                `Bearer ${token}`
+
+            },
+
+            body:
+              JSON.stringify({
+
+                estado: false
+
+              })
+
+          }
+
+        );
+
+
+      const datos =
+        await respuesta.json();
+
+
+      if (!respuesta.ok) {
+
+        throw new Error(
+          datos.detail
+        );
+
+      }
+
+
+      // Pasa a la tarjeta de confirmación de eliminación.
+      const usuarioDesactivado = {
+        ...avisoDesactivar,
+        estado: false,
+      };
+      setAvisoDesactivar(null);
+      setConfirmarEliminar(usuarioDesactivado);
+      cargarUsuarios();
+
+
+    } catch (error) {
+
+      setAvisoDesactivar(null);
+      mostrarNotificacion(
+        "Error",
+        error.message,
+        "❌"
+      );
+
+    }
 
   };
 
@@ -1713,12 +1809,25 @@ function AdminUsuarios() {
         abierto={!!confirmarEliminar}
         titulo="¿Eliminar usuario?"
         mensaje={confirmarEliminar
-          ? `¿Seguro que deseas eliminar a ${confirmarEliminar.nombre} ${confirmarEliminar.apellido}?`
+          ? `¿Seguro que quieres eliminar a ${confirmarEliminar.nombre} ${confirmarEliminar.apellido}?`
           : ""}
-        confirmarTexto="Sí, eliminar"
+        confirmarTexto="Confirmar"
         cancelarTexto="Cancelar"
         onConfirmar={confirmarEliminarUsuario}
         onCancelar={() => setConfirmarEliminar(null)}
+      />
+
+      {/* TARJETA: DEBES DESACTIVAR ANTES DE ELIMINAR */}
+      <TarjetaConfirmacion
+        abierto={!!avisoDesactivar}
+        titulo="Desactiva primero"
+        mensaje={avisoDesactivar
+          ? `Debes desactivar a ${avisoDesactivar.nombre} ${avisoDesactivar.apellido} antes de eliminarlo.`
+          : ""}
+        confirmarTexto="Desactivar"
+        cancelarTexto="Cancelar"
+        onConfirmar={desactivarYPreguntarEliminar}
+        onCancelar={() => setAvisoDesactivar(null)}
       />
 
     </section>
